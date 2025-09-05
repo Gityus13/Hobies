@@ -188,6 +188,34 @@
             width: 3rem;
             height: 3rem;
         }
+        
+        /* Custom styles for video grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 1rem;
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -208,7 +236,7 @@
                  Our School EAS
             </h1>
             <p class="text-2xl text-white/90 max-w-3xl mx-auto">
-                Discover more about our school through this video
+                Discover more about our school through these videos
             </p>
             <div class="mt-8">
                 <a href="index.html" class="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-3 px-6 rounded-full transition-all duration-300">
@@ -221,15 +249,27 @@
     
     <!-- Video Section -->
     <main class="container mx-auto px-4 pb-20">
-        <div class="flex justify-center">
-            <div class="video-container bg-white/20 backdrop-blur-sm rounded-3xl p-5 w-full max-w-4xl">
-                <div class="relative w-full" style="padding-top: 56.25%;">
-                    
-                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/6M9AdXsc1fA?si=Nunu9UOnMtC5YXq8&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    
+        <div class="video-grid">
+            <!-- First Video -->
+            <div class="video-container bg-white/20 backdrop-blur-sm rounded-3xl p-5">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube-nocookie.com/embed/6M9AdXsc1fA?si=Nunu9UOnMtC5YXq8&amp;controls=0" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            
+            <!-- Second Video -->
+            <div class="video-container bg-white/20 backdrop-blur-sm rounded-3xl p-5">
+                <div class="video-wrapper">
                     <iframe 
                         src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                        class="absolute top-0 left-0 w-full h-full rounded-2xl"
+                        title="YouTube video player"
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>
