@@ -17,10 +17,14 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(45deg, #667eea, #764ba2, #ff6b6b, #feca57, #48dbfb, #1dd1a1, #5f27cd, #ff9ff3);
+            background: linear-gradient(45deg, #5a67d8, #6a3b9a, #e55a5a, #e6b84d, #3ab0e0, #1abfb6, #5522b0, #e58fd9);
             overflow-x: hidden;
             animation: gradientShift 30s ease infinite;
             background-size: 400% 400%;
+        }
+        
+        body.dark-mode {
+            background: linear-gradient(45deg, #0b1421, #172130, #2a3647, #3c4a59, #566477, #8b97a9, #b8c2d1, #d3dce7);
         }
         
         @keyframes gradientShift {
@@ -51,6 +55,15 @@
         
         .name-title {
             font-family: 'Playfair Display', serif;
+        }
+        
+        header {
+            background: rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(5px);
+        }
+        
+        body.dark-mode header {
+            background: rgba(0, 0, 0, 0.3);
         }
         
         .container {
@@ -108,6 +121,13 @@
             font-weight: 800;
         }
         
+        body.dark-mode .gradient-text {
+            background: linear-gradient(45deg, #ff9999, #7dd3d3, #70c1e0, #b8e2d4, #fcd77f, #ffb8e0, #99aef1, #a08bd9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
         @keyframes textGradientShift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -117,6 +137,165 @@
         .text-4xl {
             font-size: 2.5rem;
             line-height: 1.2;
+        }
+        
+        /* Dark mode toggle styles */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .toggle-button {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .toggle-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .toggle-button i {
+            font-size: 20px;
+            color: white;
+        }
+        
+        body.dark-mode .toggle-button {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        body.dark-mode .toggle-button:hover {
+            background: rgba(51, 65, 85, 0.9);
+        }
+        
+        body.dark-mode .toggle-button i {
+            color: #f1f5f9;
+        }
+        
+        /* Dark mode adjustments */
+        body.dark-mode .name-card {
+            background: rgba(30, 41, 59, 0.8) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        body.dark-mode .name-card:hover {
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            background: rgba(51, 65, 85, 0.9) !important;
+        }
+        
+        body.dark-mode .name-title {
+            color: #f1f5f9;
+        }
+        
+        body.dark-mode .name-card {
+            background: rgba(30, 41, 59, 0.8) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        body.dark-mode .name-card:hover {
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            background: rgba(51, 65, 85, 0.9) !important;
+        }
+        
+        body.dark-mode .name-title {
+            color: #f1f5f9;
+        }
+        
+        body.dark-mode p {
+            color: #cbd5e1 !important;
+        }
+        
+        body.dark-mode .gradient-text {
+            background: linear-gradient(45deg, #94a3b8, #cbd5e1, #e2e8f0, #f1f5f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        body.dark-mode footer {
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(10px);
+        }
+        
+        body.dark-mode a[href="https://eas.managebac.com/student/home"] {
+            background: rgba(30, 41, 59, 0.5) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        body.dark-mode a[href="https://eas.managebac.com/student/home"]:hover {
+            background: rgba(51, 65, 85, 0.7) !important;
+        }
+        
+        body.dark-mode .bg-white\/20 {
+            background: rgba(30, 41, 59, 0.5) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        body.dark-mode .bg-white\/20:hover {
+            background: rgba(51, 65, 85, 0.7) !important;
+        }
+        
+        body.dark-mode p {
+            color: #cbd5e1 !important;
+        }
+        
+        body.dark-mode .gradient-text {
+            background: linear-gradient(45deg, #94a3b8, #cbd5e1, #e2e8f0, #f1f5f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        body.dark-mode footer {
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(10px);
+        }
+        
+        body.dark-mode a[href="https://eas.managebac.com/student/home"] {
+            background: rgba(30, 41, 59, 0.5) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        body.dark-mode a[href="https://eas.managebac.com/student/home"]:hover {
+            background: rgba(51, 65, 85, 0.7) !important;
+        }
+        
+        body.dark-mode a[href="school.html"] {
+            background: rgba(30, 41, 59, 0.5) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        body.dark-mode a[href="school.html"]:hover {
+            background: rgba(51, 65, 85, 0.7) !important;
+        }
+        
+        body.dark-mode .bg-white\/20 {
+            background: rgba(30, 41, 59, 0.5) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        body.dark-mode .bg-white\/20:hover {
+            background: rgba(51, 65, 85, 0.7) !important;
         }
         
         @media (min-width: 768px) {
@@ -180,6 +359,13 @@
     <!-- Background stars -->
     <div id="stars-container" class="fixed inset-0 overflow-hidden pointer-events-none"></div>
     
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle">
+        <div class="toggle-button" id="darkModeToggle">
+            <i class="fas fa-moon"></i>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="relative py-20 text-center">
         <div class="container mx-auto px-4">
@@ -211,11 +397,15 @@
     </main>
     
     <!-- ManageBac Section -->
-    <section class="container mx-auto px-4 mb-20">
-        <div class="flex justify-center">
+    <section class="container mx-auto px-4 mb-10">
+        <div class="flex justify-center gap-6">
             <a href="https://eas.managebac.com/student/home" target="_blank" class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-4 px-8 rounded-full transition-all duration-300 inline-flex items-center gap-2">
                 <i data-feather="external-link"></i>
                 Your Managebac
+            </a>
+            <a href="school.html" class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-4 px-8 rounded-full transition-all duration-300 inline-flex items-center gap-2">
+                <i data-feather="video"></i>
+                Our School EAS
             </a>
         </div>
     </section>
@@ -333,6 +523,35 @@
         
         // Reinitialize Feather Icons after adding elements
         feather.replace();
+        
+        // Dark mode toggle functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const toggleIcon = darkModeToggle.querySelector('i');
+        
+        // Check for saved theme preference or respect OS preference
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        const currentTheme = localStorage.getItem('theme');
+        
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            toggleIcon.classList.remove('fa-moon');
+            toggleIcon.classList.add('fa-sun');
+        }
+        
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            // Update icon
+            if (document.body.classList.contains('dark-mode')) {
+                toggleIcon.classList.remove('fa-moon');
+                toggleIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                toggleIcon.classList.remove('fa-sun');
+                toggleIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
         
         // Create background stars
         function createStars() {
