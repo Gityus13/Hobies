@@ -14,6 +14,10 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
         
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(45deg, #5a67d8, #6a3b9a, #e55a5a, #e6b84d, #3ab0e0, #1abfb6, #5522b0, #e58fd9);
@@ -49,6 +53,8 @@
         
         .container {
             max-width: 1400px;
+            width: 90%;
+            margin: 0 auto;
         }
         
         .rounded-3xl {
@@ -151,6 +157,7 @@
             backdrop-filter: blur(10px);
         }
         
+        /* Responsive adjustments */
         @media (min-width: 768px) {
             .text-4xl {
                 font-size: 2.75rem;
@@ -216,6 +223,93 @@
             height: 100%;
             border-radius: 1rem;
         }
+        
+        /* Responsive adjustments for mobile */
+        @media (max-width: 767px) {
+            header {
+                padding-top: 3rem !important;
+                padding-bottom: 3rem !important;
+            }
+            
+            .name-title {
+                font-size: 2.5rem !important;
+                line-height: 1.2;
+            }
+            
+            header p {
+                font-size: 1.1rem !important;
+                padding: 0 1rem;
+            }
+            
+            .dark-mode-toggle {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .toggle-button {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .toggle-button i {
+                font-size: 16px;
+            }
+            
+            .video-container {
+                padding: 1rem !important;
+            }
+            
+            footer p {
+                font-size: 0.9rem !important;
+                padding: 0 1rem;
+            }
+            
+            .container {
+                width: 95%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .name-title {
+                font-size: 2rem !important;
+            }
+            
+            header p {
+                font-size: 1rem !important;
+            }
+            
+            .flex.justify-center.mb-6 img {
+                height: 24vw;
+                width: 24vw;
+            }
+            
+            .back-button {
+                font-size: 0.9rem;
+                padding: 0.75rem 1.25rem;
+            }
+        }
+        
+        /* For very small devices */
+        @media (max-width: 320px) {
+            .name-title {
+                font-size: 1.75rem !important;
+            }
+            
+            header p {
+                font-size: 0.9rem !important;
+            }
+        }
+        
+        /* For tablets */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .name-title {
+                font-size: 4rem !important;
+            }
+            
+            header p {
+                font-size: 1.4rem !important;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -227,19 +321,19 @@
     </div>
 
     <!-- Header -->
-    <header class="relative py-20 text-center">
+    <header class="relative py-12 md:py-20 text-center">
         <div class="container mx-auto px-4">
             <div class="flex justify-center mb-6">
-                <img src="https://i.ibb.co/wFY6Tn2y/7-F.png" alt="Logo" class="h-32 w-32 rounded-full">
+                <img src="https://i.ibb.co/wFY6Tn2y/7-F.png" alt="Logo" class="h-24 w-24 md:h-32 md:w-32 rounded-full">
             </div>
-            <h1 class="name-title text-6xl md:text-8xl font-bold text-white mb-6">
+            <h1 class="name-title text-4xl md:text-6xl lg:text-8xl font-bold text-white mb-6">
                  Our School EAS
             </h1>
-            <p class="text-2xl text-white/90 max-w-3xl mx-auto">
+            <p class="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">
                 Discover more about our school through these videos
             </p>
             <div class="mt-8">
-                <a href="index.html" class="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-3 px-6 rounded-full transition-all duration-300">
+                <a href="index.html" class="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-3 px-6 rounded-full transition-all duration-300 back-button">
                     <i data-feather="arrow-left"></i>
                     Back to Home
                 </a>
@@ -248,10 +342,10 @@
     </header>
     
     <!-- Video Section -->
-    <main class="container mx-auto px-4 pb-20">
+    <main class="container mx-auto px-4 pb-12 md:pb-20">
         <div class="video-grid">
             <!-- First Video -->
-            <div class="video-container bg-white/20 backdrop-blur-sm rounded-3xl p-5">
+            <div class="video-container bg-white/20 backdrop-blur-sm rounded-3xl p-4 md:p-5">
                 <div class="video-wrapper">
                     <iframe 
                         src="https://www.youtube-nocookie.com/embed/6M9AdXsc1fA?si=Nunu9UOnMtC5YXq8&amp;controls=0" 
@@ -265,7 +359,7 @@
             </div>
             
             <!-- Second Video -->
-            <div class="video-container bg-white/20 backdrop-blur-sm rounded-3xl p-5">
+            <div class="video-container bg-white/20 backdrop-blur-sm rounded-3xl p-4 md:p-5">
                 <div class="video-wrapper">
                     <iframe 
                         src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
@@ -280,9 +374,9 @@
     </main>
     
     <!-- Footer -->
-    <footer class="bg-black/20 py-12 text-center text-white/80">
+    <footer class="bg-black/20 py-8 md:py-12 text-center text-white/80">
         <div class="container mx-auto px-4">
-            <p class="text-lg md:text-xl">Ⓡ-© 2025.  Something incorrect, lie or you want to add something, etc contact for change +994 50 549 9933 or find Yusif.G 7f Or Farhad.A 7f Made by YUSAI And Farhadik. Logo By Rufiz.A</p>
+            <p class="text-base md:text-lg lg:text-xl">Ⓡ-© 2025.  Something incorrect, lie or you want to add something, etc contact for change +994 50 549 9933 or find Yusif.G 7f Or Farhad.A 7f Made by YUSAI And Farhadik. Logo By Rufiz.A</p>
         </div>
     </footer>
     
