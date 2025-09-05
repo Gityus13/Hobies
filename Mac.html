@@ -14,6 +14,10 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
         
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(45deg, #5a67d8, #6a3b9a, #e55a5a, #e6b84d, #3ab0e0, #1abfb6, #5522b0, #e58fd9);
@@ -49,6 +53,9 @@
         
         .container {
             max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 15px;
         }
         
         .rounded-3xl {
@@ -151,13 +158,33 @@
             backdrop-filter: blur(10px);
         }
         
+        /* Responsive text sizes */
+        .name-title {
+            font-size: 3rem;
+            line-height: 1.2;
+        }
+        
+        @media (min-width: 640px) {
+            .name-title {
+                font-size: 4rem;
+            }
+        }
+        
         @media (min-width: 768px) {
+            .name-title {
+                font-size: 5rem;
+            }
+            
             .text-4xl {
                 font-size: 2.75rem;
             }
         }
         
         @media (min-width: 1024px) {
+            .name-title {
+                font-size: 6rem;
+            }
+            
             .text-4xl {
                 font-size: 3rem;
             }
@@ -169,11 +196,18 @@
         }
         
         .text-xl {
-            font-size: 1.25rem;
+            font-size: 1.125rem;
             line-height: 1.75rem;
         }
         
         @media (min-width: 768px) {
+            .text-xl {
+                font-size: 1.25rem;
+                line-height: 1.75rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
             .text-xl {
                 font-size: 1.5rem;
                 line-height: 2rem;
@@ -196,17 +230,24 @@
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 10px;
+            gap: 8px;
             padding: 10px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(20px);
             border-radius: 20px;
             z-index: 1000;
+            max-width: 90%;
+            overflow-x: auto;
+            scrollbar-width: none; /* Firefox */
+        }
+        
+        .dock::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Edge */
         }
         
         .dock-item {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 12px;
             display: flex;
@@ -215,6 +256,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
         }
         
         .dock-item:hover {
@@ -223,8 +265,8 @@
         }
         
         .dock-item img {
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
         }
         
         /* Mac-like UI Elements */
@@ -256,7 +298,7 @@
         .maximize { background: #27c93f; }
         
         .window-content {
-            padding: 24px;
+            padding: 20px;
         }
         
         /* Animation for adding to dock */
@@ -269,6 +311,80 @@
         .add-to-dock-animation {
             animation: addToDock 0.5s ease;
         }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+            
+            .mac-container {
+                padding: 1.5rem;
+            }
+            
+            .window-content {
+                padding: 1rem;
+            }
+            
+            .dark-mode-toggle {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .toggle-button {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .toggle-button i {
+                font-size: 16px;
+            }
+            
+            .dock {
+                bottom: 10px;
+                padding: 8px;
+            }
+            
+            .dock-item {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .dock-item img {
+                width: 24px;
+                height: 24px;
+            }
+            
+            footer {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .name-title {
+                font-size: 2.5rem;
+            }
+            
+            header p {
+                font-size: 1.125rem;
+            }
+            
+            .window-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .dock-item {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .dock-item img {
+                width: 20px;
+                height: 20px;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -280,19 +396,19 @@
     </div>
 
     <!-- Header -->
-    <header class="relative py-20 text-center">
-        <div class="container mx-auto px-4">
+    <header class="relative py-12 md:py-20 text-center">
+        <div class="container px-4">
             <div class="flex justify-center mb-6">
-                <img src="https://i.ibb.co/wFY6Tn2y/7-F.png" alt="Logo" class="h-32 w-32 rounded-full">
+                <img src="https://i.ibb.co/wFY6Tn2y/7-F.png" alt="Logo" class="h-24 w-24 md:h-32 md:w-32 rounded-full">
             </div>
-            <h1 class="name-title text-6xl md:text-8xl font-bold text-white mb-6">
+            <h1 class="name-title font-bold text-white mb-4 md:mb-6">
                  Mac Experience
             </h1>
-            <p class="text-2xl text-white/90 max-w-3xl mx-auto">
+            <p class="text-xl text-white/90 max-w-3xl mx-auto">
                 Add this website to your dock like a Mac application
             </p>
-            <div class="mt-8">
-                <a href="index.html" class="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-3 px-6 rounded-full transition-all duration-300">
+            <div class="mt-6 md:mt-8">
+                <a href="index.html" class="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-full transition-all duration-300">
                     <i data-feather="arrow-left"></i>
                     Back to Home
                 </a>
@@ -301,9 +417,9 @@
     </header>
     
     <!-- Main Content -->
-    <main class="container mx-auto px-4 pb-20">
+    <main class="container px-4 pb-12 md:pb-20">
         <div class="flex justify-center">
-            <div class="mac-container bg-white/20 backdrop-blur-sm rounded-3xl p-8 w-full max-w-4xl">
+            <div class="mac-container bg-white/20 backdrop-blur-sm rounded-3xl p-5 md:p-8 w-full max-w-4xl">
                 <!-- Mac Window -->
                 <div class="mac-window">
                     <div class="window-header">
@@ -312,14 +428,14 @@
                         <div class="window-button maximize"></div>
                     </div>
                     <div class="window-content text-center">
-                        <h2 class="text-3xl font-bold text-white mb-6">Add to Dock</h2>
-                        <p class="text-xl text-white/90 mb-8">
-                            To make this website as an app its easy. You can see at upper left corner near apple icon and safari word there is file button when you press to it opens a small window and you can see share, export and add to dock you must click to add to dock choose the name for app and press add you will se that the icon of website will appear at the dock
+                        <h2 class="text-2xl md:text-3xl font-bold text-white mb-4 md:mb-6">Add to Dock</h2>
+                        <p class="text-lg md:text-xl text-white/90 mb-6 md:mb-8">
+                            To make this website as an app its easy. You can see at upper left corner near apple icon and safari word there is file button when you press to it opens a small window and you can see share, export and add to dock you must click to add to dock choose the name for app and make the link or url like this https://eashobies.site/ it was like this https://eashobies.site/mac.html just delete the mac.html part and press add you will see that the icon of website will appear at the dock
                         </p>
-                        <div class="mt-8">
-                            <img src="http://static.photos/technology/640x360/123" alt="Mac Dock" class="rounded-xl mx-auto shadow-lg">
+                        <div class="mt-6 md:mt-8">
+                            <img src="http://static.photos/technology/640x360/123" alt="Mac Dock" class="rounded-xl mx-auto shadow-lg w-full max-w-md">
                         </div>
-                        <p class="text-lg text-white/80 mt-6">
+                        <p class="text-base md:text-lg text-white/80 mt-4 md:mt-6">
                             Once added, you can access this website directly from your dock just like any other application.
                         </p>
                     </div>
@@ -329,9 +445,9 @@
     </main>
     
     <!-- Footer -->
-    <footer class="bg-black/20 py-12 text-center text-white/80">
-        <div class="container mx-auto px-4">
-            <p class="text-lg md:text-xl">Ⓡ-© 2025.  Something incorrect, lie or you want to add something, etc contact for change +994 50 549 9933 or find Yusif.G 7f Or Farhad.A 7f Made by YUSAI And Farhadik. Logo By Rufiz.A</p>
+    <footer class="bg-black/20 py-8 md:py-12 text-center text-white/80">
+        <div class="container px-4">
+            <p class="text-base md:text-lg lg:text-xl">Ⓡ-© 2025.  Something incorrect, lie or you want to add something, etc contact for change +994 50 549 9933 or find Yusif.G 7f Or Farhad.A 7f Made by YUSAI And Farhadik. Logo By Rufiz.A</p>
         </div>
     </footer>
     
@@ -364,20 +480,22 @@
             const addToDockBtn = document.getElementById('addToDockBtn');
             const successMessage = document.getElementById('successMessage');
             
-            addToDockBtn.addEventListener('click', function() {
-                // Add animation class
-                this.classList.add('add-to-dock-animation');
-                
-                // Show success message after animation
-                setTimeout(() => {
-                    successMessage.classList.remove('hidden');
-                    this.textContent = 'Added!';
-                    this.disabled = true;
+            if (addToDockBtn) {
+                addToDockBtn.addEventListener('click', function() {
+                    // Add animation class
+                    this.classList.add('add-to-dock-animation');
                     
-                    // Create dock item
-                    createDockItem();
-                }, 500);
-            });
+                    // Show success message after animation
+                    setTimeout(() => {
+                        successMessage.classList.remove('hidden');
+                        this.textContent = 'Added!';
+                        this.disabled = true;
+                        
+                        // Create dock item
+                        createDockItem();
+                    }, 500);
+                });
+            }
         });
         
         // Create dock item
