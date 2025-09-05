@@ -17,8 +17,22 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(45deg, #667eea, #764ba2, #ff6b6b, #feca57, #48dbfb, #1dd1a1, #5f27cd, #ff9ff3);
             overflow-x: hidden;
+            animation: gradientShift 30s ease infinite;
+            background-size: 400% 400%;
+        }
+        
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
         
         .max-w-3xl {
@@ -85,16 +99,16 @@
         }
         
         .gradient-text {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            background-size: 300% 300%;
-            animation: gradientShift 8s ease infinite;
+            background-size: 400% 400%;
+            animation: textGradientShift 8s ease infinite;
             font-weight: 800;
         }
         
-        @keyframes gradientShift {
+        @keyframes textGradientShift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
@@ -122,6 +136,7 @@
             background: white;
             border-radius: 50%;
             animation: twinkle var(--duration) infinite ease-in-out;
+            opacity: 0;
         }
         
         .py-12 {
@@ -142,8 +157,9 @@
         }
         
         @keyframes twinkle {
-            0%, 100% { opacity: 0.2; transform: scale(0.5); }
+            0% { opacity: 0; transform: scale(0.5); }
             50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.5); }
         }
         
         .gap-10 {
@@ -194,6 +210,16 @@
         </div>
     </main>
     
+    <!-- ManageBac Section -->
+    <section class="container mx-auto px-4 mb-20">
+        <div class="flex justify-center">
+            <a href="https://eas.managebac.com/student/home" target="_blank" class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-4 px-8 rounded-full transition-all duration-300 inline-flex items-center gap-2">
+                <i data-feather="external-link"></i>
+                Your Managebac
+            </a>
+        </div>
+    </section>
+    
     <!-- Footer -->
     <footer class="bg-black/20 py-12 text-center text-white/80">
         <div class="container mx-auto px-4">
@@ -212,6 +238,20 @@
         
         // Initialize Feather Icons
         feather.replace();
+        
+        // Add animation to ManageBac link
+        document.addEventListener('DOMContentLoaded', function() {
+            const manageBacLink = document.querySelector('a[href="https://eas.managebac.com/student/home"]');
+            if (manageBacLink) {
+                anime({
+                    targets: manageBacLink,
+                    translateY: [30, 0],
+                    opacity: [0, 1],
+                    duration: 2000,
+                    easing: 'easeOutExpo'
+                });
+            }
+        });
         
         // Names array with descriptions
         const names = [
@@ -274,7 +314,7 @@
         
         names.forEach((nameObj, index) => {
             const card = document.createElement('div');
-            card.className = `name-card bg-gradient-to-br ${cardColors[index]} rounded-3xl p-10 text-white shadow-2xl transform transition-all duration-500 hover:shadow-2xl`;
+            card.className = `name-card bg-gradient-to-br ${cardColors[index]} rounded-3xl p-10 text-white shadow-2xl transform transition-all duration-500 hover:shadow-2xl relative overflow-hidden`;
             card.setAttribute('data-aos', 'fade-up');
             card.setAttribute('data-aos-delay', `${index * 50}`);
             
@@ -362,7 +402,7 @@
                 targets: '.name-title',
                 translateY: [-70, 0],
                 opacity: [0, 1],
-                duration: 2000,
+                duration: 2500,
                 easing: 'easeOutExpo'
             });
         });
