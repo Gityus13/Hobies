@@ -636,6 +636,25 @@
     
     <!-- Main Games Content -->
     <main class="container mx-auto px-4 pb-12 md:pb-20">
+        <!-- Flappy Bird Game -->
+        <div class="game-container" data-aos="fade-up">
+            <h2 class="game-title">Flappy Bird</h2>
+            <p class="game-description">Click or press spacebar to flap and navigate through pipes!</p>
+            <canvas id="flappy-canvas" class="game-canvas" width="320" height="480"></canvas>
+            <div class="game-stats">
+                <div class="stat">
+                    <div class="stat-value" id="flappy-score">0</div>
+                    <div class="stat-label">Score</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="flappy-highscore">0</div>
+                    <div class="stat-label">Best</div>
+                </div>
+            </div>
+            <div class="game-controls">
+                <button class="game-btn" id="flappy-start">Start Game</button>
+                <button class="game-btn" id="flappy-reset">Reset</button>
+            </div>
         </div>
         
         <!-- Memory Match Game -->
@@ -714,6 +733,14 @@
             <a href="index.html" class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-3 px-6 md:py-4 md:px-8 rounded-full transition-all duration-300 inline-flex items-center gap-2">
                 <i data-feather="home"></i>
                 Back to Home
+            </a>
+            <a href="https://eas.managebac.com/student/home" target="_blank" class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-3 px-6 md:py-4 md:px-8 rounded-full transition-all duration-300 inline-flex items-center gap-2">
+                <i data-feather="external-link"></i>
+                Your Managebac
+            </a>
+            <a href="school.html" class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-3 px-6 md:py-4 md:px-8 rounded-full transition-all duration-300 inline-flex items-center gap-2">
+                <i data-feather="video"></i>
+                Our School EAS
             </a>
         </div>
     </section>
