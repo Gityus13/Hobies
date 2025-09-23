@@ -204,6 +204,52 @@
             color: #f1f5f9;
         }
         
+        /* Music toggle styles */
+        .music-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            z-index: 1000;
+        }
+        
+        .music-button {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .music-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .music-button i {
+            font-size: 20px;
+            color: white;
+        }
+        
+        body.dark-mode .music-button {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        body.dark-mode .music-button:hover {
+            background: rgba(51, 65, 85, 0.9);
+        }
+        
+        body.dark-mode .music-button i {
+            color: #f1f5f9;
+        }
+        
         /* Dark mode adjustments */
         body.dark-mode .name-card {
             background: rgba(30, 41, 59, 0.8) !important;
@@ -482,12 +528,17 @@
                 right: 10px;
             }
             
-            .toggle-button {
+            .music-toggle {
+                top: 10px;
+                right: 70px;
+            }
+            
+            .toggle-button, .music-button {
                 width: 40px;
                 height: 40px;
             }
             
-            .toggle-button i {
+            .toggle-button i, .music-button i {
                 font-size: 16px;
             }
         }
@@ -512,10 +563,23 @@
     <!-- Background stars -->
     <div id="stars-container" class="fixed inset-0 overflow-hidden pointer-events-none"></div>
     
+    <!-- Audio element for music -->
+    <audio id="background-music" loop>
+        <source src="https://files.catbox.moe/at5fvy.wav" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
     <!-- Dark Mode Toggle -->
     <div class="dark-mode-toggle">
         <div class="toggle-button" id="darkModeToggle">
             <i class="fas fa-moon"></i>
+        </div>
+    </div>
+
+    <!-- Music Toggle -->
+    <div class="music-toggle">
+        <div class="music-button" id="musicToggle">
+            <i class="fas fa-volume-mute"></i>
         </div>
     </div>
 
@@ -719,6 +783,38 @@
                 toggleIcon.classList.remove('fa-sun');
                 toggleIcon.classList.add('fa-moon');
                 localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Music toggle functionality
+        const musicToggle = document.getElementById('musicToggle');
+        const musicIcon = musicToggle.querySelector('i');
+        const backgroundMusic = document.getElementById('background-music');
+        
+        // Check for saved music preference
+        const musicPreference = localStorage.getItem('music');
+        
+        if (musicPreference === 'playing') {
+            backgroundMusic.play();
+            musicIcon.classList.remove('fa-volume-mute');
+            musicIcon.classList.add('fa-volume-up');
+        } else {
+            backgroundMusic.pause();
+            musicIcon.classList.remove('fa-volume-up');
+            musicIcon.classList.add('fa-volume-mute');
+        }
+        
+        musicToggle.addEventListener('click', () => {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play();
+                musicIcon.classList.remove('fa-volume-mute');
+                musicIcon.classList.add('fa-volume-up');
+                localStorage.setItem('music', 'playing');
+            } else {
+                backgroundMusic.pause();
+                musicIcon.classList.remove('fa-volume-up');
+                musicIcon.classList.add('fa-volume-mute');
+                localStorage.setItem('music', 'paused');
             }
         });
         
