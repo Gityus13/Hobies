@@ -760,8 +760,9 @@
             { name: "Ayla", description: "<i class=\"fa-solid fa-heart\"></i> MMA Bestie " },
             { name: "Farahnaz", description: "<i class=\"fa-solid fa-crown\"></i> Kind and once was class leader" },
             { name: "Maryam", description: "<i class=\"fa-solid fa-volume-xmark\"></i> So silent 🤫" },
-            { name: "Inji", description: "<i class=\"fa-solid fa-tv\"></i> Not coming to school but loves anime" }
-        ];
+            { name: "Inji", description: "<i class=\"fa-solid fa-tv\"></i> Not coming to school but loves anime" },
+            { name: "Zuleykha", description: "<i class=\"fa-solid fa-music\"></i> She likes Playing Piano", cardClass: "from-purple-500 to-indigo-500", sameHeight: true }
+];
         
         // Colors for cards
         const cardColors = [
@@ -784,24 +785,27 @@
             "from-rose-500 to-pink-500",
             "from-cyan-500 to-sky-500",
             "from-fuchsia-500 to-pink-500",
-            "from-lime-500 to-green-500"
-        ];
+            "from-lime-500 to-green-500",
+            "from-purple-500 to-indigo-500"
+];
         
         // Icons for cards
         const icons = [
             "cpu", "coffee", "music", "gift", "sun", "moon",
             "cloud", "shield", "bell", "bell", "camera", "video",
             "slash", "feather", "video-off", "key", "smile", "smile",
-            "paperclip", "camera"
-        ];
+            "paperclip", "camera", "music"
+];
         
         // Generate name cards
         const gridContainer = document.querySelector('.grid');
         
         names.forEach((nameObj, index) => {
             const card = document.createElement('div');
-            card.className = `name-card bg-gradient-to-br ${cardColors[index]} rounded-3xl p-6 md:p-10 text-white shadow-2xl transform transition-all duration-500 hover:shadow-2xl relative overflow-hidden`;
-            card.setAttribute('data-aos', 'fade-up');
+            const gradientClass = nameObj.cardClass ? nameObj.cardClass : cardColors[index];
+            const sameHeightClass = nameObj.sameHeight ? "h-full" : "";
+            card.className = `name-card bg-gradient-to-br ${gradientClass} rounded-3xl p-6 md:p-10 text-white shadow-2xl transform transition-all duration-500 hover:shadow-2xl relative overflow-hidden ${sameHeightClass}`;
+card.setAttribute('data-aos', 'fade-up');
             card.setAttribute('data-aos-delay', `${index * 50}`);
             
             card.innerHTML = `
@@ -812,7 +816,7 @@
                 </div>
                 <h2 class="name-title text-2xl md:text-4xl font-bold mb-3 md:mb-5 text-center gradient-text">${nameObj.name}</h2>
                 <p class="text-center text-white/90 text-base md:text-lg mb-4 md:mb-5">${nameObj.description}</p>
-            `;
+`;
             
             gridContainer.appendChild(card);
         });
