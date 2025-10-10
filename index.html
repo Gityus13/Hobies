@@ -3,30 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EAS HOBBIES</title>
-    <!-- add this in <head> (CDN) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JXV858VBM0"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-JXV858VBM0');
-</script>
+    <title>EAS HOBBIES - DISCO MODE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="https://i.ibb.co/wFY6Tn2y/7-F.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
         
-        /* Base styles */
         * {
             box-sizing: border-box;
         }
@@ -37,27 +25,480 @@
             overflow-x: hidden;
             animation: gradientShift 30s ease infinite;
             background-size: 400% 400%;
+            transition: all 0.5s ease;
         }
         
+        /* DARK MODE - Restored exactly as it was */
         body.dark-mode {
-            background: linear-gradient(45deg, #0b1421, #172130, #2a3647, #3c4a59, #566477, #8b97a9, #b8c2d1, #d3dce7);
+            background: #0f172a !important;
+            animation: none !important;
+            color: #e2e8f0;
         }
         
+        body.dark-mode header {
+            background: rgba(15, 23, 42, 0.8) !important;
+        }
+        
+        body.dark-mode .name-card {
+            background: linear-gradient(135deg, #1e293b, #334155) !important;
+            color: #e2e8f0;
+        }
+        
+        body.dark-mode footer {
+            background: rgba(15, 23, 42, 0.9) !important;
+        }
+        
+        body.dark-mode .button-container a {
+            background: rgba(30, 41, 59, 0.7) !important;
+            color: #e2e8f0;
+        }
+        
+        body.dark-mode .button-container a:hover {
+            background: rgba(30, 41, 59, 0.9) !important;
+        }
+        
+        body.dark-mode .secret-code-input {
+            background: rgba(30, 41, 59, 0.7) !important;
+            color: #e2e8f0;
+            border: 1px solid #475569;
+        }
+        
+        /* GLITCH MODE - Digital Corruption */
+        body.glitch-mode {
+            background: #000 !important;
+            animation: none !important;
+            overflow: hidden;
+        }
+        
+        body.glitch-mode::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 255, 0.1) 2px, rgba(0, 255, 255, 0.1) 4px);
+            animation: screenTear 0.1s infinite;
+            z-index: 1000;
+            pointer-events: none;
+        }
+        
+        @keyframes screenTear {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-2px); }
+            40% { transform: translateX(2px); }
+            60% { transform: translateX(-1px); }
+            80% { transform: translateX(1px); }
+            100% { transform: translateX(0); }
+        }
+        
+        .glitch-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 50%, rgba(255, 0, 0, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(0, 255, 0, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(0, 0, 255, 0.3) 0%, transparent 50%);
+            mix-blend-mode: overlay;
+            opacity: 0;
+            z-index: 1001;
+            pointer-events: none;
+        }
+        
+        body.glitch-mode .glitch-overlay {
+            opacity: 1;
+            animation: glitchFlicker 0.5s infinite;
+        }
+        
+        @keyframes glitchFlicker {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 0.3; }
+        }
+        
+        .error-message {
+            position: fixed;
+            background: #ff0000;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-weight: bold;
+            z-index: 1002;
+            opacity: 0;
+            transform: scale(0);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+        
+        .blue-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0078d7;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1003;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        body.glitch-mode .blue-screen {
+            animation: blueScreenFlash 5s infinite;
+        }
+        
+        @keyframes blueScreenFlash {
+            0%, 95% { opacity: 0; }
+            96%, 98% { opacity: 1; }
+            99%, 100% { opacity: 0; }
+        }
+        
+        /* MATRIX MODE - Hacker Terminal */
+        body.matrix-mode {
+            background: #000 !important;
+            animation: none !important;
+            color: #00ff00 !important;
+        }
+        
+        body.matrix-mode::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 0, 0.1) 2px, rgba(0, 255, 0, 0.1) 4px);
+            z-index: -1;
+        }
+        
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 95%, rgba(0, 255, 0, 0.1) 100%);
+            background-size: 100% 5px;
+            animation: matrixRain 20s linear infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        @keyframes matrixRain {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+        
+        .matrix-text {
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            text-shadow: 0 0 5px #00ff00;
+        }
+        
+        .terminal-message {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 10px;
+            font-family: monospace;
+            z-index: 100;
+            max-width: 300px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .access-granted {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            font-weight: bold;
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+            z-index: 100;
+            opacity: 0;
+        }
+        
+        /* DISCO MODE - The Ultimate Party Experience */
+        body.disco-mode {
+            background: #000 !important;
+            animation: none !important;
+        }
+        
+        body.disco-mode::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 0, 0, 0.7) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.7) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(0, 0, 255, 0.7) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 0, 0.7) 0%, transparent 50%);
+            animation: discoLights 0.5s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes discoLights {
+            0% { 
+                filter: hue-rotate(0deg) brightness(1);
+                transform: scale(1);
+            }
+            25% { 
+                filter: hue-rotate(90deg) brightness(1.2);
+                transform: scale(1.05);
+            }
+            50% { 
+                filter: hue-rotate(180deg) brightness(1.5);
+                transform: scale(1.1);
+            }
+            75% { 
+                filter: hue-rotate(270deg) brightness(1.2);
+                transform: scale(1.05);
+            }
+            100% { 
+                filter: hue-rotate(360deg) brightness(1);
+                transform: scale(1);
+            }
+        }
+        
+        /* Disco animations for all elements */
+        body.disco-mode .name-card {
+            animation: discoCard 0.8s ease infinite alternate, colorShift 2s linear infinite !important;
+            transform-origin: center;
+            background: rgba(255, 255, 255, 0.1) !important;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        @keyframes discoCard {
+            0% { transform: translateY(0) rotate(0deg) scale(1); }
+            25% { transform: translateY(-10px) rotate(2deg) scale(1.02); }
+            50% { transform: translateY(-5px) rotate(-1deg) scale(1.05); }
+            75% { transform: translateY(-15px) rotate(1deg) scale(1.03); }
+            100% { transform: translateY(-8px) rotate(-2deg) scale(1.06); }
+        }
+        
+        @keyframes colorShift {
+            0% { border-color: rgba(255, 0, 0, 0.5); box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); }
+            25% { border-color: rgba(0, 255, 0, 0.5); box-shadow: 0 0 20px rgba(0, 255, 0, 0.5); }
+            50% { border-color: rgba(0, 0, 255, 0.5); box-shadow: 0 0 20px rgba(0, 0, 255, 0.5); }
+            75% { border-color: rgba(255, 255, 0, 0.5); box-shadow: 0 0 20px rgba(255, 255, 0, 0.5); }
+            100% { border-color: rgba(255, 0, 255, 0.5); box-shadow: 0 0 20px rgba(255, 0, 255, 0.5); }
+        }
+        
+        body.disco-mode .name-title {
+            animation: bounceText 0.6s ease infinite alternate, textGlow 1s ease infinite !important;
+            color: white !important;
+        }
+        
+        @keyframes bounceText {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-10px) scale(1.1); }
+        }
+        
+        @keyframes textGlow {
+            0%, 100% { 
+                text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+            }
+            25% { 
+                text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+            }
+            50% { 
+                text-shadow: 0 0 10px #0000ff, 0 0 20px #0000ff, 0 0 30px #0000ff;
+            }
+            75% { 
+                text-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00, 0 0 30px #ffff00;
+            }
+        }
+        
+        body.disco-mode header {
+            animation: headerPulse 0.8s ease infinite alternate !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        @keyframes headerPulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.02); }
+        }
+        
+        body.disco-mode iframe {
+            animation: iframeDisco 1s ease infinite alternate !important;
+            border: 3px solid;
+            border-image: linear-gradient(45deg, red, yellow, green, blue, purple) 1;
+        }
+        
+        @keyframes iframeDisco {
+            0% { transform: rotate(-1deg) scale(1); }
+            50% { transform: rotate(1deg) scale(1.02); }
+            100% { transform: rotate(-1deg) scale(1); }
+        }
+        
+        body.disco-mode .button-container a {
+            animation: buttonBounce 0.7s ease infinite alternate, buttonColors 1.5s linear infinite !important;
+        }
+        
+        @keyframes buttonBounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+        
+        @keyframes buttonColors {
+            0% { background: rgba(255, 0, 0, 0.3) !important; }
+            20% { background: rgba(255, 165, 0, 0.3) !important; }
+            40% { background: rgba(255, 255, 0, 0.3) !important; }
+            60% { background: rgba(0, 255, 0, 0.3) !important; }
+            80% { background: rgba(0, 0, 255, 0.3) !important; }
+            100% { background: rgba(128, 0, 128, 0.3) !important; }
+        }
+        
+        body.disco-mode footer {
+            animation: footerShake 0.5s ease infinite alternate !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        @keyframes footerShake {
+            0% { transform: translateX(-5px); }
+            100% { transform: translateX(5px); }
+        }
+        
+        /* Disco ball with mirror effects */
+        .disco-ball {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, #fff, #aaa 20%, #333 70%);
+            border-radius: 50%;
+            box-shadow: 
+                0 0 30px rgba(255, 255, 255, 0.8),
+                inset -10px -10px 20px rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            opacity: 0;
+            transform: scale(0);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            animation: discoBallSpin 3s linear infinite;
+        }
+        
+        body.disco-mode .disco-ball {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .disco-ball::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.8) 2%, transparent 3%),
+                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.8) 2%, transparent 3%),
+                radial-gradient(circle at 60% 60%, rgba(255, 255, 255, 0.8) 2%, transparent 3%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.8) 2%, transparent 3%),
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.8) 2%, transparent 3%);
+            border-radius: 50%;
+        }
+        
+        @keyframes discoBallSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Secret code input */
+        .secret-code-input {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1001;
+            width: 220px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+        }
+        
+        .secret-code-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .secret-code-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        body.disco-mode .secret-code-input {
+            animation: inputPulse 0.5s ease infinite alternate !important;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: 2px solid white;
+        }
+        
+        @keyframes inputPulse {
+            0% { transform: translateX(-50%) scale(1); }
+            100% { transform: translateX(-50%) scale(1.05); }
+        }
+        
+        /* Floating disco lights */
+        .disco-light {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            filter: blur(30px);
+            opacity: 0;
+            z-index: -1;
+            animation: floatLight 15s linear infinite;
+        }
+        
+        body.disco-mode .disco-light {
+            opacity: 0.7;
+        }
+        
+        @keyframes floatLight {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(100px, 100px) rotate(90deg); }
+            50% { transform: translate(200px, 0) rotate(180deg); }
+            75% { transform: translate(100px, -100px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        
+        /* Original styles preserved */
         @keyframes gradientShift {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         
-        .max-w-3xl {
-            max-width: 66rem;
-        }
+        .max-w-3xl { max-width: 66rem; }
         
         .name-card {
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -69,17 +510,11 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.3);
         }
         
-        .name-title {
-            font-family: 'Playfair Display', serif;
-        }
+        .name-title { font-family: 'Playfair Display', serif; }
         
         header {
             background: rgba(0, 0, 0, 0.15);
             backdrop-filter: blur(5px);
-        }
-        
-        body.dark-mode header {
-            background: rgba(0, 0, 0, 0.3);
         }
         
         .container {
@@ -89,13 +524,9 @@
             padding: 0 15px;
         }
         
-        .floating {
-            animation: floating 3s ease-in-out infinite;
-        }
+        .floating { animation: floating 3s ease-in-out infinite; }
         
-        .rounded-3xl {
-            border-radius: 1.5rem;
-        }
+        .rounded-3xl { border-radius: 1.5rem; }
         
         @keyframes floating {
             0% { transform: translateY(0px); }
@@ -103,32 +534,11 @@
             100% { transform: translateY(0px); }
         }
         
-        .pulse {
-            animation: pulse 2s infinite;
-        }
+        .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
         
-        .shadow-2xl {
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .p-10 {
-            padding: 2.5rem;
-        }
-        
-        .mb-5 {
-            margin-bottom: 1.25rem;
-        }
-        
-        .text-lg {
-            font-size: 1.125rem;
-            line-height: 1.75rem;
-        }
+        .p-10 { padding: 2.5rem; }
+        .mb-5 { margin-bottom: 1.25rem; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
         
         .gradient-text {
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #667eea, #764ba2);
@@ -140,23 +550,13 @@
             font-weight: 800;
         }
         
-        body.dark-mode .gradient-text {
-            background: linear-gradient(45deg, #ff9999, #7dd3d3, #70c1e0, #b8e2d4, #fcd77f, #ffb8e0, #99aef1, #a08bd9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
         @keyframes textGradientShift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
         
-        .text-4xl {
-            font-size: 2.5rem;
-            line-height: 1.2;
-        }
+        .text-4xl { font-size: 2.5rem; line-height: 1.2; }
         
         /* Dark mode toggle styles */
         .dark-mode-toggle {
@@ -189,19 +589,6 @@
         .toggle-button i {
             font-size: 20px;
             color: white;
-        }
-        
-        body.dark-mode .toggle-button {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        body.dark-mode .toggle-button:hover {
-            background: rgba(51, 65, 85, 0.9);
-        }
-        
-        body.dark-mode .toggle-button i {
-            color: #f1f5f9;
         }
         
         /* Music toggle styles */
@@ -237,206 +624,7 @@
             color: white;
         }
         
-        body.dark-mode .music-button {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        body.dark-mode .music-button:hover {
-            background: rgba(51, 65, 85, 0.9);
-        }
-        
-        body.dark-mode .music-button i {
-            color: #f1f5f9;
-        }
-        
-        /* Dark mode adjustments */
-        body.dark-mode .name-card {
-            background: rgba(30, 41, 59, 0.8) !important;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        body.dark-mode .name-card:hover {
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            background: rgba(51, 65, 85, 0.9) !important;
-        }
-        
-        body.dark-mode .name-title {
-            color: #f1f5f9;
-        }
-        
-        body.dark-mode .name-card {
-            background: rgba(30, 41, 59, 0.8) !important;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        body.dark-mode .name-card:hover {
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            background: rgba(51, 65, 85, 0.9) !important;
-        }
-        
-        body.dark-mode .name-title {
-            color: #f1f5f9;
-        }
-        
-        body.dark-mode p {
-            color: #cbd5e1 !important;
-        }
-        
-        body.dark-mode .gradient-text {
-            background: linear-gradient(45deg, #94a3b8, #cbd5e1, #e2e8f0, #f1f5f9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        body.dark-mode footer {
-            background: rgba(15, 23, 42, 0.5);
-            backdrop-filter: blur(10px);
-        }
-        
-        body.dark-mode a[href="https://eas.managebac.com/student/home"] {
-            background: rgba(30, 41, 59, 0.5) !important;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        body.dark-mode a[href="https://eas.managebac.com/student/home"]:hover {
-            background: rgba(51, 65, 85, 0.7) !important;
-        }
-        
-        body.dark-mode .bg-white\/20 {
-            background: rgba(30, 41, 59, 0.5) !important;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        body.dark-mode .bg-white\/20:hover {
-            background: rgba(51, 65, 85, 0.7) !important;
-        }
-        
-        body.dark-mode p {
-            color: #cbd5e1 !important;
-        }
-        
-        body.dark-mode .gradient-text {
-            background: linear-gradient(45deg, #94a3b8, #cbd5e1, #e2e8f0, #f1f5f9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        body.dark-mode footer {
-            background: rgba(15, 23, 42, 0.5);
-            backdrop-filter: blur(10px);
-        }
-        
-        body.dark-mode a[href="https://eas.managebac.com/student/home"] {
-            background: rgba(30, 41, 59, 0.5) !important;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        body.dark-mode a[href="https://eas.managebac.com/student/home"]:hover {
-            background: rgba(51, 65, 85, 0.7) !important;
-        }
-        
-        body.dark-mode a[href="school.html"] {
-            background: rgba(30, 41, 59, 0.5) !important;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        body.dark-mode a[href="school.html"]:hover {
-            background: rgba(51, 65, 85, 0.7) !important;
-        }
-        
-        body.dark-mode .bg-white\/20 {
-            background: rgba(30, 41, 59, 0.5) !important;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        body.dark-mode .bg-white\/20:hover {
-            background: rgba(51, 65, 85, 0.7) !important;
-        }
-        
-        /* Star animations */
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle var(--duration) infinite ease-in-out;
-            opacity: 0;
-        }
-        
-        .py-12 {
-            padding-top: 3rem;
-            padding-bottom: 3rem;
-        }
-        
-        .text-xl {
-            font-size: 1.25rem;
-            line-height: 1.75rem;
-        }
-        
-        @keyframes twinkle {
-            0% { opacity: 0; transform: scale(0.5); }
-            50% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(0.5); }
-        }
-        
-        .gap-10 {
-            gap: 2.5rem;
-        }
-        
-        .p-5 {
-            padding: 1.25rem;
-        }
-        
-        .w-12, .h-12 {
-            width: 3rem;
-            height: 3rem;
-        }
-        
-        /* Responsive Design - UPDATED FOR BETTER CARD LAYOUT */
-        /* Mobile First Approach */
-        
-        /* Header adjustments for mobile */
-        header {
-            padding: 2rem 1rem;
-        }
-        
-        /* Title size adjustments */
-        .name-title {
-            font-size: 2.5rem;
-        }
-        
-        /* Card adjustments */
-        .name-card {
-            padding: 1.5rem;
-        }
-        
-        /* Button container adjustments */
-        .button-container {
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .button-container a {
-            width: 100%;
-            text-align: center;
-            justify-content: center;
-        }
-        
-        /* Iframe adjustments */
-        iframe {
-            height: 400px;
-        }
-        
-        /* UPDATED: Grid layout for perfect card distribution */
+        /* Grid layout */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -444,7 +632,6 @@
             width: 100%;
         }
         
-        /* Ensure cards maintain proper aspect ratio */
         .name-card {
             display: flex;
             flex-direction: column;
@@ -452,179 +639,52 @@
             min-height: 250px;
         }
         
-        /* Tablet and larger screens */
-        @media (min-width: 640px) {
-            .name-title {
-                font-size: 3.5rem;
-            }
-            
-            .button-container {
-                flex-direction: row;
-                flex-wrap: wrap;
-            }
-            
-            .button-container a {
-                width: auto;
-            }
-            
-            /* Adjust grid for tablets */
-            .grid {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                gap: 2rem;
-            }
-        }
-        
-        @media (min-width: 768px) {
-            .name-title {
-                font-size: 4.5rem;
-            }
-            
-            .text-4xl {
-                font-size: 2.75rem;
-            }
-            
-            .text-xl {
-                font-size: 1.5rem;
-                line-height: 2rem;
-            }
-            
-            header {
-                padding: 5rem 1rem;
-            }
-            
-            .name-card {
-                padding: 2.5rem;
-            }
-            
-            /* Adjust grid for medium screens */
-            .grid {
-                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-                gap: 2.5rem;
-            }
-        }
-        
-        @media (min-width: 1024px) {
-            .name-title {
-                font-size: 6rem;
-            }
-            
-            .text-4xl {
-                font-size: 3rem;
-            }
-            
-            .button-container {
-                flex-direction: row;
-                flex-wrap: nowrap;
-            }
-            
-            /* Adjust grid for large screens */
-            .grid {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                gap: 2.5rem;
-            }
-        }
-        
-        @media (min-width: 1280px) {
-            .name-title {
-                font-size: 7rem;
-            }
-            
-            /* Adjust grid for extra large screens */
-            .grid {
-                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-                gap: 3rem;
-            }
-        }
-        
-        @media (min-width: 1536px) {
-            /* Adjust grid for 2xl screens */
-            .grid {
-                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-                gap: 3rem;
-            }
-        }
-        
-        /* Small mobile devices */
+        /* Responsive adjustments */
         @media (max-width: 380px) {
-            .name-title {
-                font-size: 2rem;
-            }
-            
-            header p {
-                font-size: 1rem;
-            }
-            
-            .name-card {
-                padding: 1rem;
-            }
-            
-            .p-5 {
-                padding: 0.75rem;
-            }
-            
-            .w-12, .h-12 {
-                width: 2.5rem;
-                height: 2.5rem;
-            }
-            
-            iframe {
-                height: 350px;
-            }
-            
-            .dark-mode-toggle {
-                top: 10px;
-                right: 10px;
-            }
-            
-            .music-toggle {
-                top: 10px;
-                right: 70px;
-            }
-            
-            .toggle-button, .music-button {
-                width: 40px;
-                height: 40px;
-            }
-            
-            .toggle-button i, .music-button i {
-                font-size: 16px;
-            }
-            
-            /* Adjust grid for very small screens */
-            .grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-        }
-        
-        /* Height adjustments for landscape mode on mobile */
-        @media (max-height: 600px) and (orientation: landscape) {
-            header {
-                padding: 1.5rem 1rem;
-            }
-            
-            .name-title {
-                font-size: 2.5rem;
-            }
-            
-            iframe {
-                height: 300px;
-            }
-        }
-        
-        /* Ensure cards don't get too wide on very large screens */
-        @media (min-width: 1800px) {
-            .grid {
-                grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-                max-width: 1800px;
-                margin: 0 auto;
-            }
+            .name-title { font-size: 2rem; }
+            header p { font-size: 1rem; }
+            .name-card { padding: 1rem; }
+            .p-5 { padding: 0.75rem; }
+            .w-12, .h-12 { width: 2.5rem; height: 2.5rem; }
+            iframe { height: 350px; }
+            .dark-mode-toggle { top: 10px; right: 10px; }
+            .music-toggle { top: 10px; right: 70px; }
+            .toggle-button, .music-button { width: 40px; height: 40px; }
+            .toggle-button i, .music-button i { font-size: 16px; }
+            .grid { grid-template-columns: 1fr; gap: 1rem; }
+            .secret-code-input { width: 150px; font-size: 12px; padding: 6px 10px; }
         }
     </style>
 </head>
 <body class="min-h-screen">
-    <!-- Background stars -->
+    <!-- Background elements -->
     <div id="stars-container" class="fixed inset-0 overflow-hidden pointer-events-none"></div>
+    
+    <!-- Disco lights -->
+    <div class="disco-light" style="top:10%; left:10%; background:red; animation-delay:0s;"></div>
+    <div class="disco-light" style="top:20%; left:80%; background:blue; animation-delay:2s;"></div>
+    <div class="disco-light" style="top:60%; left:20%; background:green; animation-delay:4s;"></div>
+    <div class="disco-light" style="top:80%; left:70%; background:yellow; animation-delay:6s;"></div>
+    <div class="disco-light" style="top:40%; left:50%; background:purple; animation-delay:8s;"></div>
+    
+    <!-- Disco ball -->
+    <div class="disco-ball"></div>
+    
+    <!-- GLITCH MODE ELEMENTS -->
+    <div class="glitch-overlay"></div>
+    <div class="blue-screen">
+        <h1>:(</h1>
+        <p>Your PC ran into a problem and needs to restart. We're just collecting some error info, and then we'll restart for you.</p>
+        <p>0% complete</p>
+    </div>
+    
+    <!-- MATRIX MODE ELEMENTS -->
+    <div class="matrix-rain"></div>
+    <div class="terminal-message"></div>
+    <div class="access-granted">ACCESS GRANTED</div>
+    
+    <!-- Secret code input -->
+    <input type="text" class="secret-code-input" placeholder="Type 'disco', 'glitch' or 'matrix'!" id="secretCodeInput">
     
     <!-- Audio element for music -->
     <audio id="background-music" loop>
@@ -678,7 +738,7 @@
     
     <!-- ManageBac Section -->
     <section class="container mx-auto px-4 mb-8 md:mb-10">
-        <div class="button-container flex justify-center gap-4 md:gap-6">
+        <div class="button-container flex justify-center gap-4 md:gap-6 flex-wrap">
             <a href="https://eas.managebac.com/student/home" target="_blank" class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-3 px-6 md:py-4 md:px-8 rounded-full transition-all duration-300 inline-flex items-center gap-2">
                 <i data-feather="external-link"></i>
                 Your Managebac
@@ -707,7 +767,7 @@
                 <i class="fa-solid fa-circle-info"></i>
                 Info
             </a>
-</div>
+        </div>
     </section>
     
     <!-- Footer -->
@@ -729,19 +789,225 @@
         // Initialize Feather Icons
         feather.replace();
         
-        // Add animation to ManageBac link
-        document.addEventListener('DOMContentLoaded', function() {
-            const manageBacLink = document.querySelector('a[href="https://eas.managebac.com/student/home"]');
-            if (manageBacLink) {
-                anime({
-                    targets: manageBacLink,
-                    translateY: [30, 0],
-                    opacity: [0, 1],
-                    duration: 2000,
-                    easing: 'easeOutExpo'
+        // Ultimate Disco Mode Functionality
+        const secretCodeInput = document.getElementById('secretCodeInput');
+        const body = document.body;
+        
+        // GLITCH MODE VARIABLES
+        let glitchInterval;
+        let errorMessages = [
+            "ERROR: Memory corruption detected",
+            "SYSTEM FAILURE: Kernel panic",
+            "CRITICAL: Stack overflow",
+            "WARNING: Buffer overflow",
+            "FATAL: Segmentation fault",
+            "ERROR: Invalid pointer exception",
+            "SYSTEM: Access violation",
+            "CRITICAL: Page fault in nonpaged area"
+        ];
+        
+        // MATRIX MODE VARIABLES
+        let matrixInterval;
+        let terminalMessages = [
+            "> Initializing system scan...",
+            "> Bypassing firewall...",
+            "> Accessing mainframe...",
+            "> Decrypting security protocols...",
+            "> Establishing secure connection...",
+            "> Uploading payload...",
+            "> Executing command sequence...",
+            "> System compromised..."
+        ];
+        
+        secretCodeInput.addEventListener('input', function() {
+            const inputValue = this.value.toLowerCase().trim();
+            
+            // Reset all modes first
+            body.classList.remove('disco-mode', 'glitch-mode', 'matrix-mode');
+            clearInterval(glitchInterval);
+            clearInterval(matrixInterval);
+            
+            // Remove all disco animations
+            document.querySelectorAll('p, h1, h2, h3').forEach(element => {
+                element.style.animation = '';
+            });
+            
+            document.querySelectorAll('.name-card').forEach(card => {
+                card.style.animationDelay = '';
+            });
+            
+            // Remove matrix styling
+            document.querySelectorAll('h1, h2, h3, p, a, span').forEach(element => {
+                element.classList.remove('matrix-text');
+            });
+            
+            // DISCO MODE
+            if (inputValue === 'disco') {
+                body.classList.add('disco-mode');
+                body.classList.remove('dark-mode');
+                
+                // Add disco music if available
+                const backgroundMusic = document.getElementById('background-music');
+                if (backgroundMusic) {
+                    backgroundMusic.play().catch(e => console.log("Autoplay prevented:", e));
+                }
+                
+                // Add more dynamic effects
+                document.querySelectorAll('.name-card').forEach((card, index) => {
+                    card.style.animationDelay = `${index * 0.1}s`;
                 });
+                
+                // Add floating text effect
+                document.querySelectorAll('p, h1, h2, h3').forEach(element => {
+                    element.style.animation = `bounceText 0.6s ease infinite alternate, textGlow 1s ease infinite`;
+                });
+                
+            } 
+            // GLITCH MODE
+            else if (inputValue === 'glitch') {
+                body.classList.add('glitch-mode');
+                
+                // Create random error messages
+                glitchInterval = setInterval(() => {
+                    createErrorMessage();
+                }, 1000);
+                
+                // Scramble text periodically
+                setInterval(() => {
+                    scrambleText();
+                }, 500);
+                
+            } 
+            // MATRIX MODE
+            else if (inputValue === 'matrix') {
+                body.classList.add('matrix-mode');
+                
+                // Apply matrix styling to text
+                document.querySelectorAll('h1, h2, h3, p, a, span').forEach(element => {
+                    element.classList.add('matrix-text');
+                });
+                
+                // Terminal typing effect
+                let messageIndex = 0;
+                matrixInterval = setInterval(() => {
+                    showTerminalMessage(terminalMessages[messageIndex]);
+                    messageIndex = (messageIndex + 1) % terminalMessages.length;
+                }, 3000);
+                
+                // Show ACCESS GRANTED message
+                setTimeout(() => {
+                    showAccessGranted();
+                }, 2000);
             }
         });
+        
+        // GLITCH MODE FUNCTIONS
+        function createErrorMessage() {
+            const error = document.createElement('div');
+            error.className = 'error-message';
+            error.textContent = errorMessages[Math.floor(Math.random() * errorMessages.length)];
+            
+            // Random position
+            const x = Math.random() * (window.innerWidth - 200);
+            const y = Math.random() * (window.innerHeight - 50);
+            error.style.left = `${x}px`;
+            error.style.top = `${y}px`;
+            
+            document.body.appendChild(error);
+            
+            // Animate in
+            anime({
+                targets: error,
+                opacity: [0, 1],
+                scale: [0, 1],
+                duration: 500,
+                easing: 'easeOutBack'
+            });
+            
+            // Remove after animation
+            setTimeout(() => {
+                anime({
+                    targets: error,
+                    opacity: 0,
+                    scale: 0,
+                    duration: 500,
+                    easing: 'easeInBack',
+                    complete: function() {
+                        document.body.removeChild(error);
+                    }
+                });
+            }, 2000);
+        }
+        
+        function scrambleText() {
+            const elements = document.querySelectorAll('h1, h2, h3, p, a, span');
+            elements.forEach(element => {
+                if (Math.random() > 0.7) { // Only scramble some elements
+                    const originalText = element.textContent;
+                    let scrambled = '';
+                    
+                    for (let i = 0; i < originalText.length; i++) {
+                        if (Math.random() > 0.3) {
+                            scrambled += String.fromCharCode(33 + Math.floor(Math.random() * 94));
+                        } else {
+                            scrambled += originalText[i];
+                        }
+                    }
+                    
+                    element.textContent = scrambled;
+                    
+                    // Return to original after a delay
+                    setTimeout(() => {
+                        element.textContent = originalText;
+                    }, 200);
+                }
+            });
+        }
+        
+        // MATRIX MODE FUNCTIONS
+        function showTerminalMessage(message) {
+            const terminal = document.querySelector('.terminal-message');
+            terminal.textContent = message;
+            
+            anime({
+                targets: terminal,
+                opacity: [0, 1],
+                translateY: [20, 0],
+                duration: 500,
+                easing: 'easeOutQuad'
+            });
+            
+            setTimeout(() => {
+                anime({
+                    targets: terminal,
+                    opacity: 0,
+                    translateY: 20,
+                    duration: 500,
+                    easing: 'easeInQuad'
+                });
+            }, 2500);
+        }
+        
+        function showAccessGranted() {
+            const access = document.querySelector('.access-granted');
+            
+            anime({
+                targets: access,
+                opacity: [0, 1],
+                scale: [0.5, 1.2, 1],
+                duration: 1000,
+                easing: 'easeOutElastic'
+            });
+            
+            setTimeout(() => {
+                anime({
+                    targets: access,
+                    opacity: 0,
+                    duration: 1000,
+                    easing: 'easeInQuad'
+                });
+            }, 3000);
+        }
         
         // Names array with descriptions
         const names = [
@@ -764,52 +1030,36 @@
             { name: "Ayla", description: "<i class=\"fa-solid fa-heart\"></i> MMA Bestie " },
             { name: "Farahnaz", description: "<i class=\"fa-solid fa-crown\"></i> Kind and once was class leader" },
             { name: "Maryam", description: "<i class=\"fa-solid fa-volume-xmark\"></i> So silent 🤫" },
-            { name: "Inji", description: "<i class=\"fa-solid fa-tv\"></i> Not coming to school but loves anime" },
-            { name: "Zuleykha", description: "<i class=\"fa-solid fa-music\"></i> She likes Playing Piano", cardClass: "from-purple-500 to-indigo-500", sameHeight: true }
-];
+            { name: "Inji", description: "<i class=\"fa-solid fa-tv\"></i>loves anime" },
+            { name: "Zuleykha", description: "<i class=\"fa-solid fa-music\"></i> She likes Playing Piano" }
+        ];
         
         // Colors for cards
         const cardColors = [
-            "from-pink-500 to-purple-500",
-            "from-blue-500 to-cyan-500",
-            "from-green-500 to-teal-500",
-            "from-yellow-500 to-orange-500",
-            "from-red-500 to-pink-500",
-            "from-indigo-500 to-purple-500",
-            "from-teal-500 to-blue-500",
-            "from-purple-500 to-pink-500",
-            "from-cyan-500 to-blue-500",
-            "from-orange-500 to-red-500",
-            "from-green-500 to-cyan-500",
-            "from-pink-500 to-rose-500",
-            "from-blue-500 to-indigo-500",
-            "from-amber-500 to-yellow-500",
-            "from-emerald-500 to-teal-500",
-            "from-violet-500 to-purple-500",
-            "from-rose-500 to-pink-500",
-            "from-cyan-500 to-sky-500",
-            "from-fuchsia-500 to-pink-500",
-            "from-lime-500 to-green-500",
-            "from-purple-500 to-indigo-500"
-];
+            "from-pink-500 to-purple-500", "from-blue-500 to-cyan-500", "from-green-500 to-teal-500",
+            "from-yellow-500 to-orange-500", "from-red-500 to-pink-500", "from-indigo-500 to-purple-500",
+            "from-teal-500 to-blue-500", "from-purple-500 to-pink-500", "from-cyan-500 to-blue-500",
+            "from-orange-500 to-red-500", "from-green-500 to-cyan-500", "from-pink-500 to-rose-500",
+            "from-blue-500 to-indigo-500", "from-amber-500 to-yellow-500", "from-emerald-500 to-teal-500",
+            "from-violet-500 to-purple-500", "from-rose-500 to-pink-500", "from-cyan-500 to-sky-500",
+            "from-fuchsia-500 to-pink-500", "from-lime-500 to-green-500", "from-purple-500 to-indigo-500"
+        ];
         
         // Icons for cards
         const icons = [
-            "cpu", "coffee", "music", "gift", "sun", "moon",
-            "cloud", "shield", "bell", "bell", "camera", "video",
-            "slash", "feather", "video-off", "key", "smile", "smile",
-            "paperclip", "camera", "music"
-];
+            "cpu", "coffee", "music", "gift", "sun", "moon", "cloud", "shield", "bell", "bell", 
+            "camera", "video", "slash", "feather", "video-off", "key", "smile", "smile", "paperclip", 
+            "camera", "music"
+        ];
         
         // Generate name cards
         const gridContainer = document.querySelector('.grid');
         
         names.forEach((nameObj, index) => {
             const card = document.createElement('div');
-            const gradientClass = nameObj.cardClass ? nameObj.cardClass : cardColors[index];
-            const sameHeightClass = nameObj.sameHeight ? "h-full" : "";
-            card.className = `name-card bg-gradient-to-br ${gradientClass} rounded-3xl p-6 md:p-10 text-white shadow-2xl transform transition-all duration-500 hover:shadow-2xl relative overflow-hidden ${sameHeightClass}`;
-card.setAttribute('data-aos', 'fade-up');
+            const gradientClass = cardColors[index];
+            card.className = `name-card bg-gradient-to-br ${gradientClass} rounded-3xl p-6 md:p-10 text-white shadow-2xl transform transition-all duration-500 hover:shadow-2xl relative overflow-hidden h-full`;
+            card.setAttribute('data-aos', 'fade-up');
             card.setAttribute('data-aos-delay', `${index * 50}`);
             
             card.innerHTML = `
@@ -820,7 +1070,7 @@ card.setAttribute('data-aos', 'fade-up');
                 </div>
                 <h2 class="name-title text-2xl md:text-4xl font-bold mb-3 md:mb-5 text-center gradient-text">${nameObj.name}</h2>
                 <p class="text-center text-white/90 text-base md:text-lg mb-4 md:mb-5">${nameObj.description}</p>
-`;
+            `;
             
             gridContainer.appendChild(card);
         });
@@ -828,12 +1078,11 @@ card.setAttribute('data-aos', 'fade-up');
         // Reinitialize Feather Icons after adding elements
         feather.replace();
         
-        // Dark mode toggle functionality
+        // Dark mode toggle functionality - RESTORED EXACTLY AS IT WAS
         const darkModeToggle = document.getElementById('darkModeToggle');
         const toggleIcon = darkModeToggle.querySelector('i');
         
-        // Check for saved theme preference or respect OS preference
-        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        // Check for saved theme preference
         const currentTheme = localStorage.getItem('theme');
         
         if (currentTheme === 'dark') {
@@ -892,7 +1141,7 @@ card.setAttribute('data-aos', 'fade-up');
         // Create background stars
         function createStars() {
             const container = document.getElementById('stars-container');
-            const starCount = 1000;
+            const starCount = 100;
             
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
@@ -916,7 +1165,7 @@ card.setAttribute('data-aos', 'fade-up');
             }
         }
         
-        // Animation for name cards on hover
+        // Initialize on load
         document.addEventListener('DOMContentLoaded', function() {
             createStars();
             
