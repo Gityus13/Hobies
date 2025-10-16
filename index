@@ -28,6 +28,556 @@
             transition: all 0.5s ease;
         }
         
+        /* GTA MODE */
+        body.gta-mode {
+            background: linear-gradient(135deg, #0a2e36, #1a535c, #4ecdc4, #1a535c) !important;
+            animation: gtaGradient 20s ease infinite !important;
+            background-size: 400% 400%;
+            color: #f7fff7 !important;
+            cursor: none !important;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gtaGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* GTA cursor */
+        .gta-cursor {
+            position: fixed;
+            width: 32px;
+            height: 32px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="%23ff6b35" stroke-width="8"/><circle cx="50" cy="50" r="15" fill="%23ff6b35"/><line x1="50" y1="10" x2="50" y2="30" stroke="%23ff6b35" stroke-width="5"/><line x1="50" y1="70" x2="50" y2="90" stroke="%23ff6b35" stroke-width="5"/><line x1="10" y1="50" x2="30" y2="50" stroke="%23ff6b35" stroke-width="5"/><line x1="70" y1="50" x2="90" y2="50" stroke="%23ff6b35" stroke-width="5"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 9999;
+            transform-origin: center;
+            transition: transform 0.1s ease;
+        }
+        
+        .gta-cursor-trail {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: #ff6b35;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            box-shadow: 0 0 8px 2px #ff6b35;
+        }
+        
+        .bullet-hole {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #333;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9997;
+            box-shadow: 
+                inset 0 0 5px rgba(0,0,0,0.8),
+                0 0 10px rgba(255, 107, 53, 0.7);
+            animation: bulletFade 3s ease-out forwards;
+        }
+        
+        @keyframes bulletFade {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.8); }
+        }
+        
+        /* GTA text styling */
+        body.gta-mode h1,
+        body.gta-mode h2,
+        body.gta-mode h3,
+        body.gta-mode p,
+        body.gta-mode a,
+        body.gta-mode span {
+            color: #f7fff7 !important;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7) !important;
+        }
+        
+        /* GTA cards */
+        body.gta-mode .name-card {
+            background: linear-gradient(135deg, #1a535c, #4ecdc4) !important;
+            border: 3px solid #ff6b35;
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.7) !important;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body.gta-mode .name-card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, transparent 40%, rgba(255, 107, 53, 0.3) 50%, transparent 60%);
+            transform: rotate(45deg);
+            animation: gtaShine 3s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes gtaShine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+        
+        /* GTA header */
+        body.gta-mode header {
+            background: rgba(26, 83, 92, 0.8) !important;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid #ff6b35;
+        }
+        
+        body.gta-mode header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="10" y="10" width="80" height="80" fill="none" stroke="%23ff6b35" stroke-width="2"/><circle cx="50" cy="50" r="30" fill="none" stroke="%23ff6b35" stroke-width="1"/></svg>');
+            background-size: 80px;
+            opacity: 0.1;
+            animation: floatGTA 20s linear infinite;
+        }
+        
+        @keyframes floatGTA {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(5deg); }
+        }
+        
+        /* GTA floating elements */
+        .gta-star {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            background: #ff6b35;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            pointer-events: none;
+            z-index: 9996;
+            animation: floatGTAStar 8s linear forwards;
+        }
+        
+        .gta-money {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #ffd700;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9996;
+            animation: floatMoney 10s linear forwards;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+        
+        .gta-money::before {
+            content: '$';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #000;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .gta-weapon {
+            position: fixed;
+            width: 40px;
+            height: 15px;
+            background: #333;
+            pointer-events: none;
+            z-index: 9996;
+            animation: floatWeapon 12s linear forwards;
+            border-radius: 3px;
+        }
+        
+        .gta-weapon::before {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 8px;
+            background: #555;
+            top: 3px;
+            left: -20px;
+            border-radius: 2px;
+        }
+        
+        @keyframes floatGTAStar {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        @keyframes floatMoney {
+            0% { transform: translateY(100vh) rotate(0deg) scale(1); opacity: 1; }
+            50% { transform: translateY(50vh) rotate(180deg) scale(1.2); opacity: 0.8; }
+            100% { transform: translateY(-100px) rotate(360deg) scale(1); opacity: 0; }
+        }
+        
+        @keyframes floatWeapon {
+            0% { transform: translateX(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateX(calc(100vw + 100px)) rotate(360deg); opacity: 0; }
+        }
+        
+        /* GTA radar overlay */
+        .gta-radar {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 150px;
+            height: 150px;
+            background: rgba(10, 46, 54, 0.8);
+            border: 3px solid #ff6b35;
+            border-radius: 50%;
+            z-index: 9995;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.5s ease;
+            overflow: hidden;
+        }
+        
+        body.gta-mode .gta-radar {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .gta-radar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            border: 1px solid rgba(255, 107, 53, 0.5);
+            border-radius: 50%;
+        }
+        
+        .gta-radar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: rgba(255, 107, 53, 0.5);
+            transform: translateX(-50%);
+        }
+        
+        .radar-sweep {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(transparent, rgba(255, 107, 53, 0.3), transparent);
+            animation: radarSweep 4s linear infinite;
+            border-radius: 50%;
+        }
+        
+        @keyframes radarSweep {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .radar-blip {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ff6b35;
+            border-radius: 50%;
+            animation: radarBlip 2s ease-in-out infinite;
+        }
+        
+        @keyframes radarBlip {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+        
+        /* GTA wanted level */
+        .gta-wanted {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 120px;
+            height: 120px;
+            background: rgba(10, 46, 54, 0.8);
+            border: 3px solid #ff6b35;
+            border-radius: 50%;
+            z-index: 9995;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ff6b35;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        body.gta-mode .gta-wanted {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .wanted-stars {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .wanted-star {
+            width: 15px;
+            height: 15px;
+            background: #ff6b35;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            opacity: 0.3;
+        }
+        
+        .wanted-star.active {
+            opacity: 1;
+            animation: starPulse 1s ease-in-out infinite;
+        }
+        
+        @keyframes starPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        /* GTA police siren */
+        .gta-siren {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9994;
+            opacity: 0;
+            background: 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.1) 0%, transparent 50%, rgba(0, 0, 255, 0.1) 100%);
+            animation: sirenFlash 0.5s linear infinite;
+        }
+        
+        body.gta-mode .gta-siren {
+            opacity: 0;
+        }
+        
+        body.gta-mode.wanted-5 .gta-siren {
+            opacity: 0.7;
+        }
+        
+        @keyframes sirenFlash {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 0.3; }
+        }
+        
+        /* GTA text effects */
+        .gta-text {
+            position: fixed;
+            font-family: 'Arial Black', sans-serif;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ff6b35;
+            text-shadow: 0 0 10px rgba(255, 107, 53, 0.8);
+            z-index: 9998;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* GTA explosion effect */
+        .gta-explosion {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #ff6b35 0%, #ff8e53 30%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transform: scale(0);
+        }
+        
+        /* GTA health and armor bars */
+        .gta-hud {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 200px;
+            background: rgba(10, 46, 54, 0.8);
+            border: 2px solid #ff6b35;
+            padding: 10px;
+            z-index: 9995;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        body.gta-mode .gta-hud {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .hud-bar {
+            height: 20px;
+            background: #333;
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .health-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #ff6b35);
+            width: 100%;
+            transition: width 0.3s ease;
+        }
+        
+        .armor-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4ecdc4, #1a535c);
+            width: 100%;
+            transition: width 0.3s ease;
+        }
+        
+        .hud-label {
+            color: #f7fff7;
+            font-size: 12px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        /* GTA radio static */
+        .gta-radio {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.05) 2px, rgba(255, 255, 255, 0.05) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 255, 255, 0.05) 2px, rgba(255, 255, 255, 0.05) 4px);
+            z-index: 9993;
+            opacity: 0;
+            pointer-events: none;
+            animation: radioStatic 0.1s linear infinite;
+        }
+        
+        body.gta-mode .gta-radio {
+            opacity: 0.1;
+        }
+        
+        @keyframes radioStatic {
+            0% { background-position: 0 0; }
+            100% { background-position: 10px 10px; }
+        }
+        
+        /* Original styles preserved */
+        /* BARBIE MODE */
+        body.barbie-mode {
+            background: linear-gradient(45deg, #FF69B4, #FFB6C1, #FF1493, #FFC0CB) !important;
+            animation: barbieGradient 15s ease infinite !important;
+            background-size: 400% 400%;
+            color: #FF1493;
+            cursor: none !important;
+            overflow-x: hidden;
+        }
+        
+        @keyframes barbieGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Barbie cursor */
+        .barbie-cursor {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50,10 C70,10 85,25 85,45 C85,65 70,80 50,80 C30,80 15,65 15,45 C15,25 30,10 50,10 Z" fill="%23FF69B4"/><circle cx="40" cy="35" r="5" fill="white"/><circle cx="60" cy="35" r="5" fill="white"/><circle cx="40" cy="35" r="2" fill="black"/><circle cx="60" cy="35" r="2" fill="black"/><path d="M40,55 Q50,65 60,55" stroke="%23FF1493" stroke-width="3" fill="none"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 9999;
+            transform-origin: center;
+            transition: transform 0.1s ease;
+        }
+        
+        .barbie-cursor-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 215, 0, 0.7);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            box-shadow: 0 0 10px 2px rgba(255, 215, 0, 0.8);
+        }
+        
+        .sparkle {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9997;
+            box-shadow: 0 0 10px 2px white;
+            animation: sparkleFade 1s ease-out forwards;
+        }
+        
+        @keyframes sparkleFade {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0); }
+        }
+        
+        /* Barbie text styling */
+        body.barbie-mode h1,
+        body.barbie-mode h2,
+        body.barbie-mode h3,
+        body.barbie-mode p,
+        body.barbie-mode a,
+        body.barbie-mode span {
+            color: #FF1493 !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8) !important;
+        }
+        
+        /* Barbie cards */
+        body.barbie-mode .name-card {
+            background: linear-gradient(135deg, #FF69B4, #DA70D6) !important;
+            border: 3px solid white;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.7) !important;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body.barbie-mode .name-card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.3) 50%, transparent 60%);
+            transform: rotate(45deg);
+            animation: diamondShine 3s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes diamondShine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+        
         /* DARK MODE - Restored exactly as it was */
         body.dark-mode {
             background: #0f172a !important;
@@ -660,6 +1210,39 @@
     <!-- Background elements -->
     <div id="stars-container" class="fixed inset-0 overflow-hidden pointer-events-none"></div>
     
+    <!-- GTA Mode Elements -->
+    <div class="gta-radar">
+        <div class="radar-sweep"></div>
+        <!-- Radar blips will be added by JavaScript -->
+    </div>
+    <div class="gta-wanted">
+        <div>Wanted</div>
+        <div class="wanted-stars">
+            <div class="wanted-star"></div>
+            <div class="wanted-star"></div>
+            <div class="wanted-star"></div>
+            <div class="wanted-star"></div>
+            <div class="wanted-star"></div>
+        </div>
+    </div>
+    <div class="gta-siren"></div>
+    <div class="gta-hud">
+        <div class="hud-label">Health</div>
+        <div class="hud-bar">
+            <div class="health-bar" id="healthBar"></div>
+        </div>
+        <div class="hud-label">Armor</div>
+        <div class="hud-bar">
+            <div class="armor-bar" id="armorBar"></div>
+        </div>
+    </div>
+    <div class="gta-radio"></div>
+    
+    <!-- Barbie Mode Elements -->
+    <div class="barbie-glitter"></div>
+    <div class="barbie-dreamhouse"></div>
+    <div class="barbie-runway"></div>
+    
     <!-- Disco lights -->
     <div class="disco-light" style="top:10%; left:10%; background:red; animation-delay:0s;"></div>
     <div class="disco-light" style="top:20%; left:80%; background:blue; animation-delay:2s;"></div>
@@ -684,12 +1267,54 @@
     <div class="access-granted">ACCESS GRANTED</div>
     
     <!-- Secret code input -->
-    <input type="text" class="secret-code-input" placeholder="Type'disco', 'glitch' or 'matrix'" id="secretCodeInput">
+    <input type="text" class="secret-code-input" placeholder="Type 'disco', 'glitch', 'matrix', 'barbie' or 'gta'" id="secretCodeInput">
     
     <!-- Audio element for music -->
     <audio id="background-music" loop>
         <source src="https://files.catbox.moe/ayfuk1.wav" type="audio/mpeg">
         Your browser does not support the audio element.
+    </audio>
+    
+    <!-- Barbie Audio -->
+    <audio id="barbie-music" loop>
+        <source src="https://files.catbox.moe/ayfuk1.wav" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <!-- GTA Audio -->
+    <audio id="gta-music" loop>
+        <source src="https://files.catbox.moe/ayfuk1.wav" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <!-- GTA Sounds -->
+    <audio id="gunshot-sound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-gun-shot-1663.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="explosion-sound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-explosion-1697.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="siren-sound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-police-siren-1693.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="radio-sound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-radio-static-1680.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Barbie Sounds -->
+    <audio id="giggle-sound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-girl-giggling-583.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="sparkle-sound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-sound-309.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="beautiful-sound">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-cute-girl-voice-says-hello-220.mp3" type="audio/mpeg">
     </audio>
     
     <!-- Dark Mode Toggle -->
@@ -806,6 +1431,30 @@
         const secretCodeInput = document.getElementById('secretCodeInput');
         const body = document.body;
         
+        // GTA MODE VARIABLES
+        let gtaCursor;
+        let gtaTrails = [];
+        let gtaInterval;
+        let gtaStarInterval;
+        let gtaMoneyInterval;
+        let gtaWeaponInterval;
+        let gtaTextInterval;
+        let gtaWantedLevel = 0;
+        let gtaHealth = 100;
+        let gtaArmor = 100;
+        let gtaRadarBlips = [];
+        
+        // BARBIE MODE VARIABLES
+        let barbieCursor;
+        let barbieTrails = [];
+        let barbieInterval;
+        let barbieHeartInterval;
+        let barbieDiamondInterval;
+        let barbieKissInterval;
+        let barbieBrushInterval;
+        let barbieTextInterval;
+        let barbieVoiceInterval;
+        
         // GLITCH MODE VARIABLES
         let glitchInterval;
         let errorMessages = [
@@ -836,9 +1485,42 @@
             const inputValue = this.value.toLowerCase().trim();
             
             // Reset all modes first
-            body.classList.remove('disco-mode', 'glitch-mode', 'matrix-mode');
+            body.classList.remove('disco-mode', 'glitch-mode', 'matrix-mode', 'barbie-mode', 'gta-mode');
+            body.classList.remove('wanted-1', 'wanted-2', 'wanted-3', 'wanted-4', 'wanted-5');
             clearInterval(glitchInterval);
             clearInterval(matrixInterval);
+            clearInterval(barbieInterval);
+            clearInterval(barbieHeartInterval);
+            clearInterval(barbieDiamondInterval);
+            clearInterval(barbieKissInterval);
+            clearInterval(barbieBrushInterval);
+            clearInterval(barbieTextInterval);
+            clearInterval(barbieVoiceInterval);
+            clearInterval(gtaInterval);
+            clearInterval(gtaStarInterval);
+            clearInterval(gtaMoneyInterval);
+            clearInterval(gtaWeaponInterval);
+            clearInterval(gtaTextInterval);
+            
+            // Remove barbie cursor
+            if (barbieCursor) {
+                barbieCursor.remove();
+                barbieCursor = null;
+            }
+            
+            // Remove gta cursor
+            if (gtaCursor) {
+                gtaCursor.remove();
+                gtaCursor = null;
+            }
+            
+            // Remove barbie trails
+            barbieTrails.forEach(trail => trail.remove());
+            barbieTrails = [];
+            
+            // Remove gta trails
+            gtaTrails.forEach(trail => trail.remove());
+            gtaTrails = [];
             
             // Remove all disco animations
             document.querySelectorAll('p, h1, h2, h3').forEach(element => {
@@ -911,6 +1593,699 @@
                 setTimeout(() => {
                     showAccessGranted();
                 }, 2000);
+            }
+            // BARBIE MODE
+            else if (inputValue === 'barbie') {
+                body.classList.add('barbie-mode');
+                body.classList.remove('dark-mode');
+                
+                // Create barbie cursor
+                barbieCursor = document.createElement('div');
+                barbieCursor.className = 'barbie-cursor';
+                document.body.appendChild(barbieCursor);
+                
+                // Play barbie music
+                const barbieMusic = document.getElementById('barbie-music');
+                if (barbieMusic) {
+                    barbieMusic.play().catch(e => console.log("Autoplay prevented:", e));
+                }
+                
+                // Add crown to name cards
+                document.querySelectorAll('.name-card').forEach(card => {
+                    const crown = document.createElement('div');
+                    crown.className = 'barbie-crown';
+                    card.appendChild(crown);
+                });
+                
+                // Create floating hearts
+                barbieHeartInterval = setInterval(() => {
+                    createBarbieHeart();
+                }, 1000);
+                
+                // Create floating diamonds
+                barbieDiamondInterval = setInterval(() => {
+                    createBarbieDiamond();
+                }, 2000);
+                
+                // Create floating kisses
+                barbieKissInterval = setInterval(() => {
+                    createBarbieKiss();
+                }, 5000);
+                
+                // Create floating brushes
+                barbieBrushInterval = setInterval(() => {
+                    createBarbieBrush();
+                }, 8000);
+                
+                // Show random barbie text
+                barbieTextInterval = setInterval(() => {
+                    showBarbieText();
+                }, 10000);
+                
+                // Play voice clips occasionally
+                barbieVoiceInterval = setInterval(() => {
+                    playBarbieVoice();
+                }, 15000);
+                
+                // Add click event for heart explosion
+                document.addEventListener('click', createHeartExplosion);
+                
+                // Add scroll event for extra glitter
+                document.addEventListener('scroll', createScrollGlitter);
+                
+                // Add right-click event for background pattern change
+                document.addEventListener('contextmenu', changeBarbieBackground);
+            }
+            // GTA MODE
+            else if (inputValue === 'gta') {
+                body.classList.add('gta-mode');
+                body.classList.remove('dark-mode');
+                
+                // Create gta cursor
+                gtaCursor = document.createElement('div');
+                gtaCursor.className = 'gta-cursor';
+                document.body.appendChild(gtaCursor);
+                
+                // Play gta music
+                const gtaMusic = document.getElementById('gta-music');
+                if (gtaMusic) {
+                    gtaMusic.play().catch(e => console.log("Autoplay prevented:", e));
+                }
+                
+                // Play radio static
+                const radioSound = document.getElementById('radio-sound');
+                if (radioSound) {
+                    radioSound.play().catch(e => console.log("Sound play prevented:", e));
+                }
+                
+                // Create floating stars
+                gtaStarInterval = setInterval(() => {
+                    createGTAStar();
+                }, 1500);
+                
+                // Create floating money
+                gtaMoneyInterval = setInterval(() => {
+                    createGTAMoney();
+                }, 2000);
+                
+                // Create floating weapons
+                gtaWeaponInterval = setInterval(() => {
+                    createGTAWeapon();
+                }, 5000);
+                
+                // Show random gta text
+                gtaTextInterval = setInterval(() => {
+                    showGTAText();
+                }, 8000);
+                
+                // Add click event for shooting
+                document.addEventListener('click', createGunshot);
+                
+                // Add right-click event for explosion
+                document.addEventListener('contextmenu', createExplosion);
+                
+                // Add keyboard events for wanted level
+                document.addEventListener('keydown', handleGTAKeys);
+                
+                // Initialize health and armor bars
+                updateGTAHUD();
+                
+                // Create radar blips
+                createRadarBlips();
+            }
+        });
+        
+        // GTA MODE FUNCTIONS
+        function createGTACursor() {
+            document.addEventListener('mousemove', function(e) {
+                if (!gtaCursor) return;
+                
+                // Update cursor position
+                gtaCursor.style.left = e.clientX + 'px';
+                gtaCursor.style.top = e.clientY + 'px';
+                
+                // Create trail
+                createGTATrail(e.clientX, e.clientY);
+            });
+            
+            // Add recoil effect on click
+            document.addEventListener('click', function() {
+                if (!gtaCursor) return;
+                
+                anime({
+                    targets: gtaCursor,
+                    scale: [1, 1.2, 1],
+                    duration: 200,
+                    easing: 'easeOutElastic'
+                });
+            });
+        }
+        
+        function createGTATrail(x, y) {
+            // Create trail element
+            const trail = document.createElement('div');
+            trail.className = 'gta-cursor-trail';
+            trail.style.left = x + 'px';
+            trail.style.top = y + 'px';
+            document.body.appendChild(trail);
+            
+            // Add to trails array
+            gtaTrails.push(trail);
+            
+            // Remove trail after animation
+            setTimeout(() => {
+                trail.remove();
+                gtaTrails = gtaTrails.filter(t => t !== trail);
+            }, 1000);
+        }
+        
+        function createGTAStar() {
+            const star = document.createElement('div');
+            star.className = 'gta-star';
+            star.style.left = Math.random() * window.innerWidth + 'px';
+            document.body.appendChild(star);
+            
+            // Remove after animation
+            setTimeout(() => {
+                star.remove();
+            }, 8000);
+        }
+        
+        function createGTAMoney() {
+            const money = document.createElement('div');
+            money.className = 'gta-money';
+            money.style.left = Math.random() * window.innerWidth + 'px';
+            document.body.appendChild(money);
+            
+            // Remove after animation
+            setTimeout(() => {
+                money.remove();
+            }, 10000);
+        }
+        
+        function createGTAWeapon() {
+            const weapon = document.createElement('div');
+            weapon.className = 'gta-weapon';
+            weapon.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(weapon);
+            
+            // Remove after animation
+            setTimeout(() => {
+                weapon.remove();
+            }, 12000);
+        }
+        
+        function showGTAText() {
+            const texts = ["Wasted!", "Busted!", "Mission Passed!", "Respect +", "Grove Street 4 Life!"];
+            const text = texts[Math.floor(Math.random() * texts.length)];
+            
+            const textElement = document.createElement('div');
+            textElement.className = 'gta-text';
+            textElement.textContent = text;
+            textElement.style.left = Math.random() * (window.innerWidth - 200) + 'px';
+            textElement.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+            document.body.appendChild(textElement);
+            
+            // Animate in
+            anime({
+                targets: textElement,
+                opacity: [0, 1],
+                scale: [0, 1],
+                duration: 1000,
+                easing: 'easeOutElastic'
+            });
+            
+            // Animate out
+            setTimeout(() => {
+                anime({
+                    targets: textElement,
+                    opacity: 0,
+                    scale: 0,
+                    duration: 1000,
+                    easing: 'easeInQuad',
+                    complete: function() {
+                        textElement.remove();
+                    }
+                });
+            }, 3000);
+        }
+        
+        function createGunshot(e) {
+            if (!body.classList.contains('gta-mode')) return;
+            
+            // Create bullet hole
+            const bulletHole = document.createElement('div');
+            bulletHole.className = 'bullet-hole';
+            bulletHole.style.left = e.clientX + 'px';
+            bulletHole.style.top = e.clientY + 'px';
+            document.body.appendChild(bulletHole);
+            
+            // Play gunshot sound
+            const gunshotSound = document.getElementById('gunshot-sound');
+            if (gunshotSound) {
+                gunshotSound.currentTime = 0;
+                gunshotSound.play().catch(e => console.log("Sound play prevented:", e));
+            }
+            
+            // Increase wanted level randomly
+            if (Math.random() > 0.7) {
+                increaseWantedLevel();
+            }
+            
+            // Remove bullet hole after animation
+            setTimeout(() => {
+                bulletHole.remove();
+            }, 3000);
+        }
+        
+        function createExplosion(e) {
+            if (!body.classList.contains('gta-mode')) return;
+            
+            e.preventDefault();
+            
+            // Create explosion
+            const explosion = document.createElement('div');
+            explosion.className = 'gta-explosion';
+            explosion.style.left = e.clientX + 'px';
+            explosion.style.top = e.clientY + 'px';
+            document.body.appendChild(explosion);
+            
+            // Animate explosion
+            anime({
+                targets: explosion,
+                opacity: [0, 1, 0],
+                scale: [0, 2, 0],
+                duration: 1000,
+                easing: 'easeOutQuad',
+                complete: function() {
+                    explosion.remove();
+                }
+            });
+            
+            // Play explosion sound
+            const explosionSound = document.getElementById('explosion-sound');
+            if (explosionSound) {
+                explosionSound.currentTime = 0;
+                explosionSound.play().catch(e => console.log("Sound play prevented:", e));
+            }
+            
+            // Increase wanted level
+            increaseWantedLevel();
+            
+            // Decrease health
+            decreaseHealth(20);
+        }
+        
+        function increaseWantedLevel() {
+            if (gtaWantedLevel < 5) {
+                gtaWantedLevel++;
+                updateWantedStars();
+                
+                // Play siren sound at higher wanted levels
+                if (gtaWantedLevel >= 3) {
+                    const sirenSound = document.getElementById('siren-sound');
+                    if (sirenSound) {
+                        sirenSound.play().catch(e => console.log("Sound play prevented:", e));
+                    }
+                }
+                
+                // Add police siren effect at max wanted level
+                if (gtaWantedLevel === 5) {
+                    body.classList.add('wanted-5');
+                }
+            }
+        }
+        
+        function decreaseWantedLevel() {
+            if (gtaWantedLevel > 0) {
+                gtaWantedLevel--;
+                updateWantedStars();
+                
+                // Remove police siren effect
+                if (gtaWantedLevel < 5) {
+                    body.classList.remove('wanted-5');
+                }
+            }
+        }
+        
+        function updateWantedStars() {
+            const stars = document.querySelectorAll('.wanted-star');
+            stars.forEach((star, index) => {
+                if (index < gtaWantedLevel) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+        
+        function decreaseHealth(amount) {
+            gtaHealth = Math.max(0, gtaHealth - amount);
+            updateGTAHUD();
+            
+            if (gtaHealth === 0) {
+                showGTAText("Wasted!");
+                // Reset health after delay
+                setTimeout(() => {
+                    gtaHealth = 100;
+                    updateGTAHUD();
+                }, 3000);
+            }
+        }
+        
+        function decreaseArmor(amount) {
+            gtaArmor = Math.max(0, gtaArmor - amount);
+            updateGTAHUD();
+        }
+        
+        function updateGTAHUD() {
+            const healthBar = document.getElementById('healthBar');
+            const armorBar = document.getElementById('armorBar');
+            
+            if (healthBar) healthBar.style.width = gtaHealth + '%';
+            if (armorBar) armorBar.style.width = gtaArmor + '%';
+        }
+        
+        function handleGTAKeys(e) {
+            if (!body.classList.contains('gta-mode')) return;
+            
+            switch(e.key) {
+                case '1':
+                    increaseWantedLevel();
+                    break;
+                case '2':
+                    decreaseWantedLevel();
+                    break;
+                case 'h':
+                    gtaHealth = Math.min(100, gtaHealth + 25);
+                    updateGTAHUD();
+                    break;
+                case 'a':
+                    gtaArmor = Math.min(100, gtaArmor + 25);
+                    updateGTAHUD();
+                    break;
+            }
+        }
+        
+        function createRadarBlips() {
+            const radar = document.querySelector('.gta-radar');
+            if (!radar) return;
+            
+            // Clear existing blips
+            gtaRadarBlips.forEach(blip => blip.remove());
+            gtaRadarBlips = [];
+            
+            // Create new blips
+            for (let i = 0; i < 5; i++) {
+                const blip = document.createElement('div');
+                blip.className = 'radar-blip';
+                
+                // Random position within radar
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 20 + Math.random() * 40;
+                const x = 75 + Math.cos(angle) * distance;
+                const y = 75 + Math.sin(angle) * distance;
+                
+                blip.style.left = x + 'px';
+                blip.style.top = y + 'px';
+                
+                radar.appendChild(blip);
+                gtaRadarBlips.push(blip);
+            }
+        }
+        
+        // Initialize gta cursor when gta mode is activated
+        secretCodeInput.addEventListener('input', function() {
+            if (this.value.toLowerCase().trim() === 'gta') {
+                setTimeout(createGTACursor, 100);
+            }
+        });
+        
+        // BARBIE MODE FUNCTIONS
+        function createBarbieCursor() {
+            document.addEventListener('mousemove', function(e) {
+                if (!barbieCursor) return;
+                
+                // Update cursor position
+                barbieCursor.style.left = e.clientX + 'px';
+                barbieCursor.style.top = e.clientY + 'px';
+                
+                // Rotate cursor based on movement
+                const rotation = Math.atan2(e.movementY, e.movementX) * 180 / Math.PI;
+                barbieCursor.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+                
+                // Create glitter trail
+                createGlitterTrail(e.clientX, e.clientY);
+            });
+            
+            // Add bounce effect on click
+            document.addEventListener('click', function() {
+                if (!barbieCursor) return;
+                
+                anime({
+                    targets: barbieCursor,
+                    scale: [1, 1.5, 1],
+                    duration: 300,
+                    easing: 'easeOutElastic'
+                });
+                
+                // Play sparkle sound
+                const sparkleSound = document.getElementById('sparkle-sound');
+                if (sparkleSound) {
+                    sparkleSound.currentTime = 0;
+                    sparkleSound.play().catch(e => console.log("Sound play prevented:", e));
+                }
+            });
+        }
+        
+        function createGlitterTrail(x, y) {
+            // Create trail element
+            const trail = document.createElement('div');
+            trail.className = 'barbie-cursor-trail';
+            trail.style.left = x + 'px';
+            trail.style.top = y + 'px';
+            document.body.appendChild(trail);
+            
+            // Add to trails array
+            barbieTrails.push(trail);
+            
+            // Remove trail after animation
+            setTimeout(() => {
+                trail.remove();
+                barbieTrails = barbieTrails.filter(t => t !== trail);
+            }, 1000);
+            
+            // Create sparkles occasionally
+            if (Math.random() > 0.7) {
+                createSparkle(x, y);
+            }
+        }
+        
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            document.body.appendChild(sparkle);
+            
+            // Remove after animation
+            setTimeout(() => {
+                sparkle.remove();
+            }, 1000);
+        }
+        
+        function createBarbieHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'barbie-heart';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            document.body.appendChild(heart);
+            
+            // Remove after animation
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+        }
+        
+        function createBarbieDiamond() {
+            const diamond = document.createElement('div');
+            diamond.className = 'barbie-diamond';
+            diamond.style.left = Math.random() * window.innerWidth + 'px';
+            document.body.appendChild(diamond);
+            
+            // Remove after animation
+            setTimeout(() => {
+                diamond.remove();
+            }, 10000);
+        }
+        
+        function createBarbieKiss() {
+            const kiss = document.createElement('div');
+            kiss.className = 'barbie-kiss';
+            kiss.style.left = Math.random() * window.innerWidth + 'px';
+            kiss.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(kiss);
+            
+            // Remove after animation
+            setTimeout(() => {
+                kiss.remove();
+            }, 5000);
+        }
+        
+        function createBarbieBrush() {
+            const brush = document.createElement('div');
+            brush.className = 'barbie-brush';
+            brush.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(brush);
+            
+            // Remove after animation
+            setTimeout(() => {
+                brush.remove();
+            }, 15000);
+        }
+        
+        function showBarbieText() {
+            const texts = ["Hi Barbie!", "You're fabulous!", "So glamorous!", "Dream big!", "Sparkle on!"];
+            const text = texts[Math.floor(Math.random() * texts.length)];
+            
+            const textElement = document.createElement('div');
+            textElement.className = 'barbie-text';
+            textElement.textContent = text;
+            textElement.style.left = Math.random() * (window.innerWidth - 200) + 'px';
+            textElement.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+            document.body.appendChild(textElement);
+            
+            // Animate in
+            anime({
+                targets: textElement,
+                opacity: [0, 1],
+                scale: [0, 1],
+                duration: 1000,
+                easing: 'easeOutElastic'
+            });
+            
+            // Animate out
+            setTimeout(() => {
+                anime({
+                    targets: textElement,
+                    opacity: 0,
+                    scale: 0,
+                    duration: 1000,
+                    easing: 'easeInQuad',
+                    complete: function() {
+                        textElement.remove();
+                    }
+                });
+            }, 3000);
+        }
+        
+        function playBarbieVoice() {
+            const beautifulSound = document.getElementById('beautiful-sound');
+            if (beautifulSound && Math.random() > 0.5) {
+                beautifulSound.currentTime = 0;
+                beautifulSound.play().catch(e => console.log("Sound play prevented:", e));
+            }
+        }
+        
+        function createHeartExplosion(e) {
+            if (!body.classList.contains('barbie-mode')) return;
+            
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'barbie-heart';
+                heart.style.left = e.clientX + 'px';
+                heart.style.top = e.clientY + 'px';
+                heart.style.animation = `heartExplode 1s ease-out forwards`;
+                document.body.appendChild(heart);
+                
+                // Random direction and distance
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 50 + Math.random() * 100;
+                const targetX = e.clientX + Math.cos(angle) * distance;
+                const targetY = e.clientY + Math.sin(angle) * distance;
+                
+                // Animate
+                anime({
+                    targets: heart,
+                    left: targetX,
+                    top: targetY,
+                    opacity: [1, 0],
+                    scale: [0, 1, 0],
+                    duration: 1000,
+                    easing: 'easeOutQuad',
+                    complete: function() {
+                        heart.remove();
+                    }
+                });
+            }
+            
+            // Play giggle sound
+            const giggleSound = document.getElementById('giggle-sound');
+            if (giggleSound) {
+                giggleSound.currentTime = 0;
+                giggleSound.play().catch(e => console.log("Sound play prevented:", e));
+            }
+        }
+        
+        function createScrollGlitter() {
+            if (!body.classList.contains('barbie-mode')) return;
+            
+            for (let i = 0; i < 5; i++) {
+                createSparkle(
+                    Math.random() * window.innerWidth,
+                    Math.random() * window.innerHeight
+                );
+            }
+        }
+        
+        function changeBarbieBackground(e) {
+            if (!body.classList.contains('barbie-mode')) return;
+            
+            e.preventDefault();
+            
+            const patterns = [
+                'polka-dots',
+                'stripes',
+                'hearts',
+                'stars'
+            ];
+            
+            const pattern = patterns[Math.floor(Math.random() * patterns.length)];
+            const glitter = document.querySelector('.barbie-glitter');
+            
+            // Change background pattern
+            switch(pattern) {
+                case 'polka-dots':
+                    glitter.style.backgroundImage = 
+                        'radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.3) 3px, transparent 4px), ' +
+                        'radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.3) 3px, transparent 4px)';
+                    glitter.style.backgroundSize = '50px 50px, 70px 70px';
+                    break;
+                case 'stripes':
+                    glitter.style.backgroundImage = 
+                        'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.2) 10px, rgba(255, 255, 255, 0.2) 20px)';
+                    break;
+                case 'hearts':
+                    glitter.style.backgroundImage = 
+                        'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'50\' height=\'50\' viewBox=\'0 0 50 50\'><path d=\'M25,15 C30,5 40,5 45,15 C50,25 25,40 25,40 C25,40 0,25 5,15 C10,5 20,5 25,15 Z\' fill=\'white\' opacity=\'0.2\'/></svg>")';
+                    break;
+                case 'stars':
+                    glitter.style.backgroundImage = 
+                        'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'50\' height=\'50\' viewBox=\'0 0 50 50\'><polygon points=\'25,5 30,20 45,20 32.5,30 37.5,45 25,35 12.5,45 17.5,30 5,20 20,20\' fill=\'white\' opacity=\'0.2\'/></svg>")';
+                    break;
+            }
+            
+            // Play sparkle sound
+            const sparkleSound = document.getElementById('sparkle-sound');
+            if (sparkleSound) {
+                sparkleSound.currentTime = 0;
+                sparkleSound.play().catch(e => console.log("Sound play prevented:", e));
+            }
+        }
+        
+        // Initialize barbie cursor when barbie mode is activated
+        secretCodeInput.addEventListener('input', function() {
+            if (this.value.toLowerCase().trim() === 'barbie') {
+                setTimeout(createBarbieCursor, 100);
             }
         });
         
