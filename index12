@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EAS HOBBIES</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JXV858VBM0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JXV858VBM0');
+</script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="https://i.ibb.co/wFY6Tn2y/7-F.png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -1271,52 +1278,15 @@
     
     <!-- Audio element for music -->
     <audio id="background-music" loop>
-        <source src="https://files.catbox.moe/ayfuk1.wav" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    
-    <!-- Barbie Audio -->
-    <audio id="barbie-music" loop>
-        <source src="https://files.catbox.moe/ayfuk1.wav" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    
-    <!-- GTA Audio -->
-    <audio id="gta-music" loop>
-        <source src="https://files.catbox.moe/ayfuk1.wav" type="audio/mpeg">
+        <source src="https://files.catbox.moe/0zykoy.wav" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
     
     <!-- GTA Sounds -->
     <audio id="gunshot-sound">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-gun-shot-1663.mp3" type="audio/mpeg">
+        <source src="https://files.catbox.moe/8luflz.mp3" type="audio/mpeg">
     </audio>
-    
-    <audio id="explosion-sound">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-explosion-1697.mp3" type="audio/mpeg">
-    </audio>
-    
-    <audio id="siren-sound">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-police-siren-1693.mp3" type="audio/mpeg">
-    </audio>
-    
-    <audio id="radio-sound">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-radio-static-1680.mp3" type="audio/mpeg">
-    </audio>
-    
-    <!-- Barbie Sounds -->
-    <audio id="giggle-sound">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-girl-giggling-583.mp3" type="audio/mpeg">
-    </audio>
-    
-    <audio id="sparkle-sound">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-sound-309.mp3" type="audio/mpeg">
-    </audio>
-    
-    <audio id="beautiful-sound">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-cute-girl-voice-says-hello-220.mp3" type="audio/mpeg">
-    </audio>
-    
+
     <!-- Dark Mode Toggle -->
     <div class="dark-mode-toggle">
         <div class="toggle-button" id="darkModeToggle">
@@ -1392,7 +1362,11 @@
                 <i class="fa-solid fa-circle-info"></i>
                 Info
             </a>
-            <!-- NEW BUTTONS ADDED HERE -->
+            <a href="https://eashobies.site/modes.html" class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-3 px-6 md:py-4 md:px-8 rounded-full transition-all duration-300 inline-flex items-center gap-2">
+                <i class="fa-solid fa-cubes"></i>
+                Explore Modes
+            </a>
+<!-- NEW BUTTONS ADDED HERE -->
             <a href="https://eashobies.site/flappybird.html" class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-3 px-6 md:py-4 md:px-8 rounded-full transition-all duration-300 inline-flex items-center gap-2">
                 <i class="fa-solid fa-dove"></i>
                 Flappy Bird Game
@@ -1411,7 +1385,7 @@
     <!-- Footer -->
     <footer class="bg-black/20 py-8 md:py-12 text-center text-white/80">
         <div class="container mx-auto px-4">
-            <p class="text-base md:text-lg md:text-xl">Ⓡ-© 2025.  Something incorrect, lie or you want to add something, etc contact for change +994 50 549 9933 or find Yusif.G 7f Or Farhad.A 7f Made by YUSAI And Farhadik. Logo By Rufiz.A Kenan the 3rd host</p>
+            <p class="text-base md:text-lg md:text-xl">Ⓡ-© 2025.  Something incorrect, lie or you want to add something, etc contact for change +994 50 549 99 33 or find Yusif.G 7f. Made by YUSAI And Farhadik And Kenanchik. Logo By Rufiz.A</p>
         </div>
     </footer>
     
@@ -2400,7 +2374,7 @@
         // Names array with descriptions
         const names = [
             { name: "Ali", description: "<i class=\"fa-solid fa-robot\"></i> Ali is a real powerful AI we call him (AliGpt)" },
-            { name: "Farhad", description: "<i class=\"fa-solid fa-palette\"></i> He loves Basketball" },
+            { name: "Farhad", description: "<i class=\"fa-solid fa-palette\"></i> This person is `uselless!" },
             { name: "Yusif", description: "<i class=\"fa-solid fa-music\"></i> DJ :) (host of website)" },
             { name: "Rufiz", description: "<i class=\"fa-solid fa-basketball\"></i> American bad boy that loves sport (Logo Creator)" },
             { name: "Eldar", description: "<i class=\"fa-solid fa-crosshairs\"></i> He is good for his hunting skills" },
@@ -2411,7 +2385,7 @@
             { name: "Safia", description: "<i class=\"fa-solid fa-volleyball\"></i> Volleyball Player" },
             { name: "Khadija", description: "<i class=\"fa-solid fa-people-group\"></i> Team bestie MMA" },
             { name: "Aisha", description: "<i class=\"fa-solid fa-microphone\"></i> Blackpink" },
-            { name: "Fateh", description: "<i class=\"fa-solid fa-face-laugh\"></i> Ver Mən Vurmuda Nolar Gol Olacag" },
+            { name: "Fateh", description: "<i class=\"fa-solid fa-face-laugh\"></i> The real meaning of goat" },
             { name: "Matin", description: "<i class=\"fa-solid fa-calculator\"></i> Our math calculator" },
             { name: "Vidadi", description: "<i class=\"fa-solid fa-gamepad\"></i> Video games" },
             { name: "Omar", description: "<i class=\"fa-solid fa-football\"></i> Rugby" },
@@ -2436,7 +2410,7 @@
         // Icons for cards
         const icons = [
             "cpu", "coffee", "music", "gift", "sun", "moon", "cloud", "shield", "bell", "bell", 
-            "camera", "video", "slash", "feather", "video-off", "key", "smile", "smile", "paperclip", 
+            "camera", "video", "goat", "feather", "video-off", "key", "smile", "smile", "paperclip", 
             "camera", "music"
         ];
         
