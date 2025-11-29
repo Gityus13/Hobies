@@ -13,11 +13,13 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="https://i.ibb.co/wFY6Tn2y/7-F.png">
+    <!-- Replace CDN with local Tailwind or use proper build process -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
+    <!-- Fix anime.js import -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <style>
         /* LOADING SCREEN */
         #loading-screen {
@@ -1829,12 +1831,14 @@
             document.addEventListener('click', function() {
                 if (!gtaCursor) return;
                 
-                anime({
-                    targets: gtaCursor,
-                    scale: [1, 1.2, 1],
-                    duration: 200,
-                    easing: 'easeOutElastic'
-                });
+                if (typeof anime !== 'undefined') {
+                    anime({
+                        targets: gtaCursor,
+                        scale: [1, 1.2, 1],
+                        duration: 200,
+                        easing: 'easeOutElastic'
+                    });
+                }
             });
         }
         
@@ -1904,27 +1908,29 @@
             document.body.appendChild(textElement);
             
             // Animate in
-            anime({
-                targets: textElement,
-                opacity: [0, 1],
-                scale: [0, 1],
-                duration: 1000,
-                easing: 'easeOutElastic'
-            });
-            
-            // Animate out
-            setTimeout(() => {
+            if (typeof anime !== 'undefined') {
                 anime({
                     targets: textElement,
-                    opacity: 0,
-                    scale: 0,
+                    opacity: [0, 1],
+                    scale: [0, 1],
                     duration: 1000,
-                    easing: 'easeInQuad',
-                    complete: function() {
-                        textElement.remove();
-                    }
+                    easing: 'easeOutElastic'
                 });
-            }, 3000);
+                
+                // Animate out
+                setTimeout(() => {
+                    anime({
+                        targets: textElement,
+                        opacity: 0,
+                        scale: 0,
+                        duration: 1000,
+                        easing: 'easeInQuad',
+                        complete: function() {
+                            textElement.remove();
+                        }
+                    });
+                }, 3000);
+            }
         }
         
         function createGunshot(e) {
@@ -1968,16 +1974,18 @@
             document.body.appendChild(explosion);
             
             // Animate explosion
-            anime({
-                targets: explosion,
-                opacity: [0, 1, 0],
-                scale: [0, 2, 0],
-                duration: 1000,
-                easing: 'easeOutQuad',
-                complete: function() {
-                    explosion.remove();
-                }
-            });
+            if (typeof anime !== 'undefined') {
+                anime({
+                    targets: explosion,
+                    opacity: [0, 1, 0],
+                    scale: [0, 2, 0],
+                    duration: 1000,
+                    easing: 'easeOutQuad',
+                    complete: function() {
+                        explosion.remove();
+                    }
+                });
+            }
             
             // Play explosion sound
             const explosionSound = document.getElementById('explosion-sound');
@@ -2139,12 +2147,14 @@
             document.addEventListener('click', function() {
                 if (!barbieCursor) return;
                 
-                anime({
-                    targets: barbieCursor,
-                    scale: [1, 1.5, 1],
-                    duration: 300,
-                    easing: 'easeOutElastic'
-                });
+                if (typeof anime !== 'undefined') {
+                    anime({
+                        targets: barbieCursor,
+                        scale: [1, 1.5, 1],
+                        duration: 300,
+                        easing: 'easeOutElastic'
+                    });
+                }
                 
                 // Play sparkle sound
                 const sparkleSound = document.getElementById('sparkle-sound');
@@ -2252,27 +2262,29 @@
             document.body.appendChild(textElement);
             
             // Animate in
-            anime({
-                targets: textElement,
-                opacity: [0, 1],
-                scale: [0, 1],
-                duration: 1000,
-                easing: 'easeOutElastic'
-            });
-            
-            // Animate out
-            setTimeout(() => {
+            if (typeof anime !== 'undefined') {
                 anime({
                     targets: textElement,
-                    opacity: 0,
-                    scale: 0,
+                    opacity: [0, 1],
+                    scale: [0, 1],
                     duration: 1000,
-                    easing: 'easeInQuad',
-                    complete: function() {
-                        textElement.remove();
-                    }
+                    easing: 'easeOutElastic'
                 });
-            }, 3000);
+                
+                // Animate out
+                setTimeout(() => {
+                    anime({
+                        targets: textElement,
+                        opacity: 0,
+                        scale: 0,
+                        duration: 1000,
+                        easing: 'easeInQuad',
+                        complete: function() {
+                            textElement.remove();
+                        }
+                    });
+                }, 3000);
+            }
         }
         
         function playBarbieVoice() {
@@ -2301,18 +2313,20 @@
                 const targetY = e.clientY + Math.sin(angle) * distance;
                 
                 // Animate
-                anime({
-                    targets: heart,
-                    left: targetX,
-                    top: targetY,
-                    opacity: [1, 0],
-                    scale: [0, 1, 0],
-                    duration: 1000,
-                    easing: 'easeOutQuad',
-                    complete: function() {
-                        heart.remove();
-                    }
-                });
+                if (typeof anime !== 'undefined') {
+                    anime({
+                        targets: heart,
+                        left: targetX,
+                        top: targetY,
+                        opacity: [1, 0],
+                        scale: [0, 1, 0],
+                        duration: 1000,
+                        easing: 'easeOutQuad',
+                        complete: function() {
+                            heart.remove();
+                        }
+                    });
+                }
             }
             
             // Play giggle sound
@@ -2401,27 +2415,29 @@
             document.body.appendChild(error);
             
             // Animate in
-            anime({
-                targets: error,
-                opacity: [0, 1],
-                scale: [0, 1],
-                duration: 500,
-                easing: 'easeOutBack'
-            });
-            
-            // Remove after animation
-            setTimeout(() => {
+            if (typeof anime !== 'undefined') {
                 anime({
                     targets: error,
-                    opacity: 0,
-                    scale: 0,
+                    opacity: [0, 1],
+                    scale: [0, 1],
                     duration: 500,
-                    easing: 'easeInBack',
-                    complete: function() {
-                        document.body.removeChild(error);
-                    }
+                    easing: 'easeOutBack'
                 });
-            }, 2000);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    anime({
+                        targets: error,
+                        opacity: 0,
+                        scale: 0,
+                        duration: 500,
+                        easing: 'easeInBack',
+                        complete: function() {
+                            document.body.removeChild(error);
+                        }
+                    });
+                }, 2000);
+            }
         }
         
         function scrambleText() {
@@ -2454,44 +2470,48 @@
             const terminal = document.querySelector('.terminal-message');
             terminal.textContent = message;
             
-            anime({
-                targets: terminal,
-                opacity: [0, 1],
-                translateY: [20, 0],
-                duration: 500,
-                easing: 'easeOutQuad'
-            });
-            
-            setTimeout(() => {
+            if (typeof anime !== 'undefined') {
                 anime({
                     targets: terminal,
-                    opacity: 0,
-                    translateY: 20,
+                    opacity: [0, 1],
+                    translateY: [20, 0],
                     duration: 500,
-                    easing: 'easeInQuad'
+                    easing: 'easeOutQuad'
                 });
-            }, 2500);
+                
+                setTimeout(() => {
+                    anime({
+                        targets: terminal,
+                        opacity: 0,
+                        translateY: 20,
+                        duration: 500,
+                        easing: 'easeInQuad'
+                    });
+                }, 2500);
+            }
         }
         
         function showAccessGranted() {
             const access = document.querySelector('.access-granted');
             
-            anime({
-                targets: access,
-                opacity: [0, 1],
-                scale: [0.5, 1.2, 1],
-                duration: 1000,
-                easing: 'easeOutElastic'
-            });
-            
-            setTimeout(() => {
+            if (typeof anime !== 'undefined') {
                 anime({
                     targets: access,
-                    opacity: 0,
+                    opacity: [0, 1],
+                    scale: [0.5, 1.2, 1],
                     duration: 1000,
-                    easing: 'easeInQuad'
+                    easing: 'easeOutElastic'
                 });
-            }, 3000);
+                
+                setTimeout(() => {
+                    anime({
+                        targets: access,
+                        opacity: 0,
+                        duration: 1000,
+                        easing: 'easeInQuad'
+                    });
+                }, 3000);
+            }
         }
         
         // Names array with descriptions
@@ -2530,10 +2550,10 @@
             "from-fuchsia-500 to-pink-500", "from-lime-500 to-green-500", "from-purple-500 to-indigo-500"
         ];
         
-        // Icons for cards
+        // Icons for cards - fixed invalid icon
         const icons = [
             "cpu", "coffee", "music", "gift", "sun", "moon", "cloud", "shield", "bell", "bell", 
-            "camera", "video", "goat", "feather", "video-off", "key", "smile", "smile", "paperclip", 
+            "camera", "video", "star", "feather", "video-off", "key", "smile", "smile", "paperclip", 
             "camera", "music"
         ];
         
@@ -2666,34 +2686,40 @@
             const nameCards = document.querySelectorAll('.name-card');
             nameCards.forEach(card => {
                 card.addEventListener('mouseenter', function() {
-                    anime({
-                        targets: this,
-                        scale: 1.05,
-                        rotateY: '5deg',
-                        duration: 600,
-                        easing: 'easeOutElastic'
-                    });
+                    if (typeof anime !== 'undefined') {
+                        anime({
+                            targets: this,
+                            scale: 1.05,
+                            rotateY: '5deg',
+                            duration: 600,
+                            easing: 'easeOutElastic'
+                        });
+                    }
                 });
                 
                 card.addEventListener('mouseleave', function() {
-                    anime({
-                        targets: this,
-                        scale: 1,
-                        rotateY: '0deg',
-                        duration: 600,
-                        easing: 'easeOutElastic'
-                    });
+                    if (typeof anime !== 'undefined') {
+                        anime({
+                            targets: this,
+                            scale: 1,
+                            rotateY: '0deg',
+                            duration: 600,
+                            easing: 'easeOutElastic'
+                        });
+                    }
                 });
             });
             
             // Animate header text
-            anime({
-                targets: '.name-title',
-                translateY: [-70, 0],
-                opacity: [0, 1],
-                duration: 2500,
-                easing: 'easeOutExpo'
-            });
+            if (typeof anime !== 'undefined') {
+                anime({
+                    targets: '.name-title',
+                    translateY: [-70, 0],
+                    opacity: [0, 1],
+                    duration: 2500,
+                    easing: 'easeOutExpo'
+                });
+            }
         });
     </script>
 </body>
