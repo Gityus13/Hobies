@@ -4,14 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EAS HOBBIES</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JXV858VBM0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JXV858VBM0');
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="https://i.ibb.co/wFY6Tn2y/7-F.png">
+    <!-- Using Tailwind CSS via CDN (ignore production warning for demo) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <style>
+        /* LOADING SCREEN */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #5a67d8, #6a3b9a, #e55a5a, #e6b84d, #3ab0e0, #1abfb6, #5522b0, #e58fd9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        .loading-text {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* BLACK LINE WITH SCROLLING TEXT */
+        .music-ticker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: #000;
+            color: white;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            z-index: 10000;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            border-bottom: 1px solid #333;
+        }
+        
+        .ticker-label {
+            background: #ff6b35;
+            color: white;
+            padding: 0 15px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+        
+        .ticker-text {
+            white-space: nowrap;
+            padding-left: 20px;
+            animation: ticker-scroll 15s linear infinite;
+            font-size: 14px;
+        }
+        
+        @keyframes ticker-scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        /* Adjust header to account for the ticker */
+        header {
+            margin-top: 30px;
+        }
+        
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
         
@@ -977,7 +1084,7 @@
         /* Secret code input */
         .secret-code-input {
             position: fixed;
-            top: 20px;
+            top: 40px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1001;
@@ -1111,7 +1218,7 @@
         /* Dark mode toggle styles */
         .dark-mode-toggle {
             position: fixed;
-            top: 20px;
+            top: 40px;
             right: 20px;
             z-index: 1000;
         }
@@ -1144,7 +1251,7 @@
         /* Music toggle styles */
         .music-toggle {
             position: fixed;
-            top: 20px;
+            top: 40px;
             right: 80px;
             z-index: 1000;
         }
@@ -1197,8 +1304,8 @@
             .p-5 { padding: 0.75rem; }
             .w-12, .h-12 { width: 2.5rem; height: 2.5rem; }
             iframe { height: 350px; }
-            .dark-mode-toggle { top: 10px; right: 10px; }
-            .music-toggle { top: 10px; right: 70px; }
+            .dark-mode-toggle { top: 40px; right: 10px; }
+            .music-toggle { top: 40px; right: 70px; }
             .toggle-button, .music-button { width: 40px; height: 40px; }
             .toggle-button i, .music-button i { font-size: 16px; }
             .grid { grid-template-columns: 1fr; gap: 1rem; }
@@ -1207,6 +1314,18 @@
     </style>
 </head>
 <body class="min-h-screen">
+    <!-- LOADING SCREEN -->
+    <div id="loading-screen">
+        <img src="https://i.ibb.co/wFY6Tn2y/7-F.png" alt="Loading" class="loading-logo">
+        <div class="loading-text">Loading EAS HOBBIES...</div>
+        <div class="loading-spinner"></div>
+    </div>
+    
+    <!-- BLACK LINE WITH SCROLLING TEXT -->
+    <div class="music-ticker">
+        <div class="ticker-text">On December 3 Song Change To Travis Scott Fe!n</div>
+    </div>
+    
     <!-- Background elements -->
     <div id="stars-container" class="fixed inset-0 overflow-hidden pointer-events-none"></div>
     
@@ -1271,7 +1390,7 @@
     
     <!-- Audio element for music -->
     <audio id="background-music" loop>
-        <source src="https://files.catbox.moe/ayfuk1.wav" type="audio/mpeg">
+        <source src="https://files.catbox.moe/0zykoy.wav" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
     
@@ -1355,7 +1474,11 @@
                 <i class="fa-solid fa-circle-info"></i>
                 Info
             </a>
-            <!-- NEW BUTTONS ADDED HERE -->
+            <a href="https://eashobies.site/modes.html" class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-3 px-6 md:py-4 md:px-8 rounded-full transition-all duration-300 inline-flex items-center gap-2">
+                <i class="fa-solid fa-cubes"></i>
+                Explore Modes
+            </a>
+<!-- NEW BUTTONS ADDED HERE -->
             <a href="https://eashobies.site/flappybird.html" class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-3 px-6 md:py-4 md:px-8 rounded-full transition-all duration-300 inline-flex items-center gap-2">
                 <i class="fa-solid fa-dove"></i>
                 Flappy Bird Game
@@ -1389,6 +1512,18 @@
         
         // Initialize Feather Icons
         feather.replace();
+        
+        // Loading screen functionality
+        window.addEventListener('load', function() {
+            // Hide loading screen after page is fully loaded
+            setTimeout(function() {
+                const loadingScreen = document.getElementById('loading-screen');
+                loadingScreen.style.opacity = '0';
+                setTimeout(function() {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }, 1000); // Show loading screen for at least 1 second
+        });
         
         // Ultimate Disco Mode Functionality
         const secretCodeInput = document.getElementById('secretCodeInput');
@@ -1504,12 +1639,6 @@
                 body.classList.add('disco-mode');
                 body.classList.remove('dark-mode');
                 
-                // Add disco music if available
-                const backgroundMusic = document.getElementById('background-music');
-                if (backgroundMusic) {
-                    backgroundMusic.play().catch(e => console.log("Autoplay prevented:", e));
-                }
-                
                 // Add more dynamic effects
                 document.querySelectorAll('.name-card').forEach((card, index) => {
                     card.style.animationDelay = `${index * 0.1}s`;
@@ -1567,12 +1696,6 @@
                 barbieCursor.className = 'barbie-cursor';
                 document.body.appendChild(barbieCursor);
                 
-                // Play barbie music
-                const barbieMusic = document.getElementById('barbie-music');
-                if (barbieMusic) {
-                    barbieMusic.play().catch(e => console.log("Autoplay prevented:", e));
-                }
-                
                 // Add crown to name cards
                 document.querySelectorAll('.name-card').forEach(card => {
                     const crown = document.createElement('div');
@@ -1629,18 +1752,6 @@
                 gtaCursor.className = 'gta-cursor';
                 document.body.appendChild(gtaCursor);
                 
-                // Play gta music
-                const gtaMusic = document.getElementById('gta-music');
-                if (gtaMusic) {
-                    gtaMusic.play().catch(e => console.log("Autoplay prevented:", e));
-                }
-                
-                // Play radio static
-                const radioSound = document.getElementById('radio-sound');
-                if (radioSound) {
-                    radioSound.play().catch(e => console.log("Sound play prevented:", e));
-                }
-                
                 // Create floating stars
                 gtaStarInterval = setInterval(() => {
                     createGTAStar();
@@ -1695,12 +1806,14 @@
             document.addEventListener('click', function() {
                 if (!gtaCursor) return;
                 
-                anime({
-                    targets: gtaCursor,
-                    scale: [1, 1.2, 1],
-                    duration: 200,
-                    easing: 'easeOutElastic'
-                });
+                if (typeof anime !== 'undefined') {
+                    anime({
+                        targets: gtaCursor,
+                        scale: [1, 1.2, 1],
+                        duration: 200,
+                        easing: 'easeOutElastic'
+                    });
+                }
             });
         }
         
@@ -1770,27 +1883,29 @@
             document.body.appendChild(textElement);
             
             // Animate in
-            anime({
-                targets: textElement,
-                opacity: [0, 1],
-                scale: [0, 1],
-                duration: 1000,
-                easing: 'easeOutElastic'
-            });
-            
-            // Animate out
-            setTimeout(() => {
+            if (typeof anime !== 'undefined') {
                 anime({
                     targets: textElement,
-                    opacity: 0,
-                    scale: 0,
+                    opacity: [0, 1],
+                    scale: [0, 1],
                     duration: 1000,
-                    easing: 'easeInQuad',
-                    complete: function() {
-                        textElement.remove();
-                    }
+                    easing: 'easeOutElastic'
                 });
-            }, 3000);
+                
+                // Animate out
+                setTimeout(() => {
+                    anime({
+                        targets: textElement,
+                        opacity: 0,
+                        scale: 0,
+                        duration: 1000,
+                        easing: 'easeInQuad',
+                        complete: function() {
+                            textElement.remove();
+                        }
+                    });
+                }, 3000);
+            }
         }
         
         function createGunshot(e) {
@@ -1834,16 +1949,18 @@
             document.body.appendChild(explosion);
             
             // Animate explosion
-            anime({
-                targets: explosion,
-                opacity: [0, 1, 0],
-                scale: [0, 2, 0],
-                duration: 1000,
-                easing: 'easeOutQuad',
-                complete: function() {
-                    explosion.remove();
-                }
-            });
+            if (typeof anime !== 'undefined') {
+                anime({
+                    targets: explosion,
+                    opacity: [0, 1, 0],
+                    scale: [0, 2, 0],
+                    duration: 1000,
+                    easing: 'easeOutQuad',
+                    complete: function() {
+                        explosion.remove();
+                    }
+                });
+            }
             
             // Play explosion sound
             const explosionSound = document.getElementById('explosion-sound');
@@ -2005,12 +2122,14 @@
             document.addEventListener('click', function() {
                 if (!barbieCursor) return;
                 
-                anime({
-                    targets: barbieCursor,
-                    scale: [1, 1.5, 1],
-                    duration: 300,
-                    easing: 'easeOutElastic'
-                });
+                if (typeof anime !== 'undefined') {
+                    anime({
+                        targets: barbieCursor,
+                        scale: [1, 1.5, 1],
+                        duration: 300,
+                        easing: 'easeOutElastic'
+                    });
+                }
                 
                 // Play sparkle sound
                 const sparkleSound = document.getElementById('sparkle-sound');
@@ -2118,27 +2237,29 @@
             document.body.appendChild(textElement);
             
             // Animate in
-            anime({
-                targets: textElement,
-                opacity: [0, 1],
-                scale: [0, 1],
-                duration: 1000,
-                easing: 'easeOutElastic'
-            });
-            
-            // Animate out
-            setTimeout(() => {
+            if (typeof anime !== 'undefined') {
                 anime({
                     targets: textElement,
-                    opacity: 0,
-                    scale: 0,
+                    opacity: [0, 1],
+                    scale: [0, 1],
                     duration: 1000,
-                    easing: 'easeInQuad',
-                    complete: function() {
-                        textElement.remove();
-                    }
+                    easing: 'easeOutElastic'
                 });
-            }, 3000);
+                
+                // Animate out
+                setTimeout(() => {
+                    anime({
+                        targets: textElement,
+                        opacity: 0,
+                        scale: 0,
+                        duration: 1000,
+                        easing: 'easeInQuad',
+                        complete: function() {
+                            textElement.remove();
+                        }
+                    });
+                }, 3000);
+            }
         }
         
         function playBarbieVoice() {
@@ -2167,18 +2288,20 @@
                 const targetY = e.clientY + Math.sin(angle) * distance;
                 
                 // Animate
-                anime({
-                    targets: heart,
-                    left: targetX,
-                    top: targetY,
-                    opacity: [1, 0],
-                    scale: [0, 1, 0],
-                    duration: 1000,
-                    easing: 'easeOutQuad',
-                    complete: function() {
-                        heart.remove();
-                    }
-                });
+                if (typeof anime !== 'undefined') {
+                    anime({
+                        targets: heart,
+                        left: targetX,
+                        top: targetY,
+                        opacity: [1, 0],
+                        scale: [0, 1, 0],
+                        duration: 1000,
+                        easing: 'easeOutQuad',
+                        complete: function() {
+                            heart.remove();
+                        }
+                    });
+                }
             }
             
             // Play giggle sound
@@ -2267,27 +2390,29 @@
             document.body.appendChild(error);
             
             // Animate in
-            anime({
-                targets: error,
-                opacity: [0, 1],
-                scale: [0, 1],
-                duration: 500,
-                easing: 'easeOutBack'
-            });
-            
-            // Remove after animation
-            setTimeout(() => {
+            if (typeof anime !== 'undefined') {
                 anime({
                     targets: error,
-                    opacity: 0,
-                    scale: 0,
+                    opacity: [0, 1],
+                    scale: [0, 1],
                     duration: 500,
-                    easing: 'easeInBack',
-                    complete: function() {
-                        document.body.removeChild(error);
-                    }
+                    easing: 'easeOutBack'
                 });
-            }, 2000);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    anime({
+                        targets: error,
+                        opacity: 0,
+                        scale: 0,
+                        duration: 500,
+                        easing: 'easeInBack',
+                        complete: function() {
+                            document.body.removeChild(error);
+                        }
+                    });
+                }, 2000);
+            }
         }
         
         function scrambleText() {
@@ -2320,55 +2445,59 @@
             const terminal = document.querySelector('.terminal-message');
             terminal.textContent = message;
             
-            anime({
-                targets: terminal,
-                opacity: [0, 1],
-                translateY: [20, 0],
-                duration: 500,
-                easing: 'easeOutQuad'
-            });
-            
-            setTimeout(() => {
+            if (typeof anime !== 'undefined') {
                 anime({
                     targets: terminal,
-                    opacity: 0,
-                    translateY: 20,
+                    opacity: [0, 1],
+                    translateY: [20, 0],
                     duration: 500,
-                    easing: 'easeInQuad'
+                    easing: 'easeOutQuad'
                 });
-            }, 2500);
+                
+                setTimeout(() => {
+                    anime({
+                        targets: terminal,
+                        opacity: 0,
+                        translateY: 20,
+                        duration: 500,
+                        easing: 'easeInQuad'
+                    });
+                }, 2500);
+            }
         }
         
         function showAccessGranted() {
             const access = document.querySelector('.access-granted');
             
-            anime({
-                targets: access,
-                opacity: [0, 1],
-                scale: [0.5, 1.2, 1],
-                duration: 1000,
-                easing: 'easeOutElastic'
-            });
-            
-            setTimeout(() => {
+            if (typeof anime !== 'undefined') {
                 anime({
                     targets: access,
-                    opacity: 0,
+                    opacity: [0, 1],
+                    scale: [0.5, 1.2, 1],
                     duration: 1000,
-                    easing: 'easeInQuad'
+                    easing: 'easeOutElastic'
                 });
-            }, 3000);
+                
+                setTimeout(() => {
+                    anime({
+                        targets: access,
+                        opacity: 0,
+                        duration: 1000,
+                        easing: 'easeInQuad'
+                    });
+                }, 3000);
+            }
         }
         
         // Names array with descriptions
         const names = [
             { name: "Ali", description: "<i class=\"fa-solid fa-robot\"></i> Ali is a real powerful AI we call him (AliGpt)" },
-            { name: "Farhad", description: "<i class=\"fa-solid fa-palette\"></i> This person is `uselless!" },
+            { name: "Farhad", description: "<i class=\"fa-solid fa-palette\"></i> 41_61_67_69" },
             { name: "Yusif", description: "<i class=\"fa-solid fa-music\"></i> DJ :) (host of website)" },
             { name: "Rufiz", description: "<i class=\"fa-solid fa-basketball\"></i> American bad boy that loves sport (Logo Creator)" },
             { name: "Eldar", description: "<i class=\"fa-solid fa-crosshairs\"></i> He is good for his hunting skills" },
             { name: "Ismayil", description: "<i class=\"fa-solid fa-gamepad\"></i> Ismayil is best Roblox player (Steal a brainrot)" },
-            { name: "Kenan", description: "<i class=\"fa-solid fa-basketball\"></i> he is the best basketball player (host)" },
+            { name: "Kenan", description: "<i class=\"fa-solid fa-basketball\"></i> the most useless person in the class and just annoying 😡" },
             { name: "Zahra", description: "<i class=\"fa-solid fa-shield-halved\"></i> She is famous for protecting their bestie with MMA" },
             { name: "Aliya", description: "<i class=\"fa-solid fa-cart-shopping\"></i> Volleyball bestie" },
             { name: "Safia", description: "<i class=\"fa-solid fa-volleyball\"></i> Volleyball Player" },
@@ -2396,10 +2525,10 @@
             "from-fuchsia-500 to-pink-500", "from-lime-500 to-green-500", "from-purple-500 to-indigo-500"
         ];
         
-        // Icons for cards
+        // Icons for cards - fixed invalid icon
         const icons = [
             "cpu", "coffee", "music", "gift", "sun", "moon", "cloud", "shield", "bell", "bell", 
-            "camera", "video", "goat", "feather", "video-off", "key", "smile", "smile", "paperclip", 
+            "camera", "video", "star", "feather", "video-off", "key", "smile", "smile", "paperclip", 
             "camera", "music"
         ];
         
@@ -2416,11 +2545,11 @@
             card.innerHTML = `
                 <div class="flex justify-center mb-4 md:mb-6">
                     <div class="bg-white/20 p-4 md:p-5 rounded-full">
-                        <i data-feather="${icons[index]}" class="w-8 h-8 md:w-12 md:h-12"></i>
+                        <i data-feather="${icons[index]}" class="w-12 h-12 md:w-16 md:h-16"></i>
                     </div>
                 </div>
-                <h2 class="name-title text-2xl md:text-4xl font-bold mb-3 md:mb-5 text-center gradient-text">${nameObj.name}</h2>
-                <p class="text-center text-white/90 text-base md:text-lg mb-4 md:mb-5">${nameObj.description}</p>
+                <h2 class="name-title text-3xl md:text-5xl font-bold mb-3 md:mb-5 text-center gradient-text">${nameObj.name}</h2>
+                <p class="text-center text-white/90 text-lg md:text-xl mb-4 md:mb-5">${nameObj.description}</p>
             `;
             
             gridContainer.appendChild(card);
@@ -2466,9 +2595,11 @@
         const musicPreference = localStorage.getItem('music');
         
         if (musicPreference === 'playing') {
-            backgroundMusic.play();
-            musicIcon.classList.remove('fa-volume-mute');
-            musicIcon.classList.add('fa-volume-up');
+            backgroundMusic.play().catch(e => {
+                console.log("Audio autoplay prevented by browser");
+                musicIcon.classList.remove('fa-volume-up');
+                musicIcon.classList.add('fa-volume-mute');
+            });
         } else {
             backgroundMusic.pause();
             musicIcon.classList.remove('fa-volume-up');
@@ -2477,7 +2608,10 @@
         
         musicToggle.addEventListener('click', () => {
             if (backgroundMusic.paused) {
-                backgroundMusic.play();
+                backgroundMusic.play().catch(e => {
+                    console.log("Audio play prevented by browser");
+                    alert("Please click the website first to allow audio playback");
+                });
                 musicIcon.classList.remove('fa-volume-mute');
                 musicIcon.classList.add('fa-volume-up');
                 localStorage.setItem('music', 'playing');
@@ -2532,34 +2666,40 @@
             const nameCards = document.querySelectorAll('.name-card');
             nameCards.forEach(card => {
                 card.addEventListener('mouseenter', function() {
-                    anime({
-                        targets: this,
-                        scale: 1.05,
-                        rotateY: '5deg',
-                        duration: 600,
-                        easing: 'easeOutElastic'
-                    });
+                    if (typeof anime !== 'undefined') {
+                        anime({
+                            targets: this,
+                            scale: 1.05,
+                            rotateY: '5deg',
+                            duration: 600,
+                            easing: 'easeOutElastic'
+                        });
+                    }
                 });
                 
                 card.addEventListener('mouseleave', function() {
-                    anime({
-                        targets: this,
-                        scale: 1,
-                        rotateY: '0deg',
-                        duration: 600,
-                        easing: 'easeOutElastic'
-                    });
+                    if (typeof anime !== 'undefined') {
+                        anime({
+                            targets: this,
+                            scale: 1,
+                            rotateY: '0deg',
+                            duration: 600,
+                            easing: 'easeOutElastic'
+                        });
+                    }
                 });
             });
             
             // Animate header text
-            anime({
-                targets: '.name-title',
-                translateY: [-70, 0],
-                opacity: [0, 1],
-                duration: 2500,
-                easing: 'easeOutExpo'
-            });
+            if (typeof anime !== 'undefined') {
+                anime({
+                    targets: '.name-title',
+                    translateY: [-70, 0],
+                    opacity: [0, 1],
+                    duration: 2500,
+                    easing: 'easeOutExpo'
+                });
+            }
         });
     </script>
 </body>
