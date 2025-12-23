@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LexiLab - Every Word Counts</title>
-<meta name="description" content="Advanced word counter with PDF, OCR, reading time, voice reader and export.">
+<title>LexiLab - Advanced Text Analytics</title>
+<meta name="description" content="Advanced word counter with PDF, OCR, reading time, voice reader and export. Every Word Counts.">
 <meta name="keywords" content="word counter, character counter, pdf counter, reading time">
-<meta name="author" content="Word Counter Pro+">
+<meta name="author" content="LexiLab">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="icon" href="https://files.catbox.moe/112ntw.png" type="image/png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
@@ -17,13 +18,17 @@
 body.light{--bg:#f8fafc;--card:#ffffff;--text:#020617;--border:#cbd5e1;--btn:#2563eb}
 *{box-sizing:border-box;font-family:Inter,system-ui}
 body{margin:0;background:var(--bg);color:var(--text)}
-.container{max-width:1400px;margin:auto;padding:28px}
-header{text-align:center;margin-bottom:30px}
-header h1{font-size:48px;font-weight:800}
-.card{background:var(--card);border-radius:24px;padding:24px;box-shadow:0 30px 70px rgba(0,0,0,.4)}
-textarea{width:100%;height:260px;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:18px;padding:18px;font-size:15px}
+.container{max-width:1400px;margin:auto;padding:20px}
+header{text-align:center;margin-bottom:30px;display:flex;align-items:center;justify-content:center;gap:15px;flex-wrap:wrap}
+.logo{font-size:42px;font-weight:800;background:linear-gradient(135deg,#2563eb,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:flex;align-items:center;gap:10px}
+.logo::before{content:"";display:inline-block;width:40px;height:40px;background-image:url('https://files.catbox.moe/112ntw.png');background-size:contain;background-repeat:no-repeat;background-position:center}
+.slogan{font-size:16px;opacity:.7;margin-top:5px;text-align:center;width:100%}
+.card{background:var(--card);border-radius:24px;padding:24px;box-shadow:0 30px 70px rgba(0,0,0,.4);margin-bottom:20px}
+textarea{width:100%;min-height:260px;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:18px;padding:18px;font-size:15px;resize:vertical}
+textarea::selection{background:#2563eb;color:white}
 .controls{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0}
-button,label,select{background:var(--btn);border:none;border-radius:16px;padding:12px 20px;color:white;font-weight:600;cursor:pointer}
+button,label,select{background:var(--btn);border:none;border-radius:16px;padding:12px 20px;color:white;font-weight:600;cursor:pointer;transition:transform 0.2s}
+button:hover,label:hover{transform:translateY(-2px)}
 button.secondary{background:var(--card);border:1px solid var(--border);color:var(--text)}
 input[type=file]{display:none}
 select{background:var(--card);border:1px solid var(--border);color:var(--text)}
@@ -32,7 +37,30 @@ select{background:var(--card);border:1px solid var(--border);color:var(--text)}
 .stat h2{margin:0;font-size:28px;font-weight:800}
 .stat span{font-size:13px;opacity:.7}
 .panel{margin-top:20px;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px}
-footer{text-align:center;margin-top:36px;opacity:.6;font-size:13px}
+footer{text-align:center;margin-top:36px;opacity:.6;font-size:13px;display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.visits-counter{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:8px 16px;font-size:14px}
+.highlight{background:rgba(37,99,235,0.2);border-radius:4px;padding:2px 0}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container{padding:15px}
+    header h1{font-size:32px}
+    .logo{font-size:32px}
+    .logo::before{width:32px;height:32px}
+    .controls{flex-direction:column;align-items:stretch}
+    button,label,select{width:100%;text-align:center}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    footer{flex-direction:column;gap:10px}
+}
+@media (max-width: 480px) {
+    .container{padding:10px}
+    .card{padding:16px}
+    .stats{grid-template-columns:1fr}
+    .stat h2{font-size:24px}
+    textarea{min-height:200px}
+    .logo{font-size:28px}
+    .logo::before{width:28px;height:28px}
+}
 </style>
 </head>
 <body>
@@ -45,12 +73,13 @@ footer{text-align:center;margin-top:36px;opacity:.6;font-size:13px}
 <textarea id="textInput" placeholder="Paste or type text here..."></textarea>
 <div class="controls">
 <button onclick="clearText()">Clear</button>
-<label for="fileInput">Upload PDF / Image</label>
-<input type="file" id="fileInput" accept=".pdf,.png,.jpg,.jpeg">
+<label for="fileInput" id="fileLabel">Upload PDF / Image</label>
+<input type="file" id="fileInput" accept=".pdf,.png,.jpg,.jpeg" onchange="handleFileUpload()">
 <select id="readerSpeed"><option value="150">Slow</option><option value="200" selected>Normal</option><option value="300">Fast</option></select>
 <button class="secondary" onclick="exportImage()">Export Screenshot</button>
 <button class="secondary" id="speechBtn" onclick="toggleSpeech()">Read Aloud</button>
 <button class="secondary" onclick="toggleTheme()">Theme</button>
+<button class="secondary" onclick="highlightLongestSentence()">Highlight Longest</button>
 </div>
 <div class="stats">
 <div class="stat"><h2 id="words">0</h2><span>Words</span></div>
@@ -64,17 +93,30 @@ footer{text-align:center;margin-top:36px;opacity:.6;font-size:13px}
 </div>
 <div class="panel" id="analysisBox"></div>
 </div>
-<footer>SEO ready • PWA ready • All Rights Reserved</footer>
+<footer>
+    <div>LexiLab • Every Word Counts • PWA ready</div>
+    <div class="visits-counter">Visits: <span id="visitCount">0</span></div>
+</footer>
 </div>
 <script>
+// Initialize visit counter
+let visitCount = localStorage.getItem('visitCount') || 0;
+visitCount = parseInt(visitCount) + 1;
+localStorage.setItem('visitCount', visitCount);
+document.getElementById('visitCount').textContent = visitCount;
+
 const textInput = document.getElementById('textInput')
 const readerSpeed = document.getElementById('readerSpeed')
 const speechBtn = document.getElementById('speechBtn')
+const fileLabel = document.getElementById('fileLabel')
+const fileInput = document.getElementById('fileInput')
 let uploadedPdfPages = 0
 let speaking = false
 let currentAudio = null
+let fileUploaded = false
+let longestSentence = ''
 
-// ElevenLabs API Configuration - Using the exact format from your working example
+// ElevenLabs API Configuration
 const API_KEY = "sk_6a147f065aa760930d817b1c84fcf9fc53374920f6264b6a"
 const VOICE_ID = "6FiCmD8eY5VyjOdG5Zjk"
 
@@ -118,10 +160,12 @@ function updateCounts() {
         readingTimeDisplay = minutes + ' min ' + seconds + ' sec'
     }
     
-    let longest = ''
+    // Find longest sentence
+    longestSentence = ''
     sentenceArr.forEach(s => {
-        if (s.length > longest.length) longest = s
+        if (s.length > longestSentence.length) longestSentence = s
     })
+    
     words.textContent = wordsCount
     sentences.textContent = sentenceCount
     characters.textContent = charCount
@@ -130,7 +174,7 @@ function updateCounts() {
     pages.textContent = pageCount
     readingTime.textContent = readingTimeDisplay
     pdfPages.textContent = uploadedPdfPages
-    analysisBox.innerHTML = '<b>Longest sentence:</b> ' + (longest || '-')
+    analysisBox.innerHTML = '<b>Longest sentence:</b> ' + (longestSentence.substring(0, 100) + (longestSentence.length > 100 ? '...' : '') || '-')
 }
 
 textInput.addEventListener('input', updateCounts)
@@ -139,8 +183,66 @@ readerSpeed.addEventListener('change', updateCounts)
 function clearText() {
     textInput.value = '';
     uploadedPdfPages = 0;
+    fileUploaded = false;
+    fileLabel.textContent = 'Upload PDF / Image';
+    fileLabel.style.opacity = '1';
+    fileInput.disabled = false;
     updateCounts();
     stopSpeech();
+}
+
+function handleFileUpload() {
+    if (fileUploaded) {
+        alert('File already uploaded. Please clear text to upload a new file.');
+        fileInput.value = '';
+        return;
+    }
+    
+    const file = fileInput.files[0];
+    if (!file) return;
+    
+    fileUploaded = true;
+    fileLabel.textContent = '✓ File Uploaded';
+    fileLabel.style.opacity = '0.7';
+    fileInput.disabled = true;
+    
+    if (file.type === 'application/pdf') {
+        const reader = new FileReader();
+        reader.onload = async () => {
+            try {
+                const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(reader.result) }).promise;
+                uploadedPdfPages = pdf.numPages;
+                let fullText = '';
+                for (let i = 1; i <= pdf.numPages; i++) {
+                    const page = await pdf.getPage(i);
+                    const content = await page.getTextContent();
+                    fullText += content.items.map(it => it.str).join(' ') + '\n';
+                }
+                textInput.value = fullText;
+                updateCounts();
+            } catch (error) {
+                alert('Error reading PDF file. Please try again.');
+                fileUploaded = false;
+                fileLabel.textContent = 'Upload PDF / Image';
+                fileLabel.style.opacity = '1';
+                fileInput.disabled = false;
+            }
+        };
+        reader.readAsArrayBuffer(file);
+    } else {
+        Tesseract.recognize(file, 'eng')
+            .then(result => {
+                textInput.value = result.data.text;
+                updateCounts();
+            })
+            .catch(error => {
+                alert('Error reading image file. Please try again.');
+                fileUploaded = false;
+                fileLabel.textContent = 'Upload PDF / Image';
+                fileLabel.style.opacity = '1';
+                fileInput.disabled = false;
+            });
+    }
 }
 
 async function toggleSpeech() {
@@ -159,7 +261,6 @@ async function toggleSpeech() {
         speaking = true;
         speechBtn.textContent = 'Stop Reading';
         
-        // Use the EXACT format from your working example
         const response = await fetch(
             `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`,
             {
@@ -258,7 +359,7 @@ function exportImage() {
     html2canvas(document.getElementById('captureArea')).then(canvas => {
         const a = document.createElement('a')
         a.href = canvas.toDataURL('image/png')
-        a.download = 'word-counter-stats.png'
+        a.download = 'lexilab-stats.png'
         a.click()
     })
 }
@@ -267,30 +368,52 @@ function toggleTheme() {
     document.body.classList.toggle('light')
 }
 
-fileInput.addEventListener('change', async (e) => {
-    const file = e.target.files[0]
-    if (!file) return
-    if (file.type === 'application/pdf') {
-        const reader = new FileReader()
-        reader.onload = async () => {
-            const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(reader.result) }).promise
-            uploadedPdfPages = pdf.numPages
-            let fullText = ''
-            for (let i = 1; i <= pdf.numPages; i++) {
-                const page = await pdf.getPage(i)
-                const content = await page.getTextContent()
-                fullText += content.items.map(it => it.str).join(' ') + '\n'
-            }
-            textInput.value = fullText
-            updateCounts()
-        }
-        reader.readAsArrayBuffer(file)
-    } else {
-        const result = await Tesseract.recognize(file, 'eng')
-        textInput.value = result.data.text
-        updateCounts()
+function highlightLongestSentence() {
+    if (!longestSentence) {
+        alert('No text found to highlight.');
+        return;
     }
-})
+    
+    const text = textInput.value;
+    const startIndex = text.indexOf(longestSentence);
+    
+    if (startIndex === -1) {
+        alert('Could not find the longest sentence in the text.');
+        return;
+    }
+    
+    // Scroll to and highlight the longest sentence
+    textInput.focus();
+    textInput.setSelectionRange(startIndex, startIndex + longestSentence.length);
+    
+    // Add visual highlight
+    const highlightedText = text.substring(0, startIndex) + 
+                          '<span class="highlight">' + longestSentence + '</span>' + 
+                          text.substring(startIndex + longestSentence.length);
+    
+    // Create a temporary element to show highlight
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = '<b>Longest sentence highlighted:</b><br>' + 
+                       highlightedText.replace(/\n/g, '<br>');
+    tempDiv.style.background = 'var(--card)';
+    tempDiv.style.padding = '15px';
+    tempDiv.style.borderRadius = '10px';
+    tempDiv.style.marginTop = '10px';
+    tempDiv.style.border = '1px solid var(--border)';
+    
+    // Remove previous highlight display
+    const oldHighlight = document.getElementById('highlightDisplay');
+    if (oldHighlight) oldHighlight.remove();
+    
+    tempDiv.id = 'highlightDisplay';
+    analysisBox.parentNode.insertBefore(tempDiv, analysisBox.nextSibling);
+    
+    // Auto-remove highlight after 5 seconds
+    setTimeout(() => {
+        const highlight = document.getElementById('highlightDisplay');
+        if (highlight) highlight.remove();
+    }, 5000);
+}
 
 updateCounts()
 
@@ -300,7 +423,7 @@ window.addEventListener('beforeinstallprompt', e => {
     e.preventDefault();
     deferredPrompt = e;
     setTimeout(() => {
-        if (confirm('Install Word Counter Pro+ as app?')) {
+        if (confirm('Install LexiLab as app?')) {
             deferredPrompt.prompt()
         }
     }, 2000)
