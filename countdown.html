@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Flip Countdown</title>
+<style>
+html,body{
+  margin:0;
+  padding:0;
+  background:transparent;
+  font-family:Arial, Helvetica, sans-serif;
+}
+.wrapper{
+  text-align:center;
+}
+.title{
+  font-size:32px;
+  font-weight:600;
+  margin-bottom:20px;
+}
+.countdown{
+  display:flex;
+  gap:30px;
+  justify-content:center;
+  align-items:center;
+}
+.unit{
+  text-align:center;
+}
+.flip{
+  width:140px;
+  height:180px;
+}
+.card{
+  width:100%;
+  height:100%;
+  background:transparent;
+  color:#000;
+  font-size:120px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.label{
+  margin-top:8px;
+  font-size:22px;
+}
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="title">Song Change!</div>
+
+  <div class="countdown">
+    <div class="unit">
+      <div class="flip"><div class="card" id="days">00</div></div>
+      <div class="label">Days</div>
+    </div>
+    <div class="unit">
+      <div class="flip"><div class="card" id="hours">00</div></div>
+      <div class="label">Hours</div>
+    </div>
+    <div class="unit">
+      <div class="flip"><div class="card" id="minutes">00</div></div>
+      <div class="label">Minutes</div>
+    </div>
+    <div class="unit">
+      <div class="flip"><div class="card" id="seconds">00</div></div>
+      <div class="label">Seconds</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const target = new Date("2026-02-25T21:00:00");
+
+function update(){
+  const now = new Date();
+  let diff = target - now;
+  if(diff < 0) diff = 0;
+
+  days.textContent = String(Math.floor(diff / (1000*60*60*24))).padStart(2,"0");
+  hours.textContent = String(Math.floor((diff / (1000*60*60)) % 24)).padStart(2,"0");
+  minutes.textContent = String(Math.floor((diff / (1000*60)) % 60)).padStart(2,"0");
+  seconds.textContent = String(Math.floor((diff / 1000) % 60)).padStart(2,"0");
+}
+setInterval(update,1000);
+update();
+</script>
+
+</body>
+</html>
