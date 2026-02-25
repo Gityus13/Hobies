@@ -1,12 +1,20 @@
 {
-  "name": "Eashobies",
-  "short_name": "Eashobies",
+  "name": "EAS HOBBIES",
+  "short_name": "EAS HOBBIES",
+  "description": "The Best School Website! 7F.",
   "start_url": "/",
   "display": "standalone",
+  "background_color": "#5a67d8",
+  "theme_color": "#5a67d8",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "https://i.ibb.co/wFY6Tn2y/7-F.png",
       "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.ibb.co/wFY6Tn2y/7-F.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ]
