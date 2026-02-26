@@ -2,93 +2,160 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Flip Countdown</title>
+<title>14‑Day Flip Countdown (Auto‑restart)</title>
 <style>
-html,body{
-  margin:0;
-  padding:0;
-  background:transparent;
-  font-family:Arial, Helvetica, sans-serif;
-}
-.wrapper{
-  text-align:center;
-}
-.title{
-  font-size:32px;
-  font-weight:600;
-  margin-bottom:20px;
-}
-.countdown{
-  display:flex;
-  gap:30px;
-  justify-content:center;
-  align-items:center;
-}
-.unit{
-  text-align:center;
-}
-.flip{
-  width:140px;
-  height:180px;
-}
-.card{
-  width:100%;
-  height:100%;
-  background:transparent;
-  color:#000;
-  font-size:120px;
-  font-weight:700;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.label{
-  margin-top:8px;
-  font-size:22px;
-}
+    html, body {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        font-family: 'Arial', 'Helvetica', sans-serif;
+    }
+    .wrapper {
+        text-align: center;
+    }
+    .title {
+        font-size: 32px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+    .countdown {
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap; /* tiny screens */
+    }
+    .unit {
+        text-align: center;
+    }
+    .flip {
+        width: 140px;
+        height: 180px;
+        background: #f0f0f0;        /* subtle card background */
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .card {
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        color: #1e1e1e;
+        font-size: 120px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        letter-spacing: 4px;
+    }
+    .label {
+        margin-top: 8px;
+        font-size: 22px;
+        font-weight: 500;
+        color: #222;
+    }
+
+    /* optional small screen adjustment */
+    @media (max-width: 700px) {
+        .flip { width: 100px; height: 130px; }
+        .card { font-size: 80px; }
+        .label { font-size: 18px; }
+    }
+    @media (max-width: 500px) {
+        .flip { width: 70px; height: 90px; }
+        .card { font-size: 54px; letter-spacing: 2px; }
+        .label { font-size: 15px; }
+    }
 </style>
 </head>
 <body>
 
 <div class="wrapper">
-  <div class="title">Song Change!</div>
+    <div class="title">Song Change · every 14 days</div>
 
-  <div class="countdown">
-    <div class="unit">
-      <div class="flip"><div class="card" id="days">00</div></div>
-      <div class="label">Days</div>
+    <div class="countdown">
+        <div class="unit">
+            <div class="flip"><div class="card" id="days">00</div></div>
+            <div class="label">Days</div>
+        </div>
+        <div class="unit">
+            <div class="flip"><div class="card" id="hours">00</div></div>
+            <div class="label">Hours</div>
+        </div>
+        <div class="unit">
+            <div class="flip"><div class="card" id="minutes">00</div></div>
+            <div class="label">Minutes</div>
+        </div>
+        <div class="unit">
+            <div class="flip"><div class="card" id="seconds">00</div></div>
+            <div class="label">Seconds</div>
+        </div>
     </div>
-    <div class="unit">
-      <div class="flip"><div class="card" id="hours">00</div></div>
-      <div class="label">Hours</div>
-    </div>
-    <div class="unit">
-      <div class="flip"><div class="card" id="minutes">00</div></div>
-      <div class="label">Minutes</div>
-    </div>
-    <div class="unit">
-      <div class="flip"><div class="card" id="seconds">00</div></div>
-      <div class="label">Seconds</div>
-    </div>
-  </div>
 </div>
 
 <script>
-const target = new Date("2026-02-25T21:00:00");
+(function() {
+    // ---- CONFIGURATION ----
+    const CYCLE_DAYS = 14;                         // 14‑day cycle
+    // base reference: any past start of a 14‑day cycle
+    // using 2026‑02‑25T21:00:00 as the *first* cycle start (your original target)
+    const BASE_START = new Date("2026-02-25T21:00:00").getTime();
 
-function update(){
-  const now = new Date();
-  let diff = target - now;
-  if(diff < 0) diff = 0;
+    // helper: get the latest cycle start (<= now) based on 14‑day intervals
+    function getCurrentCycleStart(nowTime) {
+        // if now is before the very first base start, just return base start (should not happen)
+        if (nowTime < BASE_START) return BASE_START;
 
-  days.textContent = String(Math.floor(diff / (1000*60*60*24))).padStart(2,"0");
-  hours.textContent = String(Math.floor((diff / (1000*60*60)) % 24)).padStart(2,"0");
-  minutes.textContent = String(Math.floor((diff / (1000*60)) % 60)).padStart(2,"0");
-  seconds.textContent = String(Math.floor((diff / 1000) % 60)).padStart(2,"0");
-}
-setInterval(update,1000);
-update();
+        // milliseconds in 14 days
+        const CYCLE_MS = CYCLE_DAYS * 24 * 60 * 60 * 1000;
+
+        // how many full cycles have passed since BASE_START ?
+        const elapsed = nowTime - BASE_START;
+        const cyclesPassed = Math.floor(elapsed / CYCLE_MS);
+
+        // start of the current ongoing cycle
+        return BASE_START + cyclesPassed * CYCLE_MS;
+    }
+
+    // update all flip cards
+    function updateCountdown() {
+        const now = new Date().getTime();           // current time in ms
+        const cycleStart = getCurrentCycleStart(now);
+        const nextCycleStart = cycleStart + CYCLE_DAYS * 24 * 60 * 60 * 1000;
+
+        let diff = nextCycleStart - now;
+        if (diff < 0) diff = 0;                     // safety: should never be negative due to restart logic
+
+        // calculate components
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        // update DOM – with leading zeros
+        document.getElementById('days').textContent = String(days).padStart(2, '0');
+        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    // initial call
+    updateCountdown();
+
+    // update every 250ms for smoother feel (still shows seconds correctly)
+    setInterval(updateCountdown, 250);
+})();
 </script>
 
+<!-- 
+    Behaviour: 
+    - Counts down to the next 14‑day mark starting from 2026‑02‑25 21:00:00.
+    - As soon as the timer reaches zero, it instantly resets to 14 days 
+      because getCurrentCycleStart() moves the cycle forward.
+    - No flicker: the new target is always the next cycle start.
+-->
 </body>
 </html>
