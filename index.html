@@ -1521,17 +1521,29 @@
         // Initialize Feather Icons
         feather.replace();
         
-        // Loading screen functionality
-        window.addEventListener('load', function() {
-            // Hide loading screen after page is fully loaded
+// Loading screen functionality with 15-second maximum timeout
+window.addEventListener('load', function() {
+    // Set a 15-second maximum timeout
+    const maxTimeout = setTimeout(function() {
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen.style.display !== 'none') {
+            loadingScreen.style.opacity = '0';
             setTimeout(function() {
-                const loadingScreen = document.getElementById('loading-screen');
-                loadingScreen.style.opacity = '0';
-                setTimeout(function() {
-                    loadingScreen.style.display = 'none';
-                }, 500);
-            }, 1000); // Show loading screen for at least 1 second
-        });
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }
+    }, 15000); // 15 seconds = 15000 milliseconds
+    
+    // Normal load event - hide loading screen when page is loaded
+    setTimeout(function() {
+        const loadingScreen = document.getElementById('loading-screen');
+        loadingScreen.style.opacity = '0';
+        setTimeout(function() {
+            loadingScreen.style.display = 'none';
+        }, 500);
+        clearTimeout(maxTimeout); // Cancel the max timeout since we loaded normally
+    }, 1000); // Show loading screen for at least 1 second
+});
         
         // Ultimate Disco Mode Functionality
         const secretCodeInput = document.getElementById('secretCodeInput');
