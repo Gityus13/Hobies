@@ -2509,47 +2509,61 @@ window.addEventListener('load', function() {
             }
         }
         
-       // Names array with descriptions
-        const names = [
-            { name: "Yusif", description: "<i class=\"fa-solid fa-crown\"></i> DJ :) (host of website)" },
-            { name: "Kenan", description: "<i class=\"fa-solid fa-crown\"></i> The Best Basketball Player " },
-            { name: "Farhad", description: "<i class=\"fa-solid fa-crown\"></i> Judo (The Host)" },
-            { name: "Ali", description: "<i class=\"fa-solid fa-robot\"></i> Ali is a real powerful AI we call him (AliGpt)" },
-            { name: "Rufiz", description: "<i class=\"fa-solid fa-basketball\"></i> American bad boy that loves sport (Logo Creator)" },
-            { name: "Eldar", description: "<i class=\"fa-solid fa-crosshairs\"></i> He is good for his hunting skills" },
-            { name: "Ismayil", description: "<i class=\"fa-solid fa-gamepad\"></i> Ismayil is best Roblox player (Steal a brainrot)" },
-            { name: "Ali", description: "<i class=\"fa-solid fa-robot\"></i> Ali is a real powerful AI we call him (AliGpt)" },
-            { name: "Zahra", description: "<i class=\"fa-solid fa-shield-halved\"></i> She is famous for protecting their bestie with MMA" },
-            { name: "Aliya", description: "<i class=\"fa-solid fa-cart-shopping\"></i> Volleyball bestie" },
-            { name: "Safia", description: "<i class=\"fa-solid fa-volleyball\"></i> Volleyball Player" },
-            { name: "Khadija", description: "<i class=\"fa-solid fa-people-group\"></i> Team bestie MMA" },
-            { name: "Aisha", description: "<i class=\"fa-solid fa-microphone\"></i> Blackpink" },
-            { name: "Fateh", description: "<i class=\"fa-solid fa-face-laugh\"></i> The real meaning of goat" },
-            { name: "Blocked", description: "<i class=\"fa-solid fa-ban\"></i> Blocked By Admin" },
-            { name: "Vidadi", description: "<i class=\"fa-solid fa-gamepad\"></i> Video games" },
-            { name: "Omar", description: "<i class=\"fa-solid fa-football\"></i> Rugby" },
-            { name: "Ayla", description: "<i class=\"fa-solid fa-heart\"></i> MMA Bestie " },
-            { name: "Farahnaz", description: "<i class=\"fa-solid fa-crown\"></i> Kind and once was class leader" },
-            { name: "Faik", description: "<i class=\"fa-solid fa-volume-xmark\"></i> Football" },
-            { name: "Inji", description: "<i class=\"fa-solid fa-tv\"></i>loves anime" },
-        ];
-        
-        // Colors for cards
-        const cardColors = [
-            "from-yellow-200 via-yellow-400 via-yellow-600 to-amber-800", "from-yellow-200 via-yellow-400 via-yellow-600 to-amber-800", "from-yellow-200 via-yellow-400 via-yellow-600 to-amber-800",
-            "from-yellow-500 to-orange-500", "from-red-500 to-pink-500", "from-indigo-500 to-purple-500",
-            "from-teal-500 to-blue-500", "from-purple-500 to-pink-500", "from-cyan-500 to-blue-500",
-            "from-orange-500 to-red-500", "from-green-500 to-cyan-500", "from-pink-500 to-rose-500",
-            "from-blue-500 to-indigo-500", "from-black to-black", "from-emerald-500 to-teal-500",
-            "from-violet-500 to-purple-500", "from-rose-500 to-pink-500", "from-cyan-500 to-sky-500",
-            "from-fuchsia-500 to-pink-500", "from-lime-500 to-green-500"
-        
-        // Icons for cards - fixed invalid icon
-        const icons = [
-            "music", "gift", "feather", "cpu", "sun", "moon", "cloud", "shield", "bell", "bell", 
-            "camera", "video", "star", "feather", "video-off", "key", "smile", "smile", "paperclip", 
-            "camera"
-        ];
+// Names array with descriptions
+const names = [
+    { name: "Yusif", description: "<i class=\"fa-solid fa-crown\"></i> DJ :) (host of website)" },
+    { name: "Kenan", description: "<i class=\"fa-solid fa-crown\"></i> The Best Basketball Player " },
+    { name: "Farhad", description: "<i class=\"fa-solid fa-crown\"></i> Judo (The Host)" },
+    { name: "Ali", description: "<i class=\"fa-solid fa-robot\"></i> Ali is a real powerful AI we call him (AliGpt)" },
+    { name: "Rufiz", description: "<i class=\"fa-solid fa-basketball\"></i> American bad boy that loves sport (Logo Creator)" },
+    { name: "Eldar", description: "<i class=\"fa-solid fa-crosshairs\"></i> He is good for his hunting skills" },
+    { name: "Ismayil", description: "<i class=\"fa-solid fa-gamepad\"></i> Ismayil is best Roblox player (Steal a brainrot)" },
+    { name: "Ali", description: "<i class=\"fa-solid fa-robot\"></i> Ali is a real powerful AI we call him (AliGpt)" },
+    { name: "Zahra", description: "<i class=\"fa-solid fa-shield-halved\"></i> She is famous for protecting their bestie with MMA" },
+    { name: "Aliya", description: "<i class=\"fa-solid fa-cart-shopping\"></i> Volleyball bestie" },
+    { name: "Safia", description: "<i class=\"fa-solid fa-volleyball\"></i> Volleyball Player" },
+    { name: "Khadija", description: "<i class=\"fa-solid fa-people-group\"></i> Team bestie MMA" },
+    { name: "Aisha", description: "<i class=\"fa-solid fa-microphone\"></i> Blackpink" },
+    { name: "Fateh", description: "<i class=\"fa-solid fa-face-laugh\"></i> The real meaning of goat" },
+    { name: "Blocked", description: "<i class=\"fa-solid fa-ban\"></i> Blocked By Admin" },
+    { name: "Vidadi", description: "<i class=\"fa-solid fa-gamepad\"></i> Video games" },
+    { name: "Omar", description: "<i class=\"fa-solid fa-football\"></i> Rugby" },
+    { name: "Ayla", description: "<i class=\"fa-solid fa-heart\"></i> MMA Bestie " },
+    { name: "Farahnaz", description: "<i class=\"fa-solid fa-crown\"></i> Kind and once was class leader" },
+    { name: "Faik", description: "<i class=\"fa-solid fa-volume-xmark\"></i> Football" },
+    { name: "Inji", description: "<i class=\"fa-solid fa-tv\"></i>loves anime" }
+];
+
+// Colors for cards
+const cardColors = [
+    "from-yellow-200 via-yellow-400 via-yellow-600 to-amber-800",
+    "from-yellow-200 via-yellow-400 via-yellow-600 to-amber-800",
+    "from-yellow-200 via-yellow-400 via-yellow-600 to-amber-800",
+    "from-yellow-500 to-orange-500",
+    "from-red-500 to-pink-500",
+    "from-indigo-500 to-purple-500",
+    "from-teal-500 to-blue-500",
+    "from-purple-500 to-pink-500",
+    "from-cyan-500 to-blue-500",
+    "from-orange-500 to-red-500",
+    "from-green-500 to-cyan-500",
+    "from-pink-500 to-rose-500",
+    "from-blue-500 to-indigo-500",
+    "from-black to-black",
+    "from-emerald-500 to-teal-500",
+    "from-violet-500 to-purple-500",
+    "from-rose-500 to-pink-500",
+    "from-cyan-500 to-sky-500",
+    "from-fuchsia-500 to-pink-500",
+    "from-lime-500 to-green-500"
+];
+
+// Icons for cards
+const icons = [
+    "music", "gift", "feather", "cpu", "sun", "moon", "cloud", "shield", "bell", "bell", 
+    "camera", "video", "star", "feather", "video-off", "key", "smile", "smile", "paperclip", 
+    "camera"
+];
         
         // Generate name cards
         const gridContainer = document.querySelector('.grid');
