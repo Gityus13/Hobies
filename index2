@@ -13,11 +13,12 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="https://i.ibb.co/wFY6Tn2y/7-F.png">
+    <link rel="shortcut icon" href="https://i.ibb.co/wFY6Tn2y/7-F.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <style>
         /* LOADING SCREEN */
         #loading-screen {
@@ -1389,13 +1390,13 @@
     
     <!-- Audio element for music -->
     <audio id="background-music" loop>
-        <source src="https://files.catbox.moe/dipdn8.m4a" type="audio/mpeg">
+        <source src="https://files.catbox.moe/3xoqez.wav" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
     
     <!-- GTA Sounds -->
     <audio id="gunshot-sound">
-        <source src="https://files.catbox.moe/8luflz.mp3" type="audio/mpeg">
+        <source src="https://files.catbox.moe/ehmbbe.wav" type="audio/mpeg">
     </audio>
 
     <!-- Dark Mode Toggle -->
@@ -1495,6 +1496,10 @@
                 <i class="fa-solid fa-handshake"></i>
                 Our Sponsors
             </a>
+            <a href="hosts.html" class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold py-3 px-6 md:py-4 md:px-8 rounded-full transition-all duration-300 inline-flex items-center gap-2">
+    <i class="fa-solid fa-crown"></i>
+                Hosts
+        </a>
         </div>
     </section>
     
@@ -1517,17 +1522,29 @@
         // Initialize Feather Icons
         feather.replace();
         
-        // Loading screen functionality
-        window.addEventListener('load', function() {
-            // Hide loading screen after page is fully loaded
+// Loading screen functionality with 15-second maximum timeout
+window.addEventListener('load', function() {
+    // Set a 15-second maximum timeout
+    const maxTimeout = setTimeout(function() {
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen.style.display !== 'none') {
+            loadingScreen.style.opacity = '0';
             setTimeout(function() {
-                const loadingScreen = document.getElementById('loading-screen');
-                loadingScreen.style.opacity = '0';
-                setTimeout(function() {
-                    loadingScreen.style.display = 'none';
-                }, 500);
-            }, 1000); // Show loading screen for at least 1 second
-        });
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }
+    }, 15000); // 15 seconds = 15000 milliseconds
+    
+    // Normal load event - hide loading screen when page is loaded
+    setTimeout(function() {
+        const loadingScreen = document.getElementById('loading-screen');
+        loadingScreen.style.opacity = '0';
+        setTimeout(function() {
+            loadingScreen.style.display = 'none';
+        }, 500);
+        clearTimeout(maxTimeout); // Cancel the max timeout since we loaded normally
+    }, 1000); // Show loading screen for at least 1 second
+});
         
         // Ultimate Disco Mode Functionality
         const secretCodeInput = document.getElementById('secretCodeInput');
@@ -2493,47 +2510,62 @@
             }
         }
         
-        // Names array with descriptions
-        const names = [
-            { name: "Ali", description: "<i class=\"fa-solid fa-robot\"></i> Ali is a real powerful AI we call him (AliGpt)" },
-            { name: "Farhad", description: "<i class=\"fa-solid fa-palette\"></i> Judo (The Host)" },
-            { name: "Yusif", description: "<i class=\"fa-solid fa-music\"></i> DJ :) (host of website)" },
-            { name: "Rufiz", description: "<i class=\"fa-solid fa-basketball\"></i> American bad boy that loves sport (Logo Creator)" },
-            { name: "Eldar", description: "<i class=\"fa-solid fa-crosshairs\"></i> He is good for his hunting skills" },
-            { name: "Ismayil", description: "<i class=\"fa-solid fa-gamepad\"></i> Ismayil is best Roblox player (Steal a brainrot)" },
-            { name: "Kenan", description: "<i class=\"fa-solid fa-basketball\"></i> The Best Basketball Player " },
-            { name: "Zahra", description: "<i class=\"fa-solid fa-shield-halved\"></i> She is famous for protecting their bestie with MMA" },
-            { name: "Aliya", description: "<i class=\"fa-solid fa-cart-shopping\"></i> Volleyball bestie" },
-            { name: "Safia", description: "<i class=\"fa-solid fa-volleyball\"></i> Volleyball Player" },
-            { name: "Khadija", description: "<i class=\"fa-solid fa-people-group\"></i> Team bestie MMA" },
-            { name: "Aisha", description: "<i class=\"fa-solid fa-microphone\"></i> Blackpink" },
-            { name: "Fateh", description: "<i class=\"fa-solid fa-face-laugh\"></i> The real meaning of goat" },
-            { name: "Matin", description: "<i class=\"fa-solid fa-calculator\"></i> Our math calculator" },
-            { name: "Vidadi", description: "<i class=\"fa-solid fa-gamepad\"></i> Video games" },
-            { name: "Omar", description: "<i class=\"fa-solid fa-football\"></i> Rugby" },
-            { name: "Ayla", description: "<i class=\"fa-solid fa-heart\"></i> MMA Bestie " },
-            { name: "Farahnaz", description: "<i class=\"fa-solid fa-crown\"></i> Kind and once was class leader" },
-            { name: "Faik", description: "<i class=\"fa-solid fa-volume-xmark\"></i> Football" },
-            { name: "Inji", description: "<i class=\"fa-solid fa-tv\"></i>loves anime" },
-        ];
-        
-        // Colors for cards
-        const cardColors = [
-            "from-pink-500 to-purple-500", "from-blue-500 to-cyan-500", "from-green-500 to-teal-500",
-            "from-yellow-500 to-orange-500", "from-red-500 to-pink-500", "from-indigo-500 to-purple-500",
-            "from-teal-500 to-blue-500", "from-purple-500 to-pink-500", "from-cyan-500 to-blue-500",
-            "from-orange-500 to-red-500", "from-green-500 to-cyan-500", "from-pink-500 to-rose-500",
-            "from-blue-500 to-indigo-500", "from-amber-500 to-yellow-500", "from-emerald-500 to-teal-500",
-            "from-violet-500 to-purple-500", "from-rose-500 to-pink-500", "from-cyan-500 to-sky-500",
-            "from-fuchsia-500 to-pink-500", "from-lime-500 to-green-500"
-        ];
-        
-        // Icons for cards - fixed invalid icon
-        const icons = [
-            "cpu", "coffee", "music", "gift", "sun", "moon", "cloud", "shield", "bell", "bell", 
-            "camera", "video", "star", "feather", "video-off", "key", "smile", "smile", "paperclip", 
-            "camera"
-        ];
+// Names array with descriptions
+const names = [
+    { name: "Yusif", description: "<i class=\"fa-solid fa-crown\"></i> DJ :) (host of website)" },
+    { name: "Kenan", description: "<i class=\"fa-solid fa-crown\"></i> The Best Basketball Player " },
+    { name: "Farhad", description: "<i class=\"fa-solid fa-crown\"></i> Judo (The Host)" },
+    { name: "Ali", description: "<i class=\"fa-solid fa-robot\"></i> Ali is a real powerful AI we call him (AliGpt)" },
+    { name: "Rufiz", description: "<i class=\"fa-solid fa-basketball\"></i> American bad boy that loves sport (Logo Creator)" },
+    { name: "Eldar", description: "<i class=\"fa-solid fa-crosshairs\"></i> He is good for his hunting skills" },
+    { name: "Ismayil", description: "<i class=\"fa-solid fa-gamepad\"></i> Ismayil is best Roblox player (Steal a brainrot)" },
+    { name: "Ali", description: "<i class=\"fa-solid fa-robot\"></i> Ali is a real powerful AI we call him (AliGpt)" },
+    { name: "Zahra", description: "<i class=\"fa-solid fa-shield-halved\"></i> She is famous for protecting their bestie with MMA" },
+    { name: "Aliya", description: "<i class=\"fa-solid fa-cart-shopping\"></i> Volleyball bestie" },
+    { name: "Safia", description: "<i class=\"fa-solid fa-volleyball\"></i> Volleyball Player" },
+    { name: "Khadija", description: "<i class=\"fa-solid fa-people-group\"></i> Team bestie MMA" },
+    { name: "Aisha", description: "<i class=\"fa-solid fa-microphone\"></i> Blackpink" },
+    { name: "Fateh", description: "<i class=\"fa-solid fa-face-laugh\"></i> The real meaning of goat" },
+    { name: "Blocked", description: "<i class=\"fa-solid fa-ban\"></i> Blocked By Admin" },
+    { name: "Vidadi", description: "<i class=\"fa-solid fa-gamepad\"></i> Video games" },
+    { name: "Omar", description: "<i class=\"fa-solid fa-football\"></i> Rugby" },
+    { name: "Ayla", description: "<i class=\"fa-solid fa-heart\"></i> MMA Bestie " },
+    { name: "Farahnaz", description: "<i class=\"fa-solid fa-crown\"></i> Kind and once was class leader" },
+    { name: "Faik", description: "<i class=\"fa-solid fa-volume-xmark\"></i> Piano!" },
+    { name: "Inji", description: "<i class=\"fa-solid fa-tv\"></i>loves anime" }
+];
+
+// Colors for cards
+const cardColors = [
+    "from-yellow-200 via-yellow-400 via-yellow-600 to-amber-800",
+    "from-yellow-200 via-yellow-400 via-yellow-600 to-amber-800",
+    "from-yellow-200 via-yellow-400 via-yellow-600 to-amber-800",
+    "from-yellow-500 to-orange-500",
+    "from-red-500 to-pink-500",
+    "from-indigo-500 to-purple-500",
+    "from-teal-500 to-blue-500",
+    "from-purple-500 to-pink-500",
+    "from-cyan-500 to-blue-500",
+    "from-orange-500 to-red-500",
+    "from-green-500 to-cyan-500",
+    "from-pink-500 to-rose-500",
+    "from-blue-500 to-indigo-500",
+    "from-black to-black",
+    "from-emerald-500 to-teal-500",
+    "from-violet-500 to-purple-500",
+    "from-rose-500 to-pink-500",
+    "from-cyan-500 to-sky-500",
+    "from-fuchsia-500 to-pink-500",
+    "from-lime-500 to-green-500",
+    "from-pink-400 to-pink-600"
+];
+
+// Icons for cards
+const icons = [
+    "music", "gift", "feather", "cpu", "sun", "moon", "cloud", "shield", "bell", "bell", 
+    "camera", "video", "star", "feather", "video-off", "key", "smile", "smile", "paperclip", 
+    "camera", "tv"
+];
         
         // Generate name cards
         const gridContainer = document.querySelector('.grid');
