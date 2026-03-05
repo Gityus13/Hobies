@@ -1311,6 +1311,276 @@
             .grid { grid-template-columns: 1fr; gap: 1rem; }
             .secret-code-input { width: 150px; font-size: 12px; padding: 6px 10px; }
         }
+
+        /* ===== NEW ADDITIONS (11,13,14,15,19,32) ===== */
+        
+        /* 11. More Themes */
+        body.halloween-mode {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #e94560) !important;
+            animation: halloweenPulse 5s ease infinite !important;
+            color: #ff9f1c !important;
+        }
+        
+        @keyframes halloweenPulse {
+            0%,100% { filter: brightness(1) hue-rotate(0deg); }
+            50% { filter: brightness(1.2) hue-rotate(10deg); }
+        }
+        
+        body.halloween-mode .name-card {
+            background: linear-gradient(135deg, #231b12, #3d2b1a) !important;
+            border: 3px solid #ff6b35;
+            position: relative;
+            box-shadow: 0 0 20px #ff6b35;
+        }
+        
+        body.halloween-mode .name-card::after {
+            content: '🎃';
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 20px;
+            opacity: 0.5;
+        }
+        
+        body.christmas-mode {
+            background: linear-gradient(135deg, #0b3b2c, #165b3a, #2e7d5e, #c41e3a) !important;
+            animation: christmasSparkle 4s ease infinite !important;
+            color: #ffffff !important;
+        }
+        
+        @keyframes christmasSparkle {
+            0%,100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        body.christmas-mode .name-card {
+            background: linear-gradient(135deg, #1e3c2c, #2d5a3a) !important;
+            border: 3px solid #c41e3a;
+            position: relative;
+        }
+        
+        body.christmas-mode .name-card::after {
+            content: '🎄';
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 20px;
+            opacity: 0.5;
+        }
+        
+        body.birthday-mode {
+            background: repeating-linear-gradient(45deg, #ff6b6b, #ffb86b, #f1fa8c, #6bff6b, #6b9fff) !important;
+            animation: birthdayConfetti 3s linear infinite !important;
+            background-size: 400% 400% !important;
+        }
+        
+        @keyframes birthdayConfetti {
+            0% { background-position: 0 0; }
+            100% { background-position: 100% 100%; }
+        }
+        
+        body.birthday-mode .name-card {
+            background: rgba(255,255,255,0.2) !important;
+            backdrop-filter: blur(10px);
+            border: 3px solid #ffd700;
+            position: relative;
+        }
+        
+        body.birthday-mode .name-card::after {
+            content: '🎂';
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 20px;
+            opacity: 0.5;
+        }
+        
+        /* 13. Animated Backgrounds */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            opacity: 0.3;
+        }
+        
+        body:not([class*="-mode"]) .animated-bg {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: bgSlide 10s linear infinite;
+            background-size: 200% 100%;
+        }
+        
+        @keyframes bgSlide {
+            0% { background-position: 100% 0; }
+            100% { background-position: -100% 0; }
+        }
+        
+        /* 14. 3D Card Flip (already has transform-style: preserve-3d; now enhanced) */
+        .name-card {
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .name-card:hover {
+            transform: translateY(-15px) rotateY(5deg) rotateX(2deg) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+        
+        /* 15. Particle Effects */
+        .particle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            animation: particleFloat 15s linear infinite;
+        }
+        
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-20vh) translateX(20px); opacity: 0; }
+        }
+        
+        /* 19. Share Button - floating share */
+        .floating-share {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        .share-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 18px;
+        }
+        
+        .share-icon:hover {
+            transform: scale(1.2);
+            background: rgba(255,255,255,0.4);
+        }
+        
+        .share-tooltip {
+            position: absolute;
+            bottom: 60px;
+            background: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        
+        .share-icon:hover .share-tooltip {
+            opacity: 1;
+        }
+        
+        /* 32. QR Codes */
+        .qr-code-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 100px;
+            height: 100px;
+            background: white;
+            padding: 5px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .qr-code-container:hover {
+            transform: scale(1.1);
+        }
+        
+        .qr-code-container canvas {
+            width: 80px;
+            height: 80px;
+        }
+        
+        .qr-label {
+            font-size: 10px;
+            color: #333;
+            margin-top: 2px;
+        }
+        
+        .qr-expanded {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            z-index: 10000;
+            transition: transform 0.3s;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        
+        .qr-expanded.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .qr-expanded canvas {
+            width: 200px;
+            height: 200px;
+        }
+        
+        .qr-close {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ff4444;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -1386,7 +1656,7 @@
     <div class="access-granted">ACCESS GRANTED</div>
     
     <!-- Secret code input -->
-    <input type="text" class="secret-code-input" placeholder="Type 'disco', 'glitch', 'matrix', 'barbie' or 'gta'" id="secretCodeInput">
+    <input type="text" class="secret-code-input" placeholder="Type 'disco', 'glitch', 'matrix', 'barbie', 'gta', 'halloween', 'christmas', 'birthday'" id="secretCodeInput">
     
     <!-- Audio element for music -->
     <audio id="background-music" loop>
@@ -1411,6 +1681,44 @@
         <div class="music-button" id="musicToggle">
             <i class="fas fa-volume-mute"></i>
         </div>
+    </div>
+
+    <!-- NEW: Particle Container (Feature 15) -->
+    <div class="particle-container" id="particleContainer"></div>
+
+    <!-- NEW: Animated Background (Feature 13) -->
+    <div class="animated-bg"></div>
+
+    <!-- NEW: Floating Share Buttons (Feature 19) -->
+    <div class="floating-share">
+        <div class="share-icon" onclick="sharePage('facebook')">
+            <i class="fab fa-facebook-f"></i>
+            <span class="share-tooltip">Share on Facebook</span>
+        </div>
+        <div class="share-icon" onclick="sharePage('twitter')">
+            <i class="fab fa-twitter"></i>
+            <span class="share-tooltip">Share on Twitter</span>
+        </div>
+        <div class="share-icon" onclick="sharePage('whatsapp')">
+            <i class="fab fa-whatsapp"></i>
+            <span class="share-tooltip">Share on WhatsApp</span>
+        </div>
+        <div class="share-icon" onclick="sharePage('copy')">
+            <i class="fas fa-link"></i>
+            <span class="share-tooltip">Copy Link</span>
+        </div>
+    </div>
+
+    <!-- NEW: QR Code (Feature 32) -->
+    <div class="qr-code-container" id="qrContainer" onclick="expandQR()">
+        <canvas id="qrCanvas" width="80" height="80"></canvas>
+        <div class="qr-label">Scan me!</div>
+    </div>
+    
+    <div class="qr-expanded" id="qrExpanded">
+        <div class="qr-close" onclick="closeQR()">✕</div>
+        <canvas id="qrCanvasExpanded" width="200" height="200"></canvas>
+        <div style="text-align:center; margin-top:10px; color:#333;">EAS HOBBIES</div>
     </div>
 
     <!-- Header -->
@@ -1510,6 +1818,7 @@
         </div>
     </footer>
     
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
     <script>
         // Initialize AOS
         AOS.init({
@@ -1604,7 +1913,7 @@ window.addEventListener('load', function() {
             const inputValue = this.value.toLowerCase().trim();
             
             // Reset all modes first
-            body.classList.remove('disco-mode', 'glitch-mode', 'matrix-mode', 'barbie-mode', 'gta-mode');
+            body.classList.remove('disco-mode', 'glitch-mode', 'matrix-mode', 'barbie-mode', 'gta-mode', 'halloween-mode', 'christmas-mode', 'birthday-mode');
             body.classList.remove('wanted-1', 'wanted-2', 'wanted-3', 'wanted-4', 'wanted-5');
             clearInterval(glitchInterval);
             clearInterval(matrixInterval);
@@ -1807,6 +2116,21 @@ window.addEventListener('load', function() {
                 
                 // Create radar blips
                 createRadarBlips();
+            }
+            // NEW: HALLOWEEN MODE (11)
+            else if (inputValue === 'halloween') {
+                body.classList.add('halloween-mode');
+                body.classList.remove('dark-mode');
+            }
+            // NEW: CHRISTMAS MODE (11)
+            else if (inputValue === 'christmas') {
+                body.classList.add('christmas-mode');
+                body.classList.remove('dark-mode');
+            }
+            // NEW: BIRTHDAY MODE (11)
+            else if (inputValue === 'birthday') {
+                body.classList.add('birthday-mode');
+                body.classList.remove('dark-mode');
             }
         });
         
@@ -2735,7 +3059,77 @@ const icons = [
                     easing: 'easeOutExpo'
                 });
             }
+
+            // NEW: Create particles (Feature 15)
+            createParticles();
+            
+            // NEW: Generate QR Code (Feature 32)
+            generateQRCode();
         });
+
+        // NEW: Particle creation (Feature 15)
+        function createParticles() {
+            const container = document.getElementById('particleContainer');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                particle.style.width = (2 + Math.random() * 4) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+                container.appendChild(particle);
+            }
+        }
+
+        // NEW: Share functions (Feature 19)
+        window.sharePage = function(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('EAS HOBBIES - Check out our hobbies!');
+            
+            let shareUrl = '';
+            switch(platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://api.whatsapp.com/send?text=${title}%20${url}`;
+                    break;
+                case 'copy':
+                    navigator.clipboard.writeText(window.location.href);
+                    alert('Link copied to clipboard!');
+                    return;
+            }
+            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=400');
+        };
+
+        // NEW: QR Code functions (Feature 32)
+        function generateQRCode() {
+            const canvas = document.getElementById('qrCanvas');
+            const canvasExpanded = document.getElementById('qrCanvasExpanded');
+            const url = window.location.href;
+            
+            if (typeof QRCode !== 'undefined') {
+                QRCode.toCanvas(canvas, url, { width: 80 }, function(error) {
+                    if (error) console.error(error);
+                });
+                QRCode.toCanvas(canvasExpanded, url, { width: 200 }, function(error) {
+                    if (error) console.error(error);
+                });
+            }
+        }
+        
+        window.expandQR = function() {
+            document.getElementById('qrExpanded').classList.add('show');
+        };
+        
+        window.closeQR = function() {
+            document.getElementById('qrExpanded').classList.remove('show');
+        };
     </script>
 </body>
 </html>
