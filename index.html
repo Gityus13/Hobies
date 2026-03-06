@@ -1428,158 +1428,124 @@
             box-shadow: 0 30px 60px rgba(0,0,0,0.4);
         }
         
-        /* 15. Particle Effects */
-        .particle-container {
+        /* 19 & 32 - Combined Popup System */
+        .popup-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
         }
         
-        .particle {
+        .popup-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 90%;
+            width: 400px;
+            text-align: center;
+            position: relative;
+            animation: popupAppear 0.3s ease;
+        }
+        
+        @keyframes popupAppear {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .popup-close {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255,255,255,0.5);
-            border-radius: 50%;
-            animation: particleFloat 15s linear infinite;
-        }
-        
-        @keyframes particleFloat {
-            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-20vh) translateX(20px); opacity: 0; }
-        }
-        
-        /* 19. Share Button - floating share */
-        .floating-share {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(10px);
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background: #ff4444;
             color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            display: flex;
-            gap: 15px;
-            z-index: 1000;
-            border: 1px solid rgba(255,255,255,0.3);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-        }
-        
-        .share-icon {
-            width: 40px;
-            height: 40px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s;
+            font-size: 20px;
+            border: none;
+        }
+        
+        .popup-close:hover {
+            background: #ff6666;
+        }
+        
+        .popup-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .share-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .share-option {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
             font-size: 18px;
         }
         
-        .share-icon:hover {
-            transform: scale(1.2);
-            background: rgba(255,255,255,0.4);
+        .share-option:hover {
+            transform: scale(1.05);
         }
         
-        .share-tooltip {
-            position: absolute;
-            bottom: 60px;
-            background: #333;
+        .qr-popup canvas {
+            width: 250px;
+            height: 250px;
+            margin: 20px auto;
+            display: block;
+        }
+        
+        .bottom-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .action-button {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 12px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-        
-        .share-icon:hover .share-tooltip {
-            opacity: 1;
-        }
-        
-        /* 32. QR Codes */
-        .qr-code-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 100px;
-            height: 100px;
-            background: white;
-            padding: 5px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            z-index: 1000;
+            padding: 12px 24px;
+            border-radius: 50px;
             cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
         }
         
-        .qr-code-container:hover {
-            transform: scale(1.1);
+        .action-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
         }
         
-        .qr-code-container canvas {
-            width: 80px;
-            height: 80px;
-        }
-        
-        .qr-label {
-            font-size: 10px;
-            color: #333;
-            margin-top: 2px;
-        }
-        
-        .qr-expanded {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background: white;
-            padding: 20px;
-            border-radius: 20px;
-            z-index: 10000;
-            transition: transform 0.3s;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-        
-        .qr-expanded.show {
-            transform: translate(-50%, -50%) scale(1);
-        }
-        
-        .qr-expanded canvas {
-            width: 200px;
-            height: 200px;
-        }
-        
-        .qr-close {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: #ff4444;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+        .action-button i {
+            font-size: 20px;
         }
     </style>
 </head>
@@ -1683,42 +1649,15 @@
         </div>
     </div>
 
-    <!-- NEW: Particle Container (Feature 15) -->
-    <div class="particle-container" id="particleContainer"></div>
-
     <!-- NEW: Animated Background (Feature 13) -->
     <div class="animated-bg"></div>
 
-    <!-- NEW: Floating Share Buttons (Feature 19) -->
-    <div class="floating-share">
-        <div class="share-icon" onclick="sharePage('facebook')">
-            <i class="fab fa-facebook-f"></i>
-            <span class="share-tooltip">Share on Facebook</span>
+    <!-- NEW: Popup System (Features 19 & 32) -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-content" id="popupContent">
+            <div class="popup-close" onclick="closePopup()">✕</div>
+            <div id="popupInner"></div>
         </div>
-        <div class="share-icon" onclick="sharePage('twitter')">
-            <i class="fab fa-twitter"></i>
-            <span class="share-tooltip">Share on Twitter</span>
-        </div>
-        <div class="share-icon" onclick="sharePage('whatsapp')">
-            <i class="fab fa-whatsapp"></i>
-            <span class="share-tooltip">Share on WhatsApp</span>
-        </div>
-        <div class="share-icon" onclick="sharePage('copy')">
-            <i class="fas fa-link"></i>
-            <span class="share-tooltip">Copy Link</span>
-        </div>
-    </div>
-
-    <!-- NEW: QR Code (Feature 32) -->
-    <div class="qr-code-container" id="qrContainer" onclick="expandQR()">
-        <canvas id="qrCanvas" width="80" height="80"></canvas>
-        <div class="qr-label">Scan me!</div>
-    </div>
-    
-    <div class="qr-expanded" id="qrExpanded">
-        <div class="qr-close" onclick="closeQR()">✕</div>
-        <canvas id="qrCanvasExpanded" width="200" height="200"></canvas>
-        <div style="text-align:center; margin-top:10px; color:#333;">EAS HOBBIES</div>
     </div>
 
     <!-- Header -->
@@ -1808,6 +1747,18 @@
     <i class="fa-solid fa-crown"></i>
                 Hosts
         </a>
+        </div>
+
+        <!-- NEW: Bottom Action Buttons (Share & QR) -->
+        <div class="bottom-buttons">
+            <div class="action-button" onclick="openSharePopup()">
+                <i class="fas fa-share-alt"></i>
+                Share
+            </div>
+            <div class="action-button" onclick="openQRPopup()">
+                <i class="fas fa-qrcode"></i>
+                QR Code
+            </div>
         </div>
     </section>
     
@@ -2843,7 +2794,6 @@ const names = [
     { name: "Rufiz", description: "<i class=\"fa-solid fa-basketball\"></i> American bad boy that loves sport (Logo Creator)" },
     { name: "Eldar", description: "<i class=\"fa-solid fa-crosshairs\"></i> He is good for his hunting skills" },
     { name: "Ismayil", description: "<i class=\"fa-solid fa-gamepad\"></i> Ismayil is best Roblox player (Steal a brainrot)" },
-    { name: "Ali", description: "<i class=\"fa-solid fa-robot\"></i> Ali is a real powerful AI we call him (AliGpt)" },
     { name: "Zahra", description: "<i class=\"fa-solid fa-shield-halved\"></i> She is famous for protecting their bestie with MMA" },
     { name: "Aliya", description: "<i class=\"fa-solid fa-cart-shopping\"></i> Volleyball bestie" },
     { name: "Safia", description: "<i class=\"fa-solid fa-volleyball\"></i> Volleyball Player" },
@@ -2864,7 +2814,7 @@ const cardColors = [
     "from-yellow-200 via-yellow-400 via-yellow-600 to-amber-800",
     "from-yellow-200 via-yellow-400 via-yellow-600 to-amber-800",
     "from-yellow-200 via-yellow-400 via-yellow-600 to-amber-800",
-    "from-yellow-500 to-orange-500",
+    "from-cyan-500 to-sky-500",
     "from-red-500 to-pink-500",
     "from-indigo-500 to-purple-500",
     "from-teal-500 to-blue-500",
@@ -3059,31 +3009,66 @@ const icons = [
                     easing: 'easeOutExpo'
                 });
             }
-
-            // NEW: Create particles (Feature 15)
-            createParticles();
             
             // NEW: Generate QR Code (Feature 32)
             generateQRCode();
         });
 
-        // NEW: Particle creation (Feature 15)
-        function createParticles() {
-            const container = document.getElementById('particleContainer');
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 10 + 's';
-                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
-                particle.style.width = (2 + Math.random() * 4) + 'px';
-                particle.style.height = particle.style.width;
-                particle.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
-                container.appendChild(particle);
-            }
+        // NEW: Popup Functions (Features 19 & 32)
+        const popupOverlay = document.getElementById('popupOverlay');
+        const popupInner = document.getElementById('popupInner');
+
+        function openPopup(content) {
+            popupInner.innerHTML = content;
+            popupOverlay.style.display = 'flex';
         }
 
-        // NEW: Share functions (Feature 19)
+        function closePopup() {
+            popupOverlay.style.display = 'none';
+        }
+
+        function openSharePopup() {
+            const shareContent = `
+                <div class="popup-title">Share EAS HOBBIES</div>
+                <div class="share-grid">
+                    <div class="share-option" onclick="sharePage('facebook')">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </div>
+                    <div class="share-option" onclick="sharePage('twitter')">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </div>
+                    <div class="share-option" onclick="sharePage('whatsapp')">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </div>
+                    <div class="share-option" onclick="sharePage('copy')">
+                        <i class="fas fa-link"></i> Copy Link
+                    </div>
+                </div>
+            `;
+            openPopup(shareContent);
+        }
+
+        function openQRPopup() {
+            const qrContent = `
+                <div class="popup-title">Scan QR Code</div>
+                <div class="qr-popup">
+                    <canvas id="popupQRCanvas" width="250" height="250"></canvas>
+                    <p style="color:#666; margin-top:10px;">Scan to visit EAS HOBBIES</p>
+                </div>
+            `;
+            openPopup(qrContent);
+            
+            // Generate QR in popup
+            setTimeout(() => {
+                const canvas = document.getElementById('popupQRCanvas');
+                if (canvas && typeof QRCode !== 'undefined') {
+                    QRCode.toCanvas(canvas, window.location.href, { width: 250 }, function(error) {
+                        if (error) console.error(error);
+                    });
+                }
+            }, 100);
+        }
+
         window.sharePage = function(platform) {
             const url = encodeURIComponent(window.location.href);
             const title = encodeURIComponent('EAS HOBBIES - Check out our hobbies!');
@@ -3102,34 +3087,25 @@ const icons = [
                 case 'copy':
                     navigator.clipboard.writeText(window.location.href);
                     alert('Link copied to clipboard!');
+                    closePopup();
                     return;
             }
-            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=400');
+            if (shareUrl) {
+                window.open(shareUrl, '_blank', 'width=600,height=400');
+                closePopup();
+            }
         };
 
-        // NEW: QR Code functions (Feature 32)
         function generateQRCode() {
-            const canvas = document.getElementById('qrCanvas');
-            const canvasExpanded = document.getElementById('qrCanvasExpanded');
-            const url = window.location.href;
-            
-            if (typeof QRCode !== 'undefined') {
-                QRCode.toCanvas(canvas, url, { width: 80 }, function(error) {
-                    if (error) console.error(error);
-                });
-                QRCode.toCanvas(canvasExpanded, url, { width: 200 }, function(error) {
-                    if (error) console.error(error);
-                });
-            }
+            // Generate for main QR if needed (not used in popup)
         }
-        
-        window.expandQR = function() {
-            document.getElementById('qrExpanded').classList.add('show');
-        };
-        
-        window.closeQR = function() {
-            document.getElementById('qrExpanded').classList.remove('show');
-        };
+
+        // Close popup when clicking outside
+        popupOverlay.addEventListener('click', function(e) {
+            if (e.target === popupOverlay) {
+                closePopup();
+            }
+        });
     </script>
 </body>
 </html>
