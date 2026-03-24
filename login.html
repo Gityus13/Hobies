@@ -1,0 +1,58 @@
+<!-- User Profile Bar - Shows logged in user -->
+<div id="userBar" style="position: fixed; top: 20px; left: 20px; z-index: 10000; background: rgba(0,0,0,0.65); backdrop-filter: blur(12px); padding: 6px 18px; border-radius: 50px; display: flex; align-items: center; gap: 12px; font-family: 'Inter', sans-serif; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <img id="userAvatar" src="" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid #ffb347;">
+        <span id="userName" style="color: white; font-weight: 500; font-size: 0.9rem;"></span>
+    </div>
+    <button id="logoutBtn" style="background: rgba(220, 53, 69, 0.9); border: none; color: white; padding: 5px 14px; border-radius: 40px; cursor: pointer; font-size: 0.75rem; font-weight: 500; transition: all 0.2s;">Logout</button>
+</div>
+
+<script>
+    const USER_KEY = "eas_hobbies_user";
+    
+    function updateUserUI() {
+        const userData = localStorage.getItem(USER_KEY);
+        const userBar = document.getElementById('userBar');
+        const avatarImg = document.getElementById('userAvatar');
+        const userNameSpan = document.getElementById('userName');
+        
+        if (userData) {
+            try {
+                const user = JSON.parse(userData);
+                userNameSpan.innerText = `👋 ${user.name}`;
+                if (user.picture && user.picture.startsWith('http')) {
+                    avatarImg.src = user.picture;
+                } else {
+                    avatarImg.src = `https://ui-avatars.com/api/?background=f4a261&color=fff&name=${encodeURIComponent(user.name)}`;
+                }
+                userBar.style.display = 'flex';
+            } catch(e) {
+                userBar.style.display = 'none';
+            }
+        } else {
+            userBar.style.display = 'none';
+            showLoginPrompt();
+        }
+    }
+    
+    function showLoginPrompt() {
+        if (!document.getElementById('loginPrompt')) {
+            const prompt = document.createElement('div');
+            prompt.id = 'loginPrompt';
+            prompt.style.cssText = 'position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); backdrop-filter: blur(12px); padding: 12px 28px; border-radius: 60px; color: white; z-index: 9999; font-size: 0.85rem; font-family: "Inter", sans-serif;';
+            prompt.innerHTML = `🔐 Sign in to save your progress! <a href="login.html" style="color:#ffb347; font-weight:bold; margin-left:12px; text-decoration:none;">Login / Sign Up →</a>`;
+            document.body.appendChild(prompt);
+        }
+    }
+    
+    function logout() {
+        localStorage.removeItem(USER_KEY);
+        window.location.href = "login.html";
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        updateUserUI();
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) logoutBtn.addEventListener('click', logout);
+    });
+</script>
