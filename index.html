@@ -1720,59 +1720,71 @@
         }
     }
     
-    // Toggle dropdown menu
-    function toggleDropdown() {
-        const dropdown = document.getElementById('userDropdown');
-        dropdown.classList.toggle('show');
-    }
-    
-    // Close dropdown when clicking outside
-    function closeDropdownOnClickOutside(event) {
-        const avatarButton = document.getElementById('userAvatarButton');
-        const dropdown = document.getElementById('userDropdown');
-        
-        if (avatarButton && !avatarButton.contains(event.target) && dropdown && !dropdown.contains(event.target)) {
-            dropdown.classList.remove('show');
-        }
-    }
-    
     // Logout function
     function logout() {
         localStorage.removeItem(USER_KEY);
-        window.location.reload(); // Refresh page to show sign in button
+        window.location.reload();
     }
     
-    // Sign In function - redirect to login page
+    // Sign In function
     function signIn() {
         window.location.href = "login.html";
     }
     
     // Initialize when page loads
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', function() {
         updateUserUI();
         
-        // Add event listeners
+        // Sign In button
         const signInBtn = document.getElementById('signInButton');
         if (signInBtn) {
-            signInBtn.addEventListener('click', signIn);
+            signInBtn.onclick = signIn;
         }
         
+        // Avatar button - direct onclick method (simpler)
         const avatarButton = document.getElementById('userAvatarButton');
+        const dropdown = document.getElementById('userDropdown');
+        
         if (avatarButton) {
-            avatarButton.addEventListener('click', toggleDropdown);
+            avatarButton.onclick = function(e) {
+                e.stopPropagation();
+                if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+                    dropdown.style.display = 'block';
+                    dropdown.classList.add('show');
+                } else {
+                    dropdown.style.display = 'none';
+                    dropdown.classList.remove('show');
+                }
+            };
         }
         
+        // Logout button
         const logoutBtn = document.getElementById('logoutButton');
         if (logoutBtn) {
-            logoutBtn.addEventListener('click', logout);
+            logoutBtn.onclick = function(e) {
+                e.stopPropagation();
+                logout();
+            };
         }
         
-        // Close dropdown when clicking outside
-        document.addEventListener('click', closeDropdownOnClickOutside);
+        // Close dropdown when clicking elsewhere
+        document.onclick = function() {
+            if (dropdown) {
+                dropdown.style.display = 'none';
+                dropdown.classList.remove('show');
+            }
+        };
+        
+        // Prevent dropdown from closing when clicking inside it
+        if (dropdown) {
+            dropdown.onclick = function(e) {
+                e.stopPropagation();
+            };
+        }
     });
     
-    // Listen for storage changes (in case login happens in another tab)
-    window.addEventListener('storage', (event) => {
+    // Listen for storage changes
+    window.addEventListener('storage', function(event) {
         if (event.key === USER_KEY) {
             updateUserUI();
         }
