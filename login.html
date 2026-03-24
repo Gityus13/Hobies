@@ -24,6 +24,7 @@
             align-items: center;
             justify-content: center;
             padding: 1.5rem;
+            transition: all 0.3s ease;
         }
 
         body.dark-mode {
@@ -179,44 +180,21 @@
             display: none;
         }
 
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 10001;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(255,255,255,0.3);
-            border-top-color: #ffb347;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .loading-text {
-            color: white;
-            font-size: 1rem;
-        }
-
-        /* Make sure Google popup is on top */
+        /* No loading overlay - removed completely */
+        
+        /* Make sure Google popup is on top and centered */
         iframe[src*="accounts.google.com"] {
             z-index: 100000 !important;
-            position: relative !important;
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3) !important;
+            border-radius: 8px !important;
         }
         
         /* Override any Google One Tap positioning */
-        [data-google-one-tap] {
+        div[data-google-one-tap] {
             z-index: 100000 !important;
         }
     </style>
@@ -226,11 +204,6 @@
         <div class="toggle-button" id="darkModeToggle">
             <i class="fas fa-moon"></i>
         </div>
-    </div>
-
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Signing in...</div>
     </div>
 
     <div class="login-card">
@@ -263,14 +236,6 @@
         const GOOGLE_CLIENT_ID = "465691426135-kd0eqsehrvnnrgk13ljnqi5vac8242vg.apps.googleusercontent.com";
         const STORAGE_KEY = "eas_hobbies_user";
         
-        function showLoading() {
-            document.getElementById('loadingOverlay').style.display = 'flex';
-        }
-        
-        function hideLoading() {
-            document.getElementById('loadingOverlay').style.display = 'none';
-        }
-        
         function showError(message) {
             const errorDiv = document.getElementById('errorMsg');
             errorDiv.textContent = message;
@@ -299,7 +264,7 @@
             }
         }
         
-        // Initialize Google Sign-In with popup mode (NOT redirect mode)
+        // Initialize Google Sign-In - NO SPINNER, DIRECT POPUP
         function initGoogleSignIn() {
             // Load Google script
             const script = document.createElement('script');
@@ -307,7 +272,7 @@
             script.onload = () => {
                 console.log("Google Sign-In loaded");
                 
-                // Initialize with popup mode (NOT redirect)
+                // Initialize with popup mode
                 google.accounts.id.initialize({
                     client_id: GOOGLE_CLIENT_ID,
                     callback: (response) => {
@@ -321,35 +286,39 @@
                                 provider: "google"
                             });
                         } else {
-                            hideLoading();
                             showError("Failed to get user information. Please try again.");
                         }
                     },
                     auto_select: false,
                     cancel_on_tap_outside: true,
-                    ux_mode: 'popup',  // Force popup mode (centered window)
-                    popup_origin: window.location.origin
+                    ux_mode: 'popup'  // Force popup mode
                 });
                 
-                // Add click handler for the Google button
-                document.getElementById('googleLoginBtn').addEventListener('click', (e) => {
+                // Add click handler - IMMEDIATE POPUP, NO SPINNER
+                const googleBtn = document.getElementById('googleLoginBtn');
+                googleBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    console.log("Google button clicked - opening popup");
-                    showLoading();
+                    console.log("Opening Google Sign-In popup...");
                     
-                    // Show the Google One Tap prompt (which opens popup)
+                    // Directly show the popup - no loading overlay!
                     google.accounts.id.prompt((notification) => {
-                        console.log("Prompt notification:", notification);
                         if (notification.isNotDisplayed()) {
-                            hideLoading();
                             const reason = notification.getNotDisplayedReason();
-                            console.log("Not displayed reason:", reason);
+                            console.log("Popup not displayed:", reason);
                             if (reason === 'opt_out_or_no_session') {
+                                // Fallback: open popup directly
+                                google.accounts.id.renderButton(googleBtn, {
+                                    type: 'standard',
+                                    theme: 'outline',
+                                    size: 'large',
+                                    text: 'continue_with',
+                                    shape: 'pill'
+                                });
                                 showError("Please click the Google button again to sign in.");
                             } else if (reason === 'invalid_client') {
                                 showError("Google Sign-In configuration error. Please try again later.");
                             } else {
-                                showError("Unable to show sign-in. Please enable popups and try again.");
+                                showError("Please enable popups for this website and try again.");
                             }
                         }
                     });
@@ -407,20 +376,6 @@
         if (localStorage.getItem(STORAGE_KEY)) {
             window.location.href = "index.html";
         }
-        
-        // Make sure popup is on top
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const popupIframes = document.querySelectorAll('iframe[src*="accounts.google.com"]');
-                popupIframes.forEach(iframe => {
-                    iframe.style.zIndex = '100000';
-                    iframe.style.position = 'fixed';
-                    iframe.style.top = '50%';
-                    iframe.style.left = '50%';
-                    iframe.style.transform = 'translate(-50%, -50%)';
-                });
-            }, 100);
-        });
     </script>
 </body>
 </html>
