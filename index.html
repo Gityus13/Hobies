@@ -1550,7 +1550,236 @@
     </style>
 </head>
 <body class="min-h-screen">
-    <!-- LOADING SCREEN -->
+<!-- User Profile Section - Shows login status (Positioned below dark mode & music buttons) -->
+<div id="userProfileSection" style="position: fixed; top: 110px; right: 20px; z-index: 10000; font-family: 'Inter', sans-serif;">
+    <!-- Logged Out State - Shows Sign In button -->
+    <div id="loggedOutState">
+        <button id="signInButton" style="background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); color: white; padding: 10px 20px; border-radius: 40px; cursor: pointer; font-size: 0.85rem; font-weight: 500; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; white-space: nowrap;">
+            <i class="fas fa-sign-in-alt"></i>
+            Sign In
+        </button>
+    </div>
+    
+    <!-- Logged In State - Shows User Avatar with Dropdown -->
+    <div id="loggedInState" style="display: none; position: relative;">
+        <div id="userAvatarButton" style="display: flex; align-items: center; gap: 10px; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); padding: 5px 15px 5px 8px; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2);">
+            <img id="userAvatarImg" src="" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid #ffb347;">
+            <span id="userNameText" style="color: white; font-weight: 500; font-size: 0.85rem; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></span>
+            <i class="fas fa-chevron-down" style="color: white; font-size: 0.7rem;"></i>
+        </div>
+        
+        <!-- Dropdown Menu -->
+        <div id="userDropdown" style="position: absolute; top: 55px; right: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(12px); border-radius: 16px; padding: 10px 0; min-width: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); display: none; z-index: 10001;">
+            <div style="padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <div id="dropdownUserName" style="color: white; font-weight: 600; font-size: 0.9rem; word-break: break-word;"></div>
+                <div id="dropdownUserEmail" style="color: rgba(255,255,255,0.6); font-size: 0.7rem; margin-top: 4px; word-break: break-word;"></div>
+            </div>
+            <button id="logoutButton" style="width: 100%; background: none; border: none; color: #ff6b6b; padding: 12px 20px; text-align: left; cursor: pointer; font-size: 0.85rem; transition: all 0.2s; display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+    #signInButton:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+    }
+    
+    #userAvatarButton:hover {
+        background: rgba(0, 0, 0, 0.7);
+        transform: scale(1.02);
+    }
+    
+    #logoutButton:hover {
+        background: rgba(255, 107, 107, 0.1);
+    }
+    
+    /* Animation for dropdown */
+    @keyframes dropdownFade {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    #userDropdown.show {
+        display: block;
+        animation: dropdownFade 0.2s ease-out;
+    }
+    
+    /* Responsive adjustments for mobile */
+    @media (max-width: 768px) {
+        #userProfileSection {
+            top: 95px !important;
+            right: 10px !important;
+        }
+        
+        #signInButton {
+            padding: 6px 12px !important;
+            font-size: 0.75rem !important;
+        }
+        
+        #userAvatarButton {
+            padding: 3px 10px 3px 5px !important;
+        }
+        
+        #userAvatarImg {
+            width: 28px !important;
+            height: 28px !important;
+        }
+        
+        #userNameText {
+            max-width: 80px !important;
+            font-size: 0.75rem !important;
+        }
+        
+        #userDropdown {
+            min-width: 180px !important;
+            right: -5px !important;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        #userProfileSection {
+            top: 85px !important;
+        }
+        
+        #signInButton {
+            padding: 5px 10px !important;
+            font-size: 0.7rem !important;
+        }
+        
+        #userNameText {
+            max-width: 70px !important;
+        }
+    }
+</style>
+
+<script>
+    const USER_KEY = "eas_hobbies_user";
+    
+    // Check if user is logged in and update UI
+    function updateUserUI() {
+        const userData = localStorage.getItem(USER_KEY);
+        const loggedOutState = document.getElementById('loggedOutState');
+        const loggedInState = document.getElementById('loggedInState');
+        
+        if (userData) {
+            try {
+                const user = JSON.parse(userData);
+                
+                // Update logged in state
+                const avatarImg = document.getElementById('userAvatarImg');
+                const userNameSpan = document.getElementById('userNameText');
+                const dropdownUserName = document.getElementById('dropdownUserName');
+                const dropdownUserEmail = document.getElementById('dropdownUserEmail');
+                
+                // Set user name (truncate if too long)
+                let displayName = user.name;
+                if (displayName.length > 18) {
+                    displayName = displayName.substring(0, 16) + '...';
+                }
+                userNameSpan.innerText = displayName;
+                dropdownUserName.innerText = user.name;
+                
+                // Set email (if available)
+                if (user.email) {
+                    dropdownUserEmail.innerText = user.email;
+                    dropdownUserEmail.style.display = 'block';
+                } else {
+                    dropdownUserEmail.style.display = 'none';
+                }
+                
+                // Set avatar
+                if (user.picture && user.picture.startsWith('http')) {
+                    avatarImg.src = user.picture;
+                } else {
+                    avatarImg.src = `https://ui-avatars.com/api/?background=f4a261&color=fff&name=${encodeURIComponent(user.name)}`;
+                }
+                
+                // Show logged in state, hide logged out state
+                loggedOutState.style.display = 'none';
+                loggedInState.style.display = 'block';
+                
+            } catch(e) {
+                console.error("Error parsing user data", e);
+                loggedOutState.style.display = 'block';
+                loggedInState.style.display = 'none';
+            }
+        } else {
+            // Show sign in button
+            loggedOutState.style.display = 'block';
+            loggedInState.style.display = 'none';
+        }
+    }
+    
+    // Toggle dropdown menu
+    function toggleDropdown() {
+        const dropdown = document.getElementById('userDropdown');
+        dropdown.classList.toggle('show');
+    }
+    
+    // Close dropdown when clicking outside
+    function closeDropdownOnClickOutside(event) {
+        const avatarButton = document.getElementById('userAvatarButton');
+        const dropdown = document.getElementById('userDropdown');
+        
+        if (avatarButton && !avatarButton.contains(event.target) && dropdown && !dropdown.contains(event.target)) {
+            dropdown.classList.remove('show');
+        }
+    }
+    
+    // Logout function
+    function logout() {
+        localStorage.removeItem(USER_KEY);
+        window.location.reload(); // Refresh page to show sign in button
+    }
+    
+    // Sign In function - redirect to login page
+    function signIn() {
+        window.location.href = "login.html";
+    }
+    
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        updateUserUI();
+        
+        // Add event listeners
+        const signInBtn = document.getElementById('signInButton');
+        if (signInBtn) {
+            signInBtn.addEventListener('click', signIn);
+        }
+        
+        const avatarButton = document.getElementById('userAvatarButton');
+        if (avatarButton) {
+            avatarButton.addEventListener('click', toggleDropdown);
+        }
+        
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', logout);
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', closeDropdownOnClickOutside);
+    });
+    
+    // Listen for storage changes (in case login happens in another tab)
+    window.addEventListener('storage', (event) => {
+        if (event.key === USER_KEY) {
+            updateUserUI();
+        }
+    });
+</script>
+
+<!-- LOADING SCREEN -->
     <div id="loading-screen">
         <img src="https://i.ibb.co/wFY6Tn2y/7-F.png" alt="Loading" class="loading-logo">
         <div class="loading-text">Loading EAS HOBBIES...</div>
