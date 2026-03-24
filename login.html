@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Login - EAS HOBBIES</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -46,6 +46,8 @@
             padding: 2rem 1.8rem 2.5rem;
             box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
             text-align: center;
+            position: relative;
+            z-index: 10;
         }
 
         body.dark-mode .login-card {
@@ -206,6 +208,17 @@
             color: white;
             font-size: 1rem;
         }
+
+        /* Make sure Google popup is on top */
+        iframe[src*="accounts.google.com"] {
+            z-index: 100000 !important;
+            position: relative !important;
+        }
+        
+        /* Override any Google One Tap positioning */
+        [data-google-one-tap] {
+            z-index: 100000 !important;
+        }
     </style>
 </head>
 <body>
@@ -286,14 +299,15 @@
             }
         }
         
-        // Initialize Google Sign-In
+        // Initialize Google Sign-In with popup mode (NOT redirect mode)
         function initGoogleSignIn() {
-            // Load Google script dynamically
+            // Load Google script
             const script = document.createElement('script');
             script.src = 'https://accounts.google.com/gsi/client';
             script.onload = () => {
                 console.log("Google Sign-In loaded");
                 
+                // Initialize with popup mode (NOT redirect)
                 google.accounts.id.initialize({
                     client_id: GOOGLE_CLIENT_ID,
                     callback: (response) => {
@@ -312,17 +326,31 @@
                         }
                     },
                     auto_select: false,
-                    cancel_on_tap_outside: true
+                    cancel_on_tap_outside: true,
+                    ux_mode: 'popup',  // Force popup mode (centered window)
+                    popup_origin: window.location.origin
                 });
                 
                 // Add click handler for the Google button
-                document.getElementById('googleLoginBtn').addEventListener('click', () => {
-                    console.log("Google button clicked");
+                document.getElementById('googleLoginBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log("Google button clicked - opening popup");
                     showLoading();
+                    
+                    // Show the Google One Tap prompt (which opens popup)
                     google.accounts.id.prompt((notification) => {
-                        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                        console.log("Prompt notification:", notification);
+                        if (notification.isNotDisplayed()) {
                             hideLoading();
-                            showError("Please enable popups for this website and try again.");
+                            const reason = notification.getNotDisplayedReason();
+                            console.log("Not displayed reason:", reason);
+                            if (reason === 'opt_out_or_no_session') {
+                                showError("Please click the Google button again to sign in.");
+                            } else if (reason === 'invalid_client') {
+                                showError("Google Sign-In configuration error. Please try again later.");
+                            } else {
+                                showError("Unable to show sign-in. Please enable popups and try again.");
+                            }
                         }
                     });
                 });
@@ -379,6 +407,20 @@
         if (localStorage.getItem(STORAGE_KEY)) {
             window.location.href = "index.html";
         }
+        
+        // Make sure popup is on top
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const popupIframes = document.querySelectorAll('iframe[src*="accounts.google.com"]');
+                popupIframes.forEach(iframe => {
+                    iframe.style.zIndex = '100000';
+                    iframe.style.position = 'fixed';
+                    iframe.style.top = '50%';
+                    iframe.style.left = '50%';
+                    iframe.style.transform = 'translate(-50%, -50%)';
+                });
+            }, 100);
+        });
     </script>
 </body>
 </html>
