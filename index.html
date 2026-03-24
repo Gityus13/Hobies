@@ -1779,6 +1779,604 @@
     });
 </script>
 
+<!-- ========== COMPLETE BIRTHDAY CELEBRATION ========== -->
+<style>
+    /* Birthday Badge - Always visible when active */
+    .birthday-badge {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 10001;
+        background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+        padding: 8px 16px;
+        border-radius: 50px;
+        box-shadow: 0 5px 20px rgba(255,107,107,0.4);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255,255,255,0.3);
+        display: none;
+    }
+    
+    .birthday-badge:hover {
+        transform: scale(1.05);
+    }
+    
+    .birthday-badge-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+        font-weight: bold;
+        font-size: 13px;
+    }
+    
+    .birthday-badge i {
+        font-size: 16px;
+    }
+    
+    /* Birthday Banner - Smaller, Auto-Resize, No Collide */
+.birthday-banner {
+    position: relative;
+    margin: 5px auto 10px auto;
+    max-width: 90%;
+    width: fit-content;
+    background: linear-gradient(135deg, #ff6b6b, #ff8e53, #ffb347);
+    border-radius: 50px;
+    padding: 6px 20px;
+    text-align: center;
+    box-shadow: 0 3px 15px rgba(255,107,107,0.3);
+    animation: bannerGlow 2s ease-in-out infinite;
+    display: none;
+    z-index: 9995;
+    clear: both;
+}
+
+/* Make sure it doesn't overlap with buttons */
+@media (min-width: 769px) {
+    .birthday-banner {
+        margin-top: 70px;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .birthday-banner {
+        margin-top: 60px;
+        margin-bottom: 8px;
+        padding: 4px 15px;
+        max-width: 95%;
+    }
+}
+
+@media (max-width: 480px) {
+    .birthday-banner {
+        margin-top: 55px;
+        margin-bottom: 5px;
+        padding: 3px 12px;
+    }
+}
+    
+    @keyframes bannerGlow {
+        0%, 100% {
+            box-shadow: 0 5px 20px rgba(255,107,107,0.3);
+        }
+        50% {
+            box-shadow: 0 5px 30px rgba(255,107,107,0.6);
+        }
+    }
+    
+    .birthday-banner-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+    
+    .birthday-banner-text {
+        font-size: clamp(14px, 4vw, 20px);
+        font-weight: bold;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        letter-spacing: 1px;
+    }
+    
+    .birthday-banner i {
+        font-size: clamp(20px, 5vw, 28px);
+        color: white;
+        animation: bounce 1s ease-in-out infinite;
+    }
+    
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+    
+    /* Special Birthday Card */
+    .birthday-special-card {
+        position: relative;
+        background: linear-gradient(135deg, #ffd89b, #c7e9fb) !important;
+        border: 3px solid #ff6b6b !important;
+        box-shadow: 0 0 30px rgba(255,107,107,0.5) !important;
+        animation: specialCardPulse 1s ease-in-out infinite !important;
+    }
+    
+    @keyframes specialCardPulse {
+        0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 0 20px rgba(255,107,107,0.5);
+        }
+        50% {
+            transform: scale(1.02);
+            box-shadow: 0 0 40px rgba(255,107,107,0.8);
+        }
+    }
+    
+    .birthday-crown {
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 35px;
+        z-index: 10;
+        animation: crownFloat 2s ease-in-out infinite;
+        filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+    }
+    
+    @keyframes crownFloat {
+        0%, 100% {
+            transform: translateX(-50%) translateY(0);
+        }
+        50% {
+            transform: translateX(-50%) translateY(-8px);
+        }
+    }
+    
+    .birthday-confetti-badge {
+        position: absolute;
+        bottom: -10px;
+        right: -10px;
+        font-size: 25px;
+        animation: confettiSpin 2s linear infinite;
+    }
+    
+    @keyframes confettiSpin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    /* Simple Dancing Cards */
+    .dancing-card {
+        animation: simpleDance 0.5s ease-in-out infinite !important;
+    }
+    
+    @keyframes simpleDance {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-8px);
+        }
+    }
+    
+    /* Simple Floating Logo Animation */
+    .birthday-logo {
+        animation: logoFloat 1s ease-in-out infinite !important;
+    }
+    
+    @keyframes logoFloat {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-10px) rotate(5deg);
+        }
+    }
+    
+    /* Simple Floating Confetti */
+    .simple-confetti {
+        position: fixed;
+        pointer-events: none;
+        z-index: 9997;
+        font-size: 16px;
+        animation: simpleFloat 5s linear forwards;
+    }
+    
+    @keyframes simpleFloat {
+        0% {
+            transform: translateY(100vh) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-100px) rotate(360deg);
+            opacity: 0;
+        }
+    }
+    
+    /* Simple Birthday Toast */
+    .birthday-toast-simple {
+        position: fixed;
+        top: 120px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+        padding: 10px 20px;
+        border-radius: 50px;
+        color: white;
+        font-weight: bold;
+        z-index: 10002;
+        animation: toastSlideDown 0.5s ease, toastFadeOut 0.5s ease 6s forwards;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.3);
+        white-space: nowrap;
+        font-size: 14px;
+        pointer-events: none;
+    }
+    
+    @keyframes toastSlideDown {
+        from {
+            transform: translateX(-50%) translateY(-100px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes toastFadeOut {
+        to {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+    
+    /* Simple Card Hover Effect */
+    .birthday-card-hover {
+        transition: all 0.3s ease !important;
+    }
+    
+    .birthday-card-hover:hover {
+        transform: translateY(-10px) scale(1.02) !important;
+        box-shadow: 0 15px 30px rgba(255,107,107,0.3) !important;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .birthday-badge {
+            bottom: 10px;
+            right: 10px;
+            padding: 6px 12px;
+        }
+        
+        .birthday-badge-content {
+            font-size: 11px;
+        }
+        
+        .birthday-banner {
+            margin: 5px 10px 15px 10px;
+            padding: 8px 15px;
+        }
+        
+        .birthday-toast-simple {
+            top: 100px;
+            font-size: 12px;
+            white-space: nowrap;
+            padding: 8px 16px;
+        }
+        
+        .birthday-crown {
+            font-size: 25px;
+            top: -15px;
+        }
+        
+        .birthday-confetti-badge {
+            font-size: 18px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .birthday-toast-simple {
+            font-size: 10px;
+            white-space: nowrap;
+            padding: 6px 12px;
+        }
+        
+        .birthday-banner-text {
+            font-size: 12px;
+        }
+    }
+</style>
+
+<!-- Birthday Banner - Full time visible -->
+<div id="birthdayBanner" class="birthday-banner">
+    <div class="birthday-banner-content">
+        <i class="fas fa-birthday-cake"></i>
+        <span id="bannerText" class="birthday-banner-text">🎉 HAPPY BIRTHDAY! 🎉</span>
+        <i class="fas fa-gift"></i>
+    </div>
+</div>
+
+<!-- Birthday Badge - Bottom corner -->
+<div id="birthdayBadge" class="birthday-badge">
+    <div class="birthday-badge-content">
+        <i class="fas fa-birthday-cake"></i>
+        <span id="birthdayShortText">Happy Birthday!</span>
+        <i class="fas fa-gift"></i>
+    </div>
+</div>
+
+<script>
+    const PUBLIC_BIRTHDAY_KEY = "eas_public_birthday";
+    let birthdayActive = false;
+    let confettiTimer = null;
+    let currentBirthdayPerson = null;
+    
+    // Simple confetti creation
+    function createSimpleConfetti() {
+        const emojis = ['🎉', '🎊', '✨', '🎈', '🎂'];
+        const confetti = document.createElement('div');
+        confetti.className = 'simple-confetti';
+        confetti.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.fontSize = (Math.random() * 12 + 12) + 'px';
+        confetti.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        confetti.style.opacity = Math.random() * 0.6 + 0.3;
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 5000);
+    }
+    
+    // Start simple confetti
+    function startSimpleConfetti() {
+        // Initial burst
+        for (let i = 0; i < 20; i++) {
+            setTimeout(() => createSimpleConfetti(), i * 80);
+        }
+        // Continue every few seconds
+        if (confettiTimer) clearInterval(confettiTimer);
+        confettiTimer = setInterval(() => {
+            if (birthdayActive) {
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => createSimpleConfetti(), i * 100);
+                }
+            }
+        }, 4000);
+    }
+    
+    // Stop confetti
+    function stopSimpleConfetti() {
+        if (confettiTimer) {
+            clearInterval(confettiTimer);
+            confettiTimer = null;
+        }
+        document.querySelectorAll('.simple-confetti').forEach(el => el.remove());
+    }
+    
+    // Show birthday toast
+    function showBirthdayToastSimple(message) {
+        const existingToast = document.querySelector('.birthday-toast-simple');
+        if (existingToast) existingToast.remove();
+        
+        const toast = document.createElement('div');
+        toast.className = 'birthday-toast-simple';
+        toast.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-birthday-cake"></i>
+                <span>${message}</span>
+                <i class="fas fa-gift"></i>
+            </div>
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 6500);
+    }
+    
+    // Find and mark the birthday person's card
+    function markBirthdayCard(personName) {
+        const cards = document.querySelectorAll('.name-card');
+        let found = false;
+        
+        cards.forEach(card => {
+            const cardName = card.querySelector('.name-title')?.textContent || '';
+            
+            // Check if this card matches the birthday person
+            if (cardName.toLowerCase() === personName.toLowerCase()) {
+                found = true;
+                card.classList.add('birthday-special-card');
+                card.classList.add('dancing-card');
+                card.classList.add('birthday-card-hover');
+                
+                // Add crown on top
+                if (!card.querySelector('.birthday-crown')) {
+                    const crown = document.createElement('div');
+                    crown.className = 'birthday-crown';
+                    crown.innerHTML = '👑';
+                    card.appendChild(crown);
+                }
+                
+                // Add confetti badge
+                if (!card.querySelector('.birthday-confetti-badge')) {
+                    const badge = document.createElement('div');
+                    badge.className = 'birthday-confetti-badge';
+                    badge.innerHTML = '🎉';
+                    card.appendChild(badge);
+                }
+                
+                // Add birthday message inside card
+                const description = card.querySelector('p');
+                if (description && !card.querySelector('.birthday-message-inside')) {
+                    const age = currentBirthdayPerson?.age;
+                    const msg = currentBirthdayPerson?.message;
+                    let birthdayMsg = `<div class="birthday-message-inside" style="margin-top: 10px; font-size: 0.85rem; background: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 20px; display: inline-block;">
+                        🎂 ${age ? `Happy ${age}th Birthday! 🎂` : 'Happy Birthday! 🎂'} ${msg ? `<br>✨ ${msg} ✨` : ''}
+                    </div>`;
+                    description.insertAdjacentHTML('afterend', birthdayMsg);
+                }
+            } else {
+                // Regular dancing for other cards
+                card.classList.add('dancing-card');
+                card.classList.add('birthday-card-hover');
+            }
+        });
+        
+        return found;
+    }
+    
+    // Update banners with birthday info
+    function updateBirthdayBanners(name, age, message) {
+        const banner = document.getElementById('birthdayBanner');
+        const badgeText = document.getElementById('birthdayShortText');
+        const bannerText = document.getElementById('bannerText');
+        
+        let bannerMessage = `🎉 HAPPY BIRTHDAY ${name.toUpperCase()}! 🎉`;
+        if (age) {
+            bannerMessage = `🎂 HAPPY ${age}th BIRTHDAY ${name.toUpperCase()}! 🎂`;
+        }
+        if (message) {
+            bannerMessage += ` ✨ ${message} ✨`;
+        }
+        
+        let badgeMessage = `🎂 ${name}`;
+        if (age) badgeMessage += ` (${age})`;
+        
+        bannerText.innerHTML = bannerMessage;
+        badgeText.innerHTML = badgeMessage;
+        banner.style.display = 'block';
+    }
+    
+    // Activate birthday mode
+    function activateBirthdayMode(birthdayData) {
+        if (birthdayActive) return;
+        birthdayActive = true;
+        
+        const name = birthdayData.name;
+        const age = birthdayData.age;
+        const message = birthdayData.message;
+        
+        currentBirthdayPerson = { name, age, message };
+        
+        // Show birthday banner (always visible)
+        updateBirthdayBanners(name, age, message);
+        
+        // Show birthday badge
+        const badge = document.getElementById('birthdayBadge');
+        badge.style.display = 'block';
+        
+        // Show toast notification
+        let toastMessage = `🎉 Happy Birthday ${name}! 🎉`;
+        if (age) toastMessage = `🎂 Happy ${age}th Birthday ${name}! 🎂`;
+        if (message) toastMessage += ` ✨ ${message} ✨`;
+        showBirthdayToastSimple(toastMessage);
+        
+        // Mark the birthday person's card with special effects
+        const found = markBirthdayCard(name);
+        
+        // If birthday person not found, still animate all cards
+        if (!found) {
+            const cards = document.querySelectorAll('.name-card');
+            cards.forEach(card => {
+                card.classList.add('dancing-card');
+                card.classList.add('birthday-card-hover');
+            });
+        }
+        
+        // Animate logo
+        const logo = document.querySelector('.logo-img, .floating');
+        if (logo) {
+            logo.classList.add('birthday-logo');
+        }
+        
+        // Start simple confetti
+        startSimpleConfetti();
+    }
+    
+    // Deactivate birthday mode
+    function deactivateBirthdayMode() {
+        birthdayActive = false;
+        currentBirthdayPerson = null;
+        
+        // Hide banner and badge
+        const banner = document.getElementById('birthdayBanner');
+        const badge = document.getElementById('birthdayBadge');
+        banner.style.display = 'none';
+        badge.style.display = 'none';
+        
+        // Stop confetti
+        stopSimpleConfetti();
+        
+        // Remove all card animations and special effects
+        const cards = document.querySelectorAll('.name-card');
+        cards.forEach(card => {
+            card.classList.remove('dancing-card');
+            card.classList.remove('birthday-card-hover');
+            card.classList.remove('birthday-special-card');
+            
+            // Remove crown
+            const crown = card.querySelector('.birthday-crown');
+            if (crown) crown.remove();
+            
+            // Remove confetti badge
+            const confettiBadge = card.querySelector('.birthday-confetti-badge');
+            if (confettiBadge) confettiBadge.remove();
+            
+            // Remove birthday message inside
+            const insideMsg = card.querySelector('.birthday-message-inside');
+            if (insideMsg) insideMsg.remove();
+        });
+        
+        // Remove logo animation
+        const logo = document.querySelector('.logo-img, .floating');
+        if (logo) {
+            logo.classList.remove('birthday-logo');
+        }
+        
+        // Remove any remaining toasts
+        document.querySelectorAll('.birthday-toast-simple').forEach(el => el.remove());
+    }
+    
+    // Check and activate birthday
+    function checkAndActivateBirthday() {
+        const birthdayData = localStorage.getItem(PUBLIC_BIRTHDAY_KEY);
+        
+        if (birthdayData) {
+            try {
+                const data = JSON.parse(birthdayData);
+                
+                if (data.active && data.name) {
+                    if (!birthdayActive) {
+                        setTimeout(() => {
+                            activateBirthdayMode(data);
+                        }, 500);
+                    }
+                } else {
+                    if (birthdayActive) {
+                        deactivateBirthdayMode();
+                    }
+                }
+            } catch(e) {
+                console.error("Error loading birthday data", e);
+            }
+        } else {
+            if (birthdayActive) deactivateBirthdayMode();
+        }
+    }
+    
+    // Wait for loading screen to finish before checking birthday
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            checkAndActivateBirthday();
+        }, 1500);
+    });
+    
+    // Listen for updates from admin panel
+    window.addEventListener('storage', (event) => {
+        if (event.key === PUBLIC_BIRTHDAY_KEY || event.key === 'birthday_update') {
+            checkAndActivateBirthday();
+        }
+    });
+</script>
+
 <!-- LOADING SCREEN -->
     <div id="loading-screen">
         <img src="https://i.ibb.co/wFY6Tn2y/7-F.png" alt="Loading" class="loading-logo">
@@ -2024,7 +2622,7 @@ window.addEventListener('load', function() {
                 loadingScreen.style.display = 'none';
             }, 500);
         }
-    }, 15000); // 15 seconds = 15000 milliseconds
+    }, 10000); // 10 seconds = 10000 milliseconds
     
     // Normal load event - hide loading screen when page is loaded
     setTimeout(function() {
