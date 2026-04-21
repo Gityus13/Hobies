@@ -9,7 +9,7 @@
 [![Live Site](https://img.shields.io/badge/🌐%20Live%20Site-eashobies.site-6c63ff?style=for-the-badge)](https://eashobies.site)
 [![Instagram](https://img.shields.io/badge/Instagram-@eashobies.site-E1306C?style=for-the-badge&logo=instagram)](https://www.instagram.com/eashobies.site/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
-
+[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/Gityus13/Hobies)
 </div>
 
 ---
