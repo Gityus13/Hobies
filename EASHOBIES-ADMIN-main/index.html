@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host Portal - Secure Access</title>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JXV858VBM0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JXV858VBM0');
+    </script>
+
+    <link rel="icon" type="image/png" href="https://i.ibb.co/wFY6Tn2y/7-F.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+        
+        /* Base styles */
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, #5a67d8, #6a3b9a, #e55a5a, #e6b84d, #3ab0e0, #1abfb6, #5522b0, #e58fd9);
+            overflow-x: hidden;
+            animation: gradientShift 30s ease infinite;
+            background-size: 400% 400%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        body.dark-mode {
+            background: linear-gradient(45deg, #0b1421, #172130, #2a3647, #3c4a59, #566477, #8b97a9, #b8c2d1, #d3dce7);
+        }
+        
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .max-w-3xl {
+            max-width: 66rem;
+        }
+        
+        .name-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+        
+        .name-card:hover {
+            transform: translateY(-15px) rotateY(5deg);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+        
+        .name-title {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        header {
+            background: rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(5px);
+        }
+        
+        body.dark-mode header {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        .rounded-3xl {
+            border-radius: 1.5rem;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-25px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        .shadow-2xl {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .p-10 {
+            padding: 2.5rem;
+        }
+        
+        .mb-5 {
+            margin-bottom: 1.25rem;
+        }
+        
+        .text-lg {
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 400% 400%;
+            animation: textGradientShift 8s ease infinite;
+            font-weight: 800;
+        }
+        
+        body.dark-mode .gradient-text {
+            background: linear-gradient(45deg, #ff9999, #7dd3d3, #70c1e0, #b8e2d4, #fcd77f, #ffb8e0, #99aef1, #a08bd9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        @keyframes textGradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .text-4xl {
+            font-size: 2.5rem;
+            line-height: 1.2;
+        }
+        
+        /* Dark mode toggle styles */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .toggle-button {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .toggle-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .toggle-button i {
+            font-size: 20px;
+            color: white;
+        }
+        
+        body.dark-mode .toggle-button {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        body.dark-mode .toggle-button:hover {
+            background: rgba(51, 65, 85, 0.9);
+        }
+        
+        body.dark-mode .toggle-button i {
+            color: #f1f5f9;
+        }
+        
+        /* Dark mode adjustments */
+        body.dark-mode .name-card {
+            background: rgba(30, 41, 59, 0.8) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        body.dark-mode .name-card:hover {
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            background: rgba(51, 65, 85, 0.9) !important;
+        }
+        
+        body.dark-mode .name-title {
+            color: #f1f5f9;
+        }
+        
+        body.dark-mode p {
+            color: #cbd5e1 !important;
+        }
+        
+        body.dark-mode .gradient-text {
+            background: linear-gradient(45deg, #94a3b8, #cbd5e1, #e2e8f0, #f1f5f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        body.dark-mode footer {
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(10px);
+        }
+        
+        body.dark-mode a {
+            background: rgba(30, 41, 59, 0.5) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        body.dark-mode a:hover {
+            background: rgba(51, 65, 85, 0.7) !important;
+        }
+        
+        body.dark-mode .bg-white\/20 {
+            background: rgba(30, 41, 59, 0.5) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        body.dark-mode .bg-white\/20:hover {
+            background: rgba(51, 65, 85, 0.7) !important;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+            opacity: 0;
+        }
+        
+        .py-12 {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
+        
+        .text-xl {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.5); }
+        }
+        
+        .gap-10 {
+            gap: 2.5rem;
+        }
+        
+        .p-5 {
+            padding: 1.25rem;
+        }
+        
+        .w-12, .h-12 {
+            width: 3rem;
+            height: 3rem;
+        }
+        
+        /* Login form styles */
+        .login-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .login-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 35px 60px rgba(0,0,0,0.4);
+        }
+        
+        .login-input {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.75rem;
+            padding: 1rem 1.25rem;
+            width: 100%;
+            color: white;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .login-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+        }
+        
+        .login-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .login-btn {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            background-size: 400% 400%;
+            animation: textGradientShift 8s ease infinite;
+            border: none;
+            border-radius: 0.75rem;
+            padding: 1rem 2rem;
+            color: white;
+            font-weight: 600;
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            backdrop-filter: blur(5px);
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .message {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            margin-top: 1.25rem;
+            display: none;
+            animation: pulse 2s infinite;
+        }
+        
+        .error {
+            background: rgba(239, 154, 154, 0.2);
+            border: 1px solid rgba(198, 40, 40, 0.3);
+            color: #ffebee;
+        }
+        
+        .success {
+            background: rgba(165, 214, 167, 0.2);
+            border: 1px solid rgba(46, 125, 50, 0.3);
+            color: #e8f5e9;
+        }
+        
+        .protected-content {
+            display: none;
+            width: 100%;
+            max-width: 1200px;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Responsive Design */
+        /* Mobile First Approach */
+        
+        /* Header adjustments for mobile */
+        header {
+            padding: 2rem 1rem;
+        }
+        
+        /* Title size adjustments */
+        .name-title {
+            font-size: 2.5rem;
+        }
+        
+        /* Button container adjustments */
+        .button-container {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .button-container a {
+            width: 100%;
+            text-align: center;
+            justify-content: center;
+        }
+        
+        /* Footer adjustments */
+        footer {
+            margin-top: 2rem;
+            padding: 1.5rem;
+        }
+        
+        /* Responsive iframe */
+        .responsive-iframe-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            margin: 2rem 0;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .responsive-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Tablet and larger screens */
+        @media (min-width: 640px) {
+            .name-title {
+                font-size: 3.5rem;
+            }
+            
+            .button-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .button-container a {
+                width: auto;
+            }
+            
+            .login-container {
+                padding: 2.5rem;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .name-title {
+                font-size: 4.5rem;
+            }
+            
+            .text-4xl {
+                font-size: 2.75rem;
+            }
+            
+            .text-xl {
+                font-size: 1.5rem;
+                line-height: 2rem;
+            }
+            
+            header {
+                padding: 5rem 1rem;
+            }
+            
+            .responsive-iframe-container {
+                padding-top: 50%; /* Adjust aspect ratio for tablets */
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .name-title {
+                font-size: 6rem;
+            }
+            
+            .text-4xl {
+                font-size: 3rem;
+            }
+            
+            .button-container {
+                flex-direction: row;
+                flex-wrap: nowrap;
+            }
+            
+            .responsive-iframe-container {
+                padding-top: 45%; /* Adjust aspect ratio for desktops */
+                max-width: 900px;
+                margin: 2rem auto;
+            }
+        }
+        
+        @media (min-width: 1280px) {
+            .name-title {
+                font-size: 7rem;
+            }
+        }
+        
+        /* Small mobile devices */
+        @media (max-width: 380px) {
+            .name-title {
+                font-size: 2rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+            
+            .dashboard-card {
+                padding: 1rem;
+            }
+            
+            .p-5 {
+                padding: 0.75rem;
+            }
+            
+            .w-12, .h-12 {
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+            
+            .dark-mode-toggle {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .toggle-button {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .toggle-button i {
+                font-size: 16px;
+            }
+            
+            .login-container {
+                padding: 1.5rem;
+            }
+            
+            .responsive-iframe-container {
+                border-radius: 0.75rem;
+            }
+        }
+        
+        /* Height adjustments for landscape mode on mobile */
+        @media (max-height: 600px) and (orientation: landscape) {
+            header {
+                padding: 1.5rem 1rem;
+            }
+            
+            .name-title {
+                font-size: 2.5rem;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .login-container {
+                padding: 1.5rem;
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Background stars -->
+    <div id="stars-container" class="fixed inset-0 overflow-hidden pointer-events-none"></div>
+    
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle">
+        <div class="toggle-button" id="darkModeToggle">
+            <i class="fas fa-moon"></i>
+        </div>
+    </div>
+
+    <!-- Login Section -->
+    <div id="login-section" class="login-container" data-aos="fade-up">
+        <div class="flex justify-center mb-6">
+            <img src="https://i.ibb.co/wFY6Tn2y/7-F.png" alt="Logo" class="h-20 w-20 md:h-24 md:w-24 floating rounded-full">
+        </div>
+        <h1 class="name-title text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6 text-center gradient-text">
+            Host Portal
+        </h1>
+        <p class="text-lg md:text-xl text-white/90 mb-6 md:mb-8 text-center">
+            Secure access for event hosts
+        </p>
+        
+        <div class="mb-6">
+            <input type="password" id="password" class="login-input" placeholder="Enter access password">
+        </div>
+        
+        <button class="login-btn mb-6" onclick="checkPassword()">
+            Access Portal
+        </button>
+        
+        <div id="error-message" class="message error">
+            Incorrect password. Please try again.
+        </div>
+        
+    </div>
+    
+    <!-- Protected Content -->
+    <div id="protected-content" class="protected-content">
+        <header class="relative py-8 md:py-12 text-center mb-6 md:mb-8">
+            <div class="container mx-auto px-4">
+                <div class="flex justify-center mb-4 md:mb-6">
+                    <img src="https://i.ibb.co/wFY6Tn2y/7-F.png" alt="Logo" class="h-24 w-24 md:h-32 md:w-32 floating rounded-full">
+                </div>
+                <h1 class="name-title text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 md:mb-6 floating gradient-text">
+                    Host Dashboard
+                </h1>
+                <p class="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">
+                    Welcome to the secure host portal. Manage your events and access exclusive features.
+                </p>
+            </div>
+        </header>
+        
+        <div class="responsive-iframe-container">
+            <iframe width="1000" height="1000" src="https://lookerstudio.google.com/embed/reporting/5b9478be-6cd9-41de-adda-9eccf7d60207/page/Y8RgF" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+        </div>
+    
+    <!-- Footer -->
+    <footer class="bg-black/20 py-6 md:py-8 text-center text-white/80 mt-8 md:mt-12 w-full max-w-6xl rounded-2xl">
+        <div class="container mx-auto px-4">
+            <p class="text-base md:text-lg">Admin eas portal v2.0 - © 2025. Secure Access System made </p>
+        </div>
+    </footer>
+    for yusif and kenan and farhad
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            easing: 'ease-out-cubic',
+            offset: 100
+        });
+        
+        // Initialize Feather Icons
+        feather.replace();
+        
+        // Dark mode toggle functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const toggleIcon = darkModeToggle.querySelector('i');
+        
+        // Check for saved theme preference or respect OS preference
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        const currentTheme = localStorage.getItem('theme');
+        
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            toggleIcon.classList.remove('fa-moon');
+            toggleIcon.classList.add('fa-sun');
+        }
+        
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            // Update icon
+            if (document.body.classList.contains('dark-mode')) {
+                toggleIcon.classList.remove('fa-moon');
+                toggleIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                toggleIcon.classList.remove('fa-sun');
+                toggleIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Create background stars
+        function createStars() {
+            const container = document.getElementById('stars-container');
+            const starCount = 1000;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random properties
+                const size = Math.random() * 3;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const duration = 2 + Math.random() * 5;
+                const delay = Math.random() * 5;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${posX}%`;
+                star.style.top = `${posY}%`;
+                star.style.setProperty('--duration', `${duration}s`);
+                star.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(star);
+            }
+        }
+        
+        // Password check function
+        function checkPassword() {
+            const enteredPassword = document.getElementById('password').value;
+            const correctPassword = 'YFK@2013';
+            const errorMessage = document.getElementById('error-message');
+            const loginSection = document.getElementById('login-section');
+            const protectedContent = document.getElementById('protected-content');
+            
+            if (enteredPassword === correctPassword) {
+                // Show protected content with animation
+                loginSection.style.display = 'none';
+                protectedContent.style.display = 'block';
+                
+                // Animate the protected content appearance
+                anime({
+                    targets: protectedContent,
+                    translateY: [50, 0],
+                    opacity: [0, 1],
+                    duration: 1500,
+                    easing: 'easeOutExpo'
+                });
+            } else {
+                // Show error message
+                errorMessage.style.display = 'block';
+                
+                // Shake animation for error
+                anime({
+                    targets: '#login-section',
+                    translateX: [ -10, 10, -10, 10, 0 ],
+                    duration: 600,
+                    easing: 'easeInOutSine'
+                });
+                
+                // Clear password field
+                document.getElementById('password').value = '';
+                
+                // Hide error message after 3 seconds
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3000);
+            }
+        }
+        
+        // Allow submitting with Enter key
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            
+            // Animate login container
+            anime({
+                targets: '.login-container',
+                translateY: [-50, 0],
+                opacity: [0, 1],
+                duration: 2000,
+                easing: 'easeOutExpo'
+            });
+        });
+    </script>
+</body>
+</html>
